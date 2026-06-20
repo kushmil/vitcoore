@@ -1,140 +1,115 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <meta name="theme-color" id="meta-theme-color" content="#F9FBF5">
-  <title>Anshu Rajhans · vitcoore · Gaming & Dev Hub</title>
+  <meta name="theme-color" content="#0d0d0f">
+  <title>Anshu Rajhans · vitcoore · Premium Workspace</title>
 
   <!-- PWA Manifest -->
   <link rel="manifest" href="manifest.json">
 
-  <!-- Google Fonts -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Nunito:ital,wght=0,300;0,400;0,600;0,700;0,800;0,900;1,400&family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Tailwind Config matching Duolingo and iOS styles -->
+  <!-- Tailwind Config -->
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['Fira Code', 'monospace'],
+          },
           colors: {
             brand: {
               green: '#58CC02',
-              'green-hover': '#4BB200',
-              'green-shadow': '#61B800',
               blue: '#1CB0F6',
-              'blue-hover': '#189edc',
-              'blue-shadow': '#1692cd',
-              darkBlue: '#100F3E',
               orange: '#FF9600',
               golden: '#FFC800',
-              red: '#FF4B4B',
-              'red-hover': '#e04343'
+              red: '#EF4444'
+            },
+            slate: {
+              950: '#0d0d0f',
+              900: '#16161a',
+              800: '#202024',
+              700: '#2d2d34',
+              600: '#4a4a52',
             }
-          },
-          fontFamily: {
-            nunito: ['Nunito', 'sans-serif'],
-            arcade: ['Anton', 'sans-serif'],
-            retro: ['"Press Start 2P"', 'monospace']
           }
         }
       }
     }
   </script>
 
-  <!-- SweetAlert2 & iziToast CDNs -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <!-- SweetAlert2 CDN for alerts -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
 
-  <!-- Three.js for 3D Low-Poly Cloud -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
-  <!-- Phosphor Icons & Font Awesome -->
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
-    body {
-      font-family: 'Nunito', sans-serif;
-      transition: background-color 0.4s ease, color 0.4s ease;
-    }
-
-    .btn-3d {
-      transition: all 0.08s cubic-bezier(0, 0, 0.2, 1);
-    }
-    .btn-3d:active {
-      transform: translateY(4px);
-      box-shadow: none !important;
-    }
-
-    .section-label {
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      display: flex;
-      align-items: center;
-      width: 100%;
-    }
-    .section-label::after {
-      content: '';
-      flex: 1;
-      height: 1.5px;
-      margin-left: 16px;
-      background-color: rgb(229, 229, 229);
-    }
-    .dark .section-label::after {
-      background-color: rgb(55, 65, 81);
-    }
-
     ::-webkit-scrollbar {
       width: 8px;
+      height: 8px;
     }
-    ::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #CBD5E1;
-      border-radius: 9999px;
-    }
-    .dark ::-webkit-scrollbar-thumb {
-      background: #475569;
-    }
-
-    /* Floating animation for subtle aesthetic */
-    @keyframes float-slow {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-8px); }
-    }
-    .floating-element {
-      animation: float-slow 4s ease-in-out infinite;
+    .dark ::-webkit-scrollbar-track { background: #0d0d0f; }
+    ::-webkit-scrollbar-track { background: #f4f4f7; }
+    .dark ::-webkit-scrollbar-thumb { background: #2d2d34; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb { background: #d1d1d6; border-radius: 4px; }
+    
+    .glass-panel {
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
     }
 
-    /* Screen thunder shake animations */
+    /* Premium Matte Dynamic Heading Styles */
+    .premium-matte-heading {
+      color: #121214; /* Dark Matter Black in Light Theme */
+      text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.05);
+      transition: color 0.4s cubic-bezier(0.16, 1, 0.3, 1), text-shadow 0.4s ease;
+    }
+
+    .dark .premium-matte-heading {
+      color: #F4F4F7; /* Matte White in Dark Theme */
+      text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.05);
+    }
+
+    /* Interactive Hover Glow effects with cubic-bezier */
+    .bento-card-glow {
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .bento-card-glow:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 20px 38px -12px rgba(0, 0, 0, 0.12);
+    }
+    .dark .bento-card-glow:hover {
+      box-shadow: 0 20px 38px -12px rgba(255, 255, 255, 0.03);
+    }
+
+    /* Screen rumble shake animations */
     @keyframes rumbleLight {
       0% { transform: translate(0, 0); }
-      10% { transform: translate(-0.5px, -0.5px); }
-      20% { transform: translate(-1px, 0px); }
-      30% { transform: translate(0.5px, 0.5px); }
-      40% { transform: translate(0.5px, -0.5px); }
-      50% { transform: translate(-0.5px, 0.5px); }
+      10% { transform: translate(-1.5px, -1.5px); }
+      20% { transform: translate(-2px, 0px); }
+      30% { transform: translate(1.5px, 1.5px); }
+      45% { transform: translate(1.5px, -1.5px); }
+      50% { transform: translate(-1.5px, 1.5px); }
       100% { transform: translate(0, 0); }
     }
     @keyframes rumbleStrong {
       0% { transform: translate(0, 0) rotate(0deg); }
-      10% { transform: translate(-1.5px, -1.5px) rotate(-0.5deg); }
-      20% { transform: translate(-2px, 0px) rotate(0.5deg); }
-      30% { transform: translate(1.5px, 1.5px) rotate(0deg); }
-      40% { transform: translate(1.5px, -1.5px) rotate(0.5deg); }
-      50% { transform: translate(-1.5px, 1.5px) rotate(-0.5deg); }
+      10% { transform: translate(-3px, -3px) rotate(-0.5deg); }
+      20% { transform: translate(-4px, 0px) rotate(0.5deg); }
+      30% { transform: translate(3px, 3px) rotate(0deg); }
+      40% { transform: translate(3px, -3px) rotate(0.5deg); }
+      50% { transform: translate(-3px, 3px) rotate(-0.5deg); }
       100% { transform: translate(0, 0) rotate(0deg); }
     }
     .animate-rumble-light {
@@ -145,967 +120,1074 @@
     }
   </style>
 </head>
-<body class="bg-[#F9FBF5] text-zinc-800 dark:bg-[#141F24] dark:text-zinc-100 min-h-screen flex flex-col pt-[80px]">
+<body class="bg-[#f4f4f6] dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans antialiased selection:bg-slate-200 dark:selection:bg-slate-800 transition-colors duration-500 overflow-x-hidden">
 
-  <!-- ANIMATED SPLASH SCREEN OVERLAY -->
-  <div id="splash-screen" class="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[#F9FBF5] dark:bg-[#100F3E] transition-all duration-350">
-    <div class="text-center px-4 max-w-md w-full animate-pulse">
-      <div class="w-24 h-24 mx-auto mb-6 bg-brand-green text-white rounded-3xl shadow-[0_8px_0_#4BB200] flex items-center justify-center animate-bounce">
-        <svg class="w-14 h-14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-        </svg>
-      </div>
-      <h1 class="text-3xl font-black text-brand-green tracking-tight dark:text-white uppercase mb-1">
-        VITCOORE PORTFOLIO
-      </h1>
-      <p class="text-[10px] font-retro text-zinc-400 dark:text-zinc-500 tracking-widest uppercase mb-6">
-        Anshu Rajhans · System Initializing...
-      </p>
-      <div class="w-full h-3 bg-zinc-200 dark:bg-zinc-800 rounded-full overflow-hidden p-0.5 border border-zinc-300 dark:border-zinc-700">
-        <div id="splash-progress" class="h-full bg-brand-blue rounded-full transition-all duration-150" style="width: 0%"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- TOAST NOTIFICATION WINDOW -->
-  <div id="toast-window" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[9999] bg-brand-darkBlue text-white px-5 py-3.5 rounded-2xl flex items-center gap-2.5 shadow-2xl border border-white/10 transition-all duration-300 transform translate-y-20 opacity-0 pointer-events-none">
-    <span id="toast-emoji" class="text-lg">💡</span>
-    <span id="toast-text" class="text-xs font-black uppercase tracking-wide">Interactive Canvas Updated</span>
-  </div>
-
-  <!-- FIXED NAVBAR WITH DYNAMIC ISLAND SWITCHER -->
-  <nav class="fixed top-0 left-0 right-0 h-[76px] bg-white dark:bg-[#141F24] border-b-2 border-zinc-200 dark:border-[#202F36] z-50 transition-colors">
-    <div class="max-w-[1200px] h-full mx-auto px-4 sm:px-6 flex items-center justify-between gap-2">
-      
-      <!-- Logo Container -->
-      <a href="#" onclick="playSynthSound('click')" class="flex items-center gap-3 shrink-0">
-        <div class="w-10 h-10 rounded-xl bg-brand-green flex items-center justify-center text-white font-black text-xl shrink-0 shadow-[0_3px_0_#4BB200]">
-          V
-        </div>
-        <div class="leading-tight hidden sm:block">
-          <h1 class="text-base font-black tracking-tight text-zinc-900 dark:text-white uppercase flex items-center gap-1.5">
-            vitcoore <span class="text-xs text-zinc-400 dark:text-zinc-500 font-extrabold lowercase">systems</span>
-          </h1>
-          <span class="text-[9px] font-retro text-brand-blue uppercase tracking-wider block">
-            ANSHU RAJHANS
-          </span>
-        </div>
-      </a>
-
-      <!-- iOS DYNAMIC ISLAND SWITCHER (DEV MODE VS PLAY MODE) -->
-      <div class="flex bg-black dark:bg-[#100F3E] p-1.5 rounded-full border border-zinc-800 shadow-xl w-[170px] sm:w-[215px] shrink-0 items-center relative h-[42px] transition-all">
-        <button
-          id="btn-workspace-dev"
-          onclick="handleWorkspaceSwitch('DEV')"
-          class="flex-1 h-full text-center text-[10px] sm:text-xs font-black rounded-full transition-all duration-300 z-10 bg-brand-green text-white shadow-sm"
-        >
-          Dev Mode
-        </button>
-        <button
-          id="btn-workspace-play"
-          onclick="handleWorkspaceSwitch('PLAY')"
-          class="flex-1 h-full text-center text-[10px] sm:text-xs font-black rounded-full transition-all duration-300 z-10 text-zinc-400 hover:text-white"
-        >
-          Play Mode
-        </button>
-      </div>
-
-      <!-- Quick Action Area & Theme Switcher -->
-      <div class="flex items-center gap-2 shrink-0">
-        <button 
-          onclick="showStormSettings()" 
-          class="w-10 h-10 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-[#1F2E35] dark:hover:bg-zinc-800 border-2 border-zinc-200 dark:border-zinc-700 flex items-center justify-center text-sm hover:scale-105 transition-transform" 
-          title="Storm Core Controls"
-        >
-          <i class="ph ph-gear text-lg text-brand-orange"></i>
-        </button>
-
-        <!-- Theme Switcher Button -->
-        <button
-          onclick="handleToggleTheme()"
-          class="relative w-10 h-10 flex items-center justify-center rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-[#1F2E35] dark:hover:bg-zinc-800 border-2 border-zinc-200 dark:border-zinc-700 transition-all duration-150 active:scale-95 shadow-sm overflow-hidden"
-          title="Toggle Theme"
-        >
-          <div class="relative w-5 h-5 flex items-center justify-center">
-            <!-- Sun Icon -->
-            <svg
-              id="theme-sun-icon"
-              class="absolute w-5 h-5 text-brand-orange transform transition-all duration-500 ease-in-out rotate-0 scale-100 opacity-100"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.5"
-              viewBox="0 0 24 24"
-            >
-              <circle cx="12" cy="12" r="5" fill="currentColor"></circle>
-              <line x1="12" y1="1" x2="12" y2="3"></line>
-              <line x1="12" y1="21" x2="12" y2="23"></line>
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-              <line x1="1" y1="12" x2="3" y2="12"></line>
-              <line x1="21" y1="12" x2="23" y2="12"></line>
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-            </svg>
-
-            <!-- Moon Icon -->
-            <svg
-              id="theme-moon-icon"
-              class="absolute w-5 h-5 text-brand-blue transform transition-all duration-500 ease-in-out -rotate-90 scale-0 opacity-0"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
-            </svg>
-          </div>
-        </button>
-      </div>
-
-    </div>
-  </nav>
-
-  <!-- MAIN APP CONTAINER - SYNCED IN ABSOLUTE DUOLINGO STYLE -->
-  <main id="app" class="max-w-[1200px] w-full mx-auto px-4 sm:px-6 py-8 flex-1 space-y-16">
+  <!-- Main System App Layout -->
+  <div id="app-container" class="flex flex-col min-h-screen">
     
-    <!-- HERO SECTION -->
-    <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-4">
-      
-      <!-- Developer Brief (7 Cols) -->
-      <div class="lg:col-span-7 space-y-6 text-left">
-        <div class="inline-flex items-center gap-2 bg-brand-green/10 dark:bg-brand-green/20 border-2 border-brand-green/30 text-brand-green px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider">
-          ⚡ Level // 02 Web & Game Architect
+    <!-- macOS Premium System Header Bar -->
+    <header class="sticky top-0 z-40 border-b border-black/[0.06] dark:border-white/[0.06] bg-white/90 dark:bg-slate-950/90 backdrop-blur-md px-6 sm:px-10 py-4 flex items-center justify-between transition-colors duration-300">
+      <div class="flex items-center space-x-6 sm:space-x-10">
+        <!-- macOS Traffic Lights -->
+        <div class="flex items-center space-x-2.5">
+          <span class="w-4 h-4 rounded-full bg-[#ff5f56] border border-[#e0443e]"></span>
+          <span class="w-4 h-4 rounded-full bg-[#ffbd2e] border border-[#dea123]"></span>
+          <span class="w-4 h-4 rounded-full bg-[#27c93f] border border-[#1aab29]"></span>
         </div>
 
-        <div class="space-y-4">
-          <span class="font-retro text-[10px] text-brand-orange tracking-widest uppercase mb-2 block font-sans">ANSHU RAJHANS</span>
-          <h2 class="text-5xl sm:text-7xl font-black text-zinc-900 dark:text-white tracking-tight leading-none uppercase">
-            Code runs <br><span class="text-brand-blue">the universe.</span>
-          </h2>
-          <p class="text-sm sm:text-base text-zinc-500 dark:text-zinc-400 font-bold max-w-2xl leading-relaxed font-sans">
-            Full-stack developer, Progressive Web App designer, and offline-first gaming system creator. Shipped over 15 original lightweight browser games built on high performance. Degree is a credential — real value is demonstrated in the live products users access.
-          </p>
-        </div>
-
-        <!-- Social Action Buttons (3D style) -->
-        <div class="flex flex-wrap gap-3.5 font-sans">
-          <a 
-            href="https://youtube.com/@vitcoore" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            onclick="playSynthSound('click')"
-            class="btn-3d h-12 px-6 bg-brand-red hover:bg-brand-red-hover text-white rounded-2xl font-black text-xs uppercase shadow-[0_4px_0_#992020] flex items-center justify-center gap-2"
-          >
-            <span>📺</span> YouTube
-          </a>
-          <a 
-            href="https://instagram.com/vitcoore" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            onclick="playSynthSound('click')"
-            class="btn-3d h-12 px-6 bg-[#1F2E35] dark:bg-zinc-800 hover:bg-zinc-700 text-zinc-200 rounded-2xl font-black text-xs uppercase shadow-[0_4px_0_#0D161A] flex items-center justify-center gap-2 border border-zinc-700/50"
-          >
-            <span>📸</span> Instagram
-          </a>
-          <a 
-            href="https://github.com/kushmil" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            onclick="playSynthSound('click')"
-            class="btn-3d h-12 px-6 bg-[#F9FBF5] dark:bg-[#141F24] border-2 border-zinc-300 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300 rounded-2xl font-black text-xs uppercase shadow-[0_4px_0_#CBD5E1] dark:shadow-[0_4px_0_#202F36] flex items-center justify-center gap-2"
-          >
-            <span>📂</span> GitHub
-          </a>
-        </div>
-
-        <!-- Interactive Core Sound Trigger -->
-        <div class="p-4 bg-brand-orange/5 dark:bg-brand-orange/10 border-2 border-brand-orange/20 rounded-2xl flex items-start gap-3 max-w-xl cursor-pointer hover:border-brand-orange/40 transition-colors" onclick="triggerEasterEgg()">
-          <span class="text-lg">📢</span>
-          <div class="space-y-0.5">
-            <h5 class="text-xs font-black text-brand-orange uppercase tracking-wider">Master Core Terminal Trigger</h5>
-            <p class="text-xs font-semibold text-zinc-500 dark:text-zinc-300 leading-normal">
-              Click here to test your speech synthesis engine. "Vitcoore Storm Online" will trigger.
-            </p>
-          </div>
+        <!-- Identity Block -->
+        <div class="flex items-center space-x-3">
+          <span class="font-extrabold text-lg tracking-tight text-slate-900 dark:text-white">vitcoore</span>
+          <span class="text-xs text-slate-400 dark:text-slate-500 font-mono border border-black/[0.08] dark:border-white/[0.08] px-2.5 py-0.5 rounded bg-black/[0.02] dark:bg-white/[0.02] font-semibold">WORKSPACE</span>
         </div>
       </div>
 
-      <!-- Static 3D Low-Poly Cloud (5 Cols) -->
-      <div class="lg:col-span-5 flex flex-col justify-center items-center">
-        <div class="relative w-full max-w-[340px] bg-white dark:bg-[#1F2E35] rounded-3xl border-2 border-zinc-200 dark:border-zinc-700 p-6 shadow-sm flex flex-col items-center text-center space-y-6">
-          <div id="three-canvas-container" class="relative w-full aspect-square max-w-[280px] mx-auto rounded-2xl bg-zinc-50 dark:bg-[#141F24] border-2 border-dashed border-zinc-200 dark:border-zinc-700 overflow-hidden"></div>
+      <!-- App-style Navigation Menu -->
+      <div class="hidden md:flex items-center space-x-10 text-base text-slate-500 dark:text-slate-400 font-bold">
+        <a href="#quests-directory-container" class="hover:text-slate-950 dark:hover:text-white transition-colors">Bento Squares</a>
+        <a href="#monitor-container" class="hover:text-slate-950 dark:hover:text-white transition-colors">Live Telemetry</a>
+        <a href="#terminal-pane" class="hover:text-slate-950 dark:hover:text-white transition-colors">Console</a>
+        <a href="#contact-form" class="hover:text-slate-950 dark:hover:text-white transition-colors">Dispatch Packet</a>
+      </div>
+
+      <!-- Action Area -->
+      <div class="flex items-center space-x-4">
+        <!-- Storm Settings Gear (Full Screen Settings View) -->
+        <button onclick="openSettingsPage()" class="p-2.5 rounded-xl border border-black/[0.06] dark:border-white/[0.06] bg-black/[0.02] dark:bg-white/[0.02] hover:bg-black/[0.06] dark:hover:bg-white/[0.06] text-brand-orange transition-all" title="Open Dashboard Settings">
+          <i data-lucide="settings" class="w-5 h-5"></i>
+        </button>
+
+        <!-- Theme Toggle -->
+        <button onclick="toggleTheme()" class="p-2.5 rounded-xl border border-black/[0.06] dark:border-white/[0.06] bg-black/[0.02] dark:bg-white/[0.02] hover:bg-black/[0.06] dark:hover:bg-white/[0.06] text-slate-600 dark:text-slate-300 transition-all" aria-label="Toggle Theme">
+          <i id="theme-icon-dark" data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+          <i id="theme-icon-light" data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Workspace Area -->
+    <main class="grid grid-cols-1 lg:grid-cols-12 flex-1">
+      
+      <!-- Left Column - Explorer & Directory (5 columns) -->
+      <section class="lg:col-span-5 border-r border-black/[0.06] dark:border-white/[0.06] bg-white dark:bg-slate-900 p-6 sm:p-10 flex flex-col justify-between transition-colors duration-500">
+        <div class="space-y-8">
           
-          <div class="absolute -top-4 -right-4 w-12 h-12 bg-brand-golden rounded-2xl shadow-[0_4px_0_#CC9E00] flex items-center justify-center text-xl floating-element">
-            ⚡
-          </div>
-
-          <div class="space-y-1">
-            <h3 class="text-lg font-black text-zinc-900 dark:text-white">Active Storm Core</h3>
-            <span class="text-[10px] font-retro text-brand-blue uppercase tracking-widest">Low-Poly 3D Canvas</span>
-            <p class="text-xs font-bold text-zinc-400 dark:text-zinc-500 mt-2">
-              Lightning simulates standard haptic vibration. Adjust core systems in the settings console.
+          <!-- Large Premium Showcase Card -->
+          <div class="p-8 rounded-3xl bg-slate-100 dark:bg-slate-950/50 border border-black/[0.05] dark:border-white/[0.05] space-y-5 shadow-sm">
+            <div class="space-y-2.5">
+              <span class="text-xs font-mono text-slate-400 dark:text-slate-500 uppercase tracking-widest block font-bold">Systems Engineer & Designer</span>
+              
+              <!-- Matte White / Matte Black Heading (Strictly 1 line, giant size) -->
+              <h1 class="text-4xl sm:text-5xl md:text-[3.35rem] font-extrabold tracking-tighter uppercase select-none leading-none premium-matte-heading whitespace-nowrap overflow-hidden text-ellipsis">
+                Anshu Rajhans
+              </h1>
+            </div>
+            
+            <p class="text-base text-slate-600 dark:text-slate-400 leading-relaxed font-sans pt-4 border-t border-black/[0.05] dark:border-white/[0.05]">
+              Full-stack developer, PWA system architect, and game systems designer. Shipped over 15 lightweight browser arcade titles utilizing highly optimized runtime caching.
             </p>
           </div>
+
+          <!-- Dynamic Project Directory Bento Grid -->
+          <div class="space-y-4 pt-6 border-t border-black/[0.06] dark:border-white/[0.06]">
+            <div class="flex items-center justify-between">
+              <label class="text-xs font-extrabold text-slate-400 dark:text-slate-500 tracking-wider uppercase">Project Bento Squares</label>
+              <span class="text-[10px] font-mono text-brand-blue uppercase font-bold">Click to Open Live Target</span>
+            </div>
+            
+            <!-- Bento grid setup auto-arranging for PC/Mobile resolutions -->
+            <div id="quests-directory-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+              <!-- Rendered Dynamically via JS as Premium Square Bento Cards -->
+            </div>
+          </div>
+
+          <!-- Chronology Milestones Timeline -->
+          <div class="space-y-4 pt-6 border-t border-black/[0.06] dark:border-white/[0.06]">
+            <label class="text-xs font-extrabold text-slate-400 dark:text-slate-500 tracking-wider uppercase">Development Milestones</label>
+            <div class="space-y-5 pl-5 border-l-2 border-slate-200 dark:border-slate-800 ml-1">
+              
+              <div class="relative space-y-1.5 cursor-pointer" onclick="showNotification('VipWeb Hub launched with 15+ interactive play frames.')">
+                <div class="absolute -left-[26px] top-1.5 w-3.5 h-3.5 rounded-full bg-brand-green border-2 border-white dark:border-slate-900"></div>
+                <span class="text-[10px] font-mono text-brand-green uppercase tracking-wider block font-bold">Target Year</span>
+                <h4 class="text-base font-extrabold text-slate-800 dark:text-white">VipWeb Arcade Domination</h4>
+              </div>
+
+              <div class="relative space-y-1.5 cursor-pointer" onclick="showNotification('Engineered advanced client-side persistent caches.')">
+                <div class="absolute -left-[26px] top-1.5 w-3.5 h-3.5 rounded-full bg-brand-blue border-2 border-white dark:border-slate-900"></div>
+                <span class="text-[10px] font-mono text-brand-blue uppercase tracking-wider block font-bold">PWA Systems</span>
+                <h4 class="text-base font-extrabold text-slate-800 dark:text-white">Progressive Web App Compliance</h4>
+              </div>
+
+              <div class="relative space-y-1.5 cursor-pointer" onclick="showNotification('Graduated B.Sc from Deoghar College, Deoghar while shipping open-source packages.')">
+                <div class="absolute -left-[26px] top-1.5 w-3.5 h-3.5 rounded-full bg-brand-orange border-2 border-white dark:border-slate-900"></div>
+                <span class="text-[10px] font-mono text-brand-orange uppercase tracking-wider block font-bold">Academics</span>
+                <h4 class="text-base font-extrabold text-slate-800 dark:text-white">B.Sc Degree Achievement</h4>
+              </div>
+
+            </div>
+          </div>
+
         </div>
-      </div>
 
-    </section>
-
-    <!-- DYNAMIC BENTO LEVEL GRID (MAIN QUESTS) -->
-    <section class="space-y-6">
-      <div class="section-label text-zinc-400 dark:text-zinc-500">
-        Active Quest Selections
-      </div>
-
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-        <div>
-          <h3 class="text-2xl font-black text-zinc-900 dark:text-white flex items-center gap-2">
-            📂 <span id="syllabus-section-heading">Quest Select · Full-Stack Terminal</span>
-          </h3>
-          <p class="text-xs text-zinc-400 dark:text-zinc-500 font-bold">
-            Interactive modular database holding key projects and custom web application frameworks.
-          </p>
+        <!-- Social Anchors Footer -->
+        <div class="pt-6 border-t border-black/[0.06] dark:border-white/[0.06] mt-8 space-y-4">
+          <div class="grid grid-cols-3 gap-3.5">
+            <a href="https://youtube.com/@vitcoore" target="_blank" onclick="playSynthSound('click')" class="bg-black/[0.02] dark:bg-white/[0.02] border border-black/[0.06] dark:border-white/[0.06] hover:border-brand-red rounded-xl py-3.5 text-center text-sm font-extrabold transition-all flex items-center justify-center space-x-2">
+              <span class="text-base">📺</span> <span>YouTube</span>
+            </a>
+            <a href="https://instagram.com/vitcoore" target="_blank" onclick="playSynthSound('click')" class="bg-black/[0.02] dark:bg-white/[0.02] border border-black/[0.06] dark:border-white/[0.06] hover:border-brand-blue rounded-xl py-3.5 text-center text-sm font-extrabold transition-all flex items-center justify-center space-x-2">
+              <span class="text-base">📸</span> <span>Instagram</span>
+            </a>
+            <a href="https://github.com/kushmil" target="_blank" onclick="playSynthSound('click')" class="bg-black/[0.02] dark:bg-white/[0.02] border border-black/[0.06] dark:border-white/[0.06] hover:border-brand-green rounded-xl py-3.5 text-center text-sm font-extrabold transition-all flex items-center justify-center space-x-2">
+              <span class="text-base">📂</span> <span>GitHub</span>
+            </a>
+          </div>
+          <div class="flex items-start gap-4 bg-brand-orange/5 dark:bg-brand-orange/10 border border-brand-orange/20 p-4 rounded-2xl cursor-pointer" onclick="triggerEasterEgg()">
+            <span class="text-lg">📢</span>
+            <div class="space-y-0.5">
+              <span class="text-[11px] font-bold text-brand-orange block uppercase tracking-wider leading-none">Speech Synthesis Engine</span>
+              <p class="text-xs sm:text-sm text-slate-500 leading-normal">Click to trigger vocal audio "Vitcoore Storm Online".</p>
+            </div>
+          </div>
         </div>
+      </section>
+
+      <!-- Right Column - Inspector and Sandbox Environment (7 columns) -->
+      <section class="lg:col-span-7 bg-[#fbfbfd] dark:bg-slate-950/40 p-6 sm:p-10 flex flex-col justify-between overflow-y-auto max-h-[calc(100vh-45px)] transition-colors duration-500">
         
-        <span class="text-[11px] font-extrabold text-brand-blue uppercase tracking-widest bg-brand-blue/5 border border-brand-blue/20 rounded-lg px-2.5 py-1">
-          💡 Switch modes in the Dynamic Island above!
-        </span>
-      </div>
+        <div class="space-y-8 flex-1 flex flex-col justify-between">
+          
+          <!-- Dynamic Project Inspector Workspace Canvas -->
+          <div id="inspector-canvas" class="w-full bg-white dark:bg-slate-900 border border-black/[0.08] dark:border-white/[0.08] rounded-3xl shadow-sm dark:shadow-2xl overflow-hidden p-6 sm:p-8 transition-all duration-300 flex flex-col justify-between min-h-[260px]">
+            <div class="border-b border-black/[0.06] dark:border-white/[0.06] pb-5 flex justify-between items-center">
+              <div>
+                <span class="text-xs font-mono text-slate-400 dark:text-slate-500 uppercase tracking-wider">Dynamic Inspector Target</span>
+                <h3 id="target-title" class="text-lg sm:text-xl font-extrabold text-slate-800 dark:text-white">vitcoore node</h3>
+              </div>
+              <span id="target-badge" class="text-xs font-mono px-3 py-1 rounded bg-blue-500/10 text-blue-500 border border-blue-500/20 uppercase font-bold">TARGET_LOADED</span>
+            </div>
 
-      <!-- Bento Cards Grid -->
-      <div id="quests-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Rendered Dynamically via JavaScript -->
-      </div>
-    </section>
+            <div class="py-5 space-y-5">
+              <p id="target-description" class="text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed font-sans">
+                Select a system directory target from the Left Explorer column to parse detailed runtime descriptions, specifications, and source files.
+              </p>
 
-    <!-- INTERACTIVE GAMIFIED DUOLINGO-STYLE QUIZ -->
-    <section class="bg-white dark:bg-[#1F2E35] rounded-3xl border-2 border-zinc-200 dark:border-zinc-700 p-6 sm:p-8 shadow-sm space-y-6">
+              <div class="grid grid-cols-2 gap-4 font-sans">
+                <div class="bg-black/[0.01] dark:bg-white/[0.01] border border-black/[0.05] dark:border-white/[0.05] rounded-xl p-4">
+                  <span class="text-[10px] font-mono text-slate-400 block uppercase font-bold">Operational Node</span>
+                  <span id="target-node" class="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-200">vitcoore.xyz</span>
+                </div>
+                <div class="bg-black/[0.01] dark:bg-white/[0.01] border border-black/[0.05] dark:border-white/[0.05] rounded-xl p-4">
+                  <span class="text-[10px] font-mono text-slate-400 block uppercase font-bold">Platform Architecture</span>
+                  <span id="target-tech" class="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-200 font-mono">Edge Framework</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-5 border-t border-black/[0.06] dark:border-white/[0.06] flex justify-between items-center">
+              <a id="target-link" href="#" target="_blank" class="text-sm sm:text-base text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white flex items-center space-x-2.5 font-bold transition-colors">
+                <i data-lucide="external-link" class="w-4.5 h-4.5"></i>
+                <span id="target-action-label">Open Live Target</span>
+              </a>
+              <span class="text-xs font-mono text-slate-400 dark:text-slate-500">256-bit SHA Encryption</span>
+            </div>
+          </div>
+
+          <!-- Dual Section Grid: Real-time Performance Metrics & Terminal Console -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            
+            <!-- Real-Time Metrics Sandbox Frame -->
+            <div id="monitor-container" class="w-full bg-white dark:bg-slate-900 border border-black/[0.08] dark:border-white/[0.08] rounded-3xl shadow-sm overflow-hidden p-5 sm:p-6 flex flex-col justify-between aspect-video">
+              <div class="flex items-center justify-between border-b border-black/[0.06] dark:border-white/[0.06] pb-3 mb-3">
+                <span class="text-sm font-bold text-slate-400 dark:text-slate-500 tracking-wider uppercase font-mono">Live Node Metrics</span>
+                <span class="flex items-center space-x-1.5">
+                  <span class="h-2.5 w-2.5 rounded-full bg-green-500 animate-pulse"></span>
+                  <span class="text-xs font-mono text-green-500 font-bold">SYS_STABLE</span>
+                </span>
+              </div>
+              <div class="flex-1 grid grid-cols-2 gap-4">
+                <div class="flex flex-col justify-between bg-slate-50 dark:bg-slate-950/60 border border-black/[0.05] dark:border-white/[0.05] rounded-2xl p-3.5">
+                  <span class="text-[10px] font-mono text-slate-400 font-bold">CPU LOAD</span>
+                  <div class="relative h-12 w-full overflow-hidden">
+                    <canvas id="cpu-graph" class="w-full h-full"></canvas>
+                  </div>
+                  <span id="cpu-numeric" class="text-sm font-mono text-slate-700 dark:text-slate-300 font-bold">22%</span>
+                </div>
+                <div class="flex flex-col justify-between bg-slate-50 dark:bg-slate-950/60 border border-black/[0.05] dark:border-white/[0.05] rounded-2xl p-3.5">
+                  <span class="text-[10px] font-mono text-slate-400 font-bold">RAM USAGE</span>
+                  <div class="relative h-12 w-full overflow-hidden">
+                    <canvas id="ram-graph" class="w-full h-full"></canvas>
+                  </div>
+                  <span id="ram-numeric" class="text-sm font-mono text-slate-700 dark:text-slate-300 font-bold">4.1 GB / 8.0 GB</span>
+                </div>
+              </div>
+              <p class="text-[11px] text-slate-400 dark:text-slate-500 leading-tight mt-3 font-mono">
+                System telemetry generated asynchronously through active client threads.
+              </p>
+            </div>
+
+            <!-- Terminal CLI Simulator Console -->
+            <div id="terminal-pane" class="w-full bg-slate-950 rounded-3xl p-5 sm:p-6 border border-white/[0.06] shadow-xl font-mono text-sm text-green-400 flex flex-col justify-between aspect-video">
+              <div class="flex items-center justify-between border-b border-white/[0.06] pb-3 text-slate-500 text-xs uppercase tracking-wider font-semibold">
+                <div class="flex items-center space-x-2.5">
+                  <span class="h-2.5 w-2.5 rounded-full bg-[#ff5f56]"></span>
+                  <span class="h-2.5 w-2.5 rounded-full bg-[#ffbd2e]"></span>
+                  <span class="h-2.5 w-2.5 rounded-full bg-[#27c93f]"></span>
+                  <span class="pl-1">vitcore-sh v1.2</span>
+                </div>
+                <span>TTY/01 (OK)</span>
+              </div>
+              <div id="terminal-output" class="flex-1 overflow-y-auto space-y-2 py-3 text-xs sm:text-sm leading-relaxed select-text">
+                <p class="text-slate-500">Session loaded. Type 'help' to audit commands.</p>
+              </div>
+              <div class="flex items-center space-x-2 pt-3 border-t border-white/[0.05]">
+                <span class="text-blue-400 font-bold">vitcore ~ %</span>
+                <input id="terminal-input" type="text" autocomplete="off" class="bg-transparent text-green-400 border-none outline-none flex-1 font-mono focus:ring-0 text-xs sm:text-sm" placeholder="">
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Dual Dynamic Interactive Games & Quizzes System -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            
+            <!-- Tic-Tac-Toe Game Window VS AI -->
+            <div class="bg-white dark:bg-slate-900 border border-black/[0.08] dark:border-white/[0.08] rounded-3xl p-5 sm:p-6 flex flex-col justify-between aspect-video">
+              <div>
+                <div class="flex items-center justify-between border-b border-black/[0.06] dark:border-white/[0.06] pb-3 mb-3">
+                  <span class="text-xs sm:text-sm font-bold text-slate-400 dark:text-slate-500 tracking-wider uppercase font-mono">Tic-Tac-Toe VS AI</span>
+                  
+                  <!-- Selectable Difficulty Level Controls -->
+                  <div class="flex items-center space-x-1.5 bg-slate-100 dark:bg-slate-950 p-1 rounded border border-black/[0.08] dark:border-white/[0.08]">
+                    <button id="diff-easy" onclick="setDifficulty('easy')" class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-350 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold">EASY</button>
+                    <button id="diff-medium" onclick="setDifficulty('medium')" class="text-[10px] font-mono px-2 py-0.5 text-slate-400 font-bold">MED</button>
+                    <button id="diff-hard" onclick="setDifficulty('hard')" class="text-[10px] font-mono px-2 py-0.5 text-slate-400 font-bold">HARD</button>
+                  </div>
+                </div>
+
+                <!-- Tic-Tac-Toe Grid System Layout -->
+                <div class="grid grid-cols-3 gap-2 w-full max-w-[170px] mx-auto" id="tic-tac-toe-field">
+                  <!-- Generated Dynamically -->
+                </div>
+              </div>
+              
+              <div class="pt-3 border-t border-black/[0.06] dark:border-white/[0.06] flex items-center justify-between mt-3">
+                <span id="game-status-label" class="text-xs font-mono text-slate-400 uppercase font-bold">Your Turn (X)</span>
+                <button onclick="resetTicTacToe()" class="bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-neutral-200 text-white dark:text-slate-950 font-bold text-xs py-2 px-4 rounded-xl shadow-sm transition-all uppercase tracking-wider">
+                  Restart
+                </button>
+              </div>
+            </div>
+
+            <!-- Gamified Knowledge Challenge -->
+            <div class="bg-white dark:bg-slate-900 border border-black/[0.08] dark:border-white/[0.08] rounded-3xl p-5 sm:p-6 flex flex-col justify-between aspect-video">
+              <div>
+                <div class="flex items-center justify-between border-b border-black/[0.06] dark:border-white/[0.06] pb-3 mb-3">
+                  <span class="text-xs sm:text-sm font-bold text-slate-400 dark:text-slate-500 tracking-wider uppercase font-mono">Logic Challenge</span>
+                  <span class="text-[10px] font-mono px-2.5 py-0.5 rounded bg-brand-golden/10 text-brand-orange border border-brand-orange/20 font-bold">READY</span>
+                </div>
+                <h5 id="quiz-question-text" class="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 leading-normal mb-3 font-sans">
+                  Loading parameters...
+                </h5>
+                <div id="quiz-options-container" class="space-y-2">
+                  <!-- Options -->
+                </div>
+              </div>
+              <div class="pt-3 border-t border-black/[0.06] dark:border-white/[0.06] flex justify-between items-center mt-3">
+                <span id="quiz-feedback-status" class="text-xs font-mono uppercase text-slate-400 font-extrabold">Select Choice</span>
+                <button id="quiz-action-btn" onclick="checkQuizAnswer()" class="bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-neutral-200 text-white dark:text-slate-950 font-bold text-xs py-2 px-4 rounded-xl shadow-sm transition-all uppercase tracking-wider">
+                  Verify
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Encrypted Transmission Form -->
+          <div id="contact-form" class="bg-white dark:bg-slate-900 border border-black/[0.08] dark:border-white/[0.08] rounded-3xl p-6 sm:p-10 mt-6 space-y-6">
+            <div class="space-y-2">
+              <h4 class="text-base font-extrabold text-slate-800 dark:text-white uppercase tracking-wider">Initialize Encrypted Messaging Center</h4>
+              <p class="text-sm text-slate-500 dark:text-slate-400 font-sans">Submit structural architecture profiles directly to developer console repositories.</p>
+            </div>
+            <form onsubmit="handleContactSubmit(event)" class="space-y-4 font-sans">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <input id="form-name" required type="text" placeholder="Identity name" class="w-full bg-slate-50 dark:bg-slate-950 border border-black/[0.08] dark:border-white/[0.08] rounded-2xl p-4 text-sm sm:text-base text-slate-800 dark:text-slate-200 focus:outline-none">
+                <input id="form-email" required type="email" placeholder="Contact address" class="w-full bg-slate-50 dark:bg-slate-950 border border-black/[0.08] dark:border-white/[0.08] rounded-2xl p-4 text-sm sm:text-base text-slate-800 dark:text-slate-200 focus:outline-none">
+              </div>
+              <input id="form-topic" required type="text" placeholder="Subject Target" class="w-full bg-slate-50 dark:bg-slate-950 border border-black/[0.08] dark:border-white/[0.08] rounded-2xl p-4 text-sm sm:text-base text-slate-800 dark:text-slate-200 focus:outline-none">
+              <textarea id="form-msg" required rows="4" placeholder="Message stream data parameters..." class="w-full bg-slate-50 dark:bg-slate-950 border border-black/[0.08] dark:border-white/[0.08] rounded-2xl p-4 text-sm sm:text-base text-slate-800 dark:text-slate-200 resize-none focus:outline-none"></textarea>
+              <button type="submit" class="w-full bg-slate-950 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white font-extrabold text-sm sm:text-base py-4 rounded-2xl transition-all shadow-md">
+                Dispatch Encrypted Packet
+              </button>
+            </form>
+          </div>
+
+        </div>
+
+      </section>
+    </main>
+  </div>
+
+  <!-- Dedicated Full-Screen Single Page Application (SPA) Settings overlay -->
+  <div id="settings-page" class="fixed inset-0 z-50 bg-[#f4f4f6] dark:bg-slate-950/98 backdrop-blur-3xl translate-x-full transition-transform duration-500 ease-in-out overflow-y-auto p-6 sm:p-12 flex flex-col justify-between font-sans">
+    <div class="space-y-10 max-w-5xl mx-auto w-full">
       
-      <div class="flex items-center justify-between flex-wrap gap-2">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 bg-brand-golden/10 rounded-xl flex items-center justify-center text-lg text-brand-golden border border-brand-golden/20">
-            🔥
-          </div>
-          <div>
-            <h4 class="text-base font-black text-zinc-900 dark:text-white uppercase tracking-tight">Interactive Knowledge Challenge</h4>
-            <span class="text-[10px] font-extrabold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest">Validate your technical paradigms</span>
-          </div>
-        </div>
-
-        <!-- XP Points Counter -->
-        <div class="flex items-center gap-1.5 bg-brand-green/10 text-brand-green border-2 border-brand-green/20 px-3 py-1 rounded-xl text-xs font-black uppercase">
-          ⚡ <span id="quiz-xp-count">120</span> XP
-        </div>
-      </div>
-
-      <!-- Question and Character panel -->
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 items-center pt-4 border-t border-zinc-100 dark:border-zinc-800">
-        
-        <!-- Character Speech bubble -->
-        <div class="md:col-span-1 flex flex-row md:flex-col items-center gap-3 text-center md:text-left bg-zinc-50 dark:bg-[#141F24] p-4 rounded-2xl border-2 border-zinc-200 dark:border-zinc-700">
-          <span class="text-4xl animate-bounce">🦉</span>
-          <div class="space-y-0.5">
-            <p class="text-xs font-black text-zinc-900 dark:text-white uppercase tracking-wide">Luo says:</p>
-            <p class="text-[10px] font-bold text-zinc-400 dark:text-zinc-500 leading-tight">
-              Test your logic rules to unlock performance badges!
-            </p>
-          </div>
-        </div>
-
-        <!-- Question Block -->
-        <div class="md:col-span-3 space-y-4">
-          <span id="quiz-class-tag" class="text-[10px] font-black uppercase tracking-wider bg-brand-blue/10 text-brand-blue px-2.5 py-1 rounded-md">
-            DEV MODE - LOGICAL LAYOUT
-          </span>
-          <h5 id="quiz-question-text" class="text-base sm:text-lg font-black text-zinc-900 dark:text-white">
-            Which layout system is primarily recommended in modern CSS to design structured Bento grids?
-          </h5>
-
-          <!-- Option Containers -->
-          <div id="quiz-options-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <!-- Rendered dynamically -->
-          </div>
-
-          <!-- Actions Footer -->
-          <div class="flex justify-between items-center pt-2">
-            <span id="quiz-feedback-status" class="text-xs font-black uppercase tracking-wider text-zinc-400">
-              Pick one choice above!
-            </span>
-            <button
-              id="quiz-action-btn"
-              onclick="checkQuizAnswer()"
-              class="btn-3d h-11 px-6 bg-brand-green hover:bg-brand-green-hover text-white rounded-xl font-black text-xs uppercase shadow-[0_3px_0_#4BB200] tracking-wider"
-            >
-              Verify Answer
-            </button>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- UNLOCKED TROPHIES TIMELINE -->
-    <section class="space-y-6">
-      <div class="section-label text-zinc-400 dark:text-zinc-500">
-        Quest Accomplishments
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
-        <!-- Left Side: Vision Statement -->
-        <div class="space-y-4 lg:pr-4">
-          <h3 class="text-2xl font-black text-zinc-900 dark:text-white leading-none uppercase">
-            Code or Die.<br>No degree needed.
-          </h3>
-          <div class="w-12 h-1.5 bg-brand-orange rounded-full"></div>
-          <p class="text-xs text-zinc-500 dark:text-zinc-400 font-bold leading-relaxed font-sans">
-            "College gave me a piece of paper, but web console errors gave me resilience. Shipped premium products that users actually open."
-          </p>
-          <button onclick="window.open('https://vipweb.shop','_blank')" class="btn-3d h-11 px-5 bg-brand-blue hover:bg-brand-blue-hover text-white rounded-xl font-black text-xs uppercase shadow-[0_3px_0_#1692cd] flex items-center justify-center gap-2">
-            <span>🖥️</span> Terminal Access
+      <!-- Settings Header Row -->
+      <div class="flex items-center justify-between border-b border-black/[0.08] dark:border-white/[0.08] pb-6">
+        <div class="flex items-center space-x-5">
+          <button onclick="closeSettingsPage()" class="p-3 rounded-2xl bg-black/[0.03] dark:bg-white/[0.03] border border-black/[0.08] dark:border-white/[0.08] hover:bg-black/[0.08] dark:hover:bg-white/[0.08] text-slate-800 dark:text-white transition-all">
+            <i data-lucide="arrow-left" class="w-6 h-6"></i>
           </button>
+          <div>
+            <h2 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-slate-900 dark:text-white">Workspace Controls</h2>
+            <p class="text-sm sm:text-base text-slate-500">Customize interactive acoustics, physical rumbles, and primary interface accent matrices.</p>
+          </div>
+        </div>
+        <span class="text-xs font-mono font-bold bg-brand-blue/10 text-brand-blue px-3.5 py-1.5 rounded-full border border-brand-blue/20">CONFIG_MODE_ACTIVE</span>
+      </div>
+
+      <!-- Settings Panels Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- Column 1: Acoustics and Vibration -->
+        <div class="space-y-6">
+          <!-- Sound Systems Card -->
+          <div class="bg-white dark:bg-slate-900 border border-black/[0.06] dark:border-white/[0.06] p-6 rounded-3xl space-y-4 shadow-sm">
+            <div class="flex items-center space-x-3 text-brand-blue">
+              <i data-lucide="volume-2" class="w-6 h-6"></i>
+              <h3 class="text-base font-extrabold uppercase tracking-wide text-slate-900 dark:text-white">Acoustic Audio Systems</h3>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-500">Switch keypress audio synth profiles generated natively through HTML5 Audio Context APIs.</p>
+            
+            <div class="space-y-3">
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-400">Audio Profile Preset</label>
+              <div class="grid grid-cols-2 gap-2">
+                <button onclick="updateSoundConfig('mech')" id="cfg-sound-mech" class="p-3 text-xs sm:text-sm font-bold border border-slate-300 dark:border-slate-700 rounded-xl transition-all">Mech Switch</button>
+                <button onclick="updateSoundConfig('arcade')" id="cfg-sound-arcade" class="p-3 text-xs sm:text-sm font-bold border border-slate-300 dark:border-slate-700 rounded-xl transition-all">Arcade Synth</button>
+                <button onclick="updateSoundConfig('soft')" id="cfg-sound-soft" class="p-3 text-xs sm:text-sm font-bold border border-slate-300 dark:border-slate-700 rounded-xl transition-all">Elegant Resonance</button>
+                <button onclick="updateSoundConfig('none')" id="cfg-sound-none" class="p-3 text-xs sm:text-sm font-bold border border-slate-300 dark:border-slate-700 rounded-xl transition-all">None / Silent</button>
+              </div>
+            </div>
+
+            <div class="space-y-2 pt-2">
+              <div class="flex justify-between items-center">
+                <label class="text-xs font-bold uppercase tracking-wider text-slate-400">Master Volume</label>
+                <span id="volume-val" class="text-sm font-mono font-bold text-slate-700 dark:text-slate-300">50%</span>
+              </div>
+              <input id="volume-slider" type="range" min="0" max="100" value="50" oninput="updateVolume(this.value)" class="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer">
+            </div>
+          </div>
+
+          <!-- Physical Rumbles Card -->
+          <div class="bg-white dark:bg-slate-900 border border-black/[0.06] dark:border-white/[0.06] p-6 rounded-3xl space-y-4 shadow-sm">
+            <div class="flex items-center space-x-3 text-brand-orange">
+              <i data-lucide="zap" class="w-6 h-6"></i>
+              <h3 class="text-base font-extrabold uppercase tracking-wide text-slate-900 dark:text-white">Haptic Vibration & Rumbles</h3>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-500">Set tactile physical vibration and screens coordinates rumbles generated on diagnostic alerts.</p>
+            
+            <div class="space-y-3">
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-400">Mobile Haptics Level</label>
+              <div class="grid grid-cols-4 gap-2">
+                <button onclick="updateVibeConfig('none')" id="cfg-vibe-none" class="p-2 text-xs font-bold border border-slate-300 dark:border-slate-700 rounded-xl transition-all">None</button>
+                <button onclick="updateVibeConfig('low')" id="cfg-vibe-low" class="p-2 text-xs font-bold border border-slate-300 dark:border-slate-700 rounded-xl transition-all">Low</button>
+                <button onclick="updateVibeConfig('medium')" id="cfg-vibe-medium" class="p-2 text-xs font-bold border border-slate-300 dark:border-slate-700 rounded-xl transition-all">Medium</button>
+                <button onclick="updateVibeConfig('high')" id="cfg-vibe-high" class="p-2 text-xs font-bold border border-slate-300 dark:border-slate-700 rounded-xl transition-all">High</button>
+              </div>
+            </div>
+
+            <div class="space-y-3">
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-400">Screen Rumble Intensity</label>
+              <div class="grid grid-cols-3 gap-2">
+                <button onclick="updateShakeConfig('none')" id="cfg-shake-none" class="p-2.5 text-xs font-bold border border-slate-300 dark:border-slate-700 rounded-xl transition-all">No Shake</button>
+                <button onclick="updateShakeConfig('light')" id="cfg-shake-light" class="p-2.5 text-xs font-bold border border-slate-300 dark:border-slate-700 rounded-xl transition-all">Light</button>
+                <button onclick="updateShakeConfig('strong')" id="cfg-shake-strong" class="p-2.5 text-xs font-bold border border-slate-300 dark:border-slate-700 rounded-xl transition-all">Strong</button>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <!-- Right Side: Chronology Milestones -->
-        <div class="lg:col-span-2 space-y-6 relative border-l-2 border-zinc-200 dark:border-zinc-700 pl-6 sm:pl-8 ml-3 font-sans">
-          
-          <!-- Milestone 1 -->
-          <div class="relative space-y-1 cursor-pointer" onclick="showFlexDetail('VipWeb Hub launched holding 15+ live gaming layouts.')">
-            <div class="absolute -left-[35px] sm:-left-[43px] top-1 w-6 h-6 rounded-full bg-brand-green border-4 border-[#F9FBF5] dark:border-[#141F24] shadow-[0_2px_0_#4BB200]"></div>
-            <span class="text-[10px] font-black text-brand-green uppercase tracking-wider font-mono">Current Goal • 2025</span>
-            <h4 class="text-sm font-black text-zinc-900 dark:text-white">VipWeb Arcade Domination</h4>
-            <p class="text-xs text-zinc-500 dark:text-zinc-400 font-bold leading-normal">
-              Flagship bento arcade launched with over 15 original lightweight browser titles completely integrated with leaderboards.
-            </p>
+        <!-- Column 2: Visual Accents and Telemetry diagnostics -->
+        <div class="space-y-6">
+          <!-- Visual Personalization Card -->
+          <div class="bg-white dark:bg-slate-900 border border-black/[0.06] dark:border-white/[0.06] p-6 rounded-3xl space-y-4 shadow-sm">
+            <div class="flex items-center space-x-3 text-brand-green">
+              <i data-lucide="palette" class="w-6 h-6"></i>
+              <h3 class="text-base font-extrabold uppercase tracking-wide text-slate-900 dark:text-white">Aesthetics & Primary Accent</h3>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-500">Pick the custom system accent color and workspace light modes presets directly from live layouts.</p>
+            
+            <div class="space-y-3">
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-400">Visual System Palette Accent</label>
+              <div class="flex items-center space-x-3">
+                <button onclick="applyAccentColor('#1CB0F6')" class="accent-selector-btn w-9 h-9 rounded-full bg-[#1CB0F6] border-2 border-white dark:border-slate-800 transition-transform hover:scale-110" data-color="#1CB0F6"></button>
+                <button onclick="applyAccentColor('#58CC02')" class="accent-selector-btn w-9 h-9 rounded-full bg-[#58CC02] border-2 border-white dark:border-slate-800 transition-transform hover:scale-110" data-color="#58CC02"></button>
+                <button onclick="applyAccentColor('#FF9600')" class="accent-selector-btn w-9 h-9 rounded-full bg-[#FF9600] border-2 border-white dark:border-slate-800 transition-transform hover:scale-110" data-color="#FF9600"></button>
+                <button onclick="applyAccentColor('#EF4444')" class="accent-selector-btn w-9 h-9 rounded-full bg-[#EF4444] border-2 border-white dark:border-slate-800 transition-transform hover:scale-110" data-color="#EF4444"></button>
+              </div>
+            </div>
+
+            <div class="space-y-2 pt-2">
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-400">Base Theme Selection</label>
+              <div class="flex items-center justify-between bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl border border-black/[0.04] dark:border-white/[0.04]">
+                <span class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-semibold">Enable System dark mode</span>
+                <button onclick="toggleTheme()" class="px-4 py-2 bg-slate-200 dark:bg-slate-800 rounded-xl text-xs font-bold uppercase">Toggle Mode</button>
+              </div>
+            </div>
           </div>
 
-          <!-- Milestone 2 -->
-          <div class="relative space-y-1 cursor-pointer" onclick="showFlexDetail('Advanced client-side caching algorithms implementation.')">
-            <div class="absolute -left-[35px] sm:-left-[43px] top-1 w-6 h-6 rounded-full bg-brand-blue border-4 border-[#F9FBF5] dark:border-[#141F24] shadow-[0_2px_0_#1692cd]"></div>
-            <span class="text-[10px] font-black text-brand-blue uppercase tracking-wider font-mono">Academic Year • 2024</span>
-            <h4 class="text-sm font-black text-zinc-900 dark:text-white">Progressive Web App Compliance</h4>
-            <p class="text-xs text-zinc-500 dark:text-zinc-400 font-bold leading-normal">
-              Structured robust service-workers caches, local storage storage databases, and seamless responsive client fallback engines.
-            </p>
+          <!-- Telemetry and Diagnostic Speeds Card -->
+          <div class="bg-white dark:bg-slate-900 border border-black/[0.06] dark:border-white/[0.06] p-6 rounded-3xl space-y-4 shadow-sm">
+            <div class="flex items-center space-x-3 text-brand-red">
+              <i data-lucide="activity" class="w-6 h-6"></i>
+              <h3 class="text-base font-extrabold uppercase tracking-wide text-slate-900 dark:text-white">Engine Live Telemetry diagnostics</h3>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-500">Configure refresh intervals of telemetry canvas graphs for active virtual network threads.</p>
+            
+            <div class="space-y-3">
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-400">Refresh telemetry Interval</label>
+              <div class="grid grid-cols-3 gap-2">
+                <button onclick="updateTelemetryRate(500)" id="cfg-telemetry-500" class="p-2.5 text-xs font-bold border border-slate-300 dark:border-slate-700 rounded-xl transition-all">Fast (500ms)</button>
+                <button onclick="updateTelemetryRate(1000)" id="cfg-telemetry-1000" class="p-2.5 text-xs font-bold border border-slate-300 dark:border-slate-700 rounded-xl transition-all">Standard (1s)</button>
+                <button onclick="updateTelemetryRate(2000)" id="cfg-telemetry-2000" class="p-2.5 text-xs font-bold border border-slate-300 dark:border-slate-700 rounded-xl transition-all">Eco (2s)</button>
+              </div>
+            </div>
           </div>
-
-          <!-- Milestone 3 -->
-          <div class="relative space-y-1 cursor-pointer" onclick="showFlexDetail('Graduated from Deoghar College, Deoghar. Real application is built in code.')">
-            <div class="absolute -left-[35px] sm:-left-[43px] top-1 w-6 h-6 rounded-full bg-brand-orange border-4 border-[#F9FBF5] dark:border-[#141F24] shadow-[0_2px_0_#CC7800]"></div>
-            <span class="text-[10px] font-black text-brand-orange uppercase tracking-wider font-mono">Sidequest • 2023</span>
-            <h4 class="text-sm font-black text-zinc-900 dark:text-white">Academic Achievement</h4>
-            <p class="text-xs text-zinc-500 dark:text-zinc-400 font-bold leading-normal">
-              Completed B.Sc Degree from Deoghar College, Deoghar while shipping live experimental scripts on open repos.
-            </p>
-          </div>
-
         </div>
 
       </div>
-    </section>
 
-    <!-- INTERACTIVE CONTACT & QUERY FORM -->
-    <section id="contact-section" class="grid grid-cols-1 lg:grid-cols-3 gap-8 pt-6 border-t-2 border-zinc-200 dark:border-zinc-800">
-      
-      <!-- Profile/Contact Information -->
-      <div class="bg-white dark:bg-[#1F2E35] rounded-3xl border-2 border-zinc-200 dark:border-zinc-700 p-6 flex flex-col justify-between space-y-6">
-        <div class="space-y-4">
-          <div class="w-14 h-14 rounded-2xl bg-brand-green/10 text-brand-green flex items-center justify-center text-3xl">
-            📬
-          </div>
-          <div class="space-y-1">
-            <h4 class="text-md font-black text-zinc-900 dark:text-white uppercase tracking-tight">Direct Connection</h4>
-            <p class="text-xs text-zinc-400 dark:text-zinc-500 font-bold leading-relaxed font-sans">
-              Drop a query to discuss potential collaborations, custom PWA architectural consultations, or software benchmarks.
-            </p>
-          </div>
-        </div>
-
-        <div class="space-y-2.5 pt-4 border-t border-zinc-100 dark:border-zinc-800 text-xs font-bold text-zinc-500 dark:text-zinc-400 font-sans">
-          <a href="mailto:vipwebff@gmail.com" onclick="playSynthSound('click')" class="flex items-center gap-2 hover:text-zinc-800 dark:hover:text-zinc-200 transition-colors">
-            <span>📧</span> <span class="font-bold text-zinc-600 dark:text-zinc-300">vipwebff@gmail.com</span>
-          </a>
-          <a href="https://instagram.com/vitcoore" target="_blank" rel="noopener noreferrer" onclick="playSynthSound('click')" class="flex items-center gap-2 hover:text-[#E1306C] transition-colors">
-            <span>📸</span> <span class="font-bold text-zinc-600 dark:text-zinc-300">@vitcoore (Instagram)</span>
-          </a>
-          <a href="https://github.com/vitcoore" target="_blank" rel="noopener noreferrer" onclick="playSynthSound('click')" class="flex items-center gap-2 hover:text-brand-blue transition-colors">
-            <span>💻</span> <span class="font-bold text-zinc-600 dark:text-zinc-300">GitHub (vitcoore)</span>
-          </a>
-        </div>
+      <!-- Settings Page Actions Footer -->
+      <div class="flex justify-end pt-6 border-t border-black/[0.08] dark:border-white/[0.08]">
+        <button onclick="closeSettingsPage()" class="bg-slate-950 dark:bg-slate-100 hover:bg-slate-800 dark:hover:bg-neutral-200 text-white dark:text-slate-950 font-bold text-sm py-3 px-8 rounded-2xl shadow-sm transition-all uppercase tracking-wider">
+          Save & Apply Workspace Profiles
+        </button>
       </div>
 
-      <!-- Doubts Ask Form -->
-      <div class="bg-white dark:bg-[#1F2E35] rounded-3xl border-2 border-zinc-200 dark:border-zinc-700 p-6 lg:col-span-2 space-y-4">
-        <div class="space-y-1">
-          <h4 class="text-md font-black text-zinc-900 dark:text-white uppercase tracking-tight">Quest Message Center</h4>
-          <p class="text-xs text-zinc-400 dark:text-zinc-500 font-bold">
-            Fill out standard details to trigger an instant console register.
-          </p>
-        </div>
-
-        <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-3 font-sans">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <input 
-              id="form-name"
-              type="text" 
-              required
-              placeholder="Your Name"
-              class="w-full h-11 px-4 border-2 border-zinc-200 dark:border-zinc-700 bg-transparent rounded-xl text-xs font-semibold focus:border-brand-blue focus:outline-none placeholder-zinc-400 dark:placeholder-zinc-600 transition-colors"
-            />
-            <input 
-              id="form-email"
-              type="email" 
-              required
-              placeholder="Your Email ID"
-              class="w-full h-11 px-4 border-2 border-zinc-200 dark:border-zinc-700 bg-transparent rounded-xl text-xs font-semibold focus:border-brand-blue focus:outline-none placeholder-zinc-400 dark:placeholder-zinc-600 transition-colors"
-            />
-          </div>
-          
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <select 
-              id="form-interest"
-              class="w-full h-11 px-3 border-2 border-zinc-200 dark:border-zinc-700 bg-[#F9FBF5] dark:bg-[#1F2E35] text-zinc-500 dark:text-zinc-400 rounded-xl text-xs font-semibold focus:border-brand-blue focus:outline-none transition-colors"
-            >
-              <option value="Collab">Project Collaboration</option>
-              <option value="Games">Offline Game Systems</option>
-              <option value="General">General Inquiry</option>
-            </select>
-            <input 
-              id="form-topic"
-              type="text" 
-              required
-              placeholder="Subject (e.g. Three.js design, PWA setup)"
-              class="w-full h-11 px-4 border-2 border-zinc-200 dark:border-zinc-700 bg-transparent rounded-xl text-xs font-semibold focus:border-brand-blue focus:outline-none placeholder-zinc-400 dark:placeholder-zinc-600 transition-colors"
-            />
-          </div>
-
-          <textarea 
-            id="form-msg"
-            rows="3"
-            required
-            placeholder="Type your message details here..."
-            class="w-full p-4 border-2 border-zinc-200 dark:border-zinc-700 bg-transparent rounded-xl text-xs font-semibold focus:border-brand-blue focus:outline-none placeholder-zinc-400 dark:placeholder-zinc-600 transition-colors resize-none"
-          ></textarea>
-
-          <div class="flex justify-end">
-            <button
-              type="submit"
-              class="btn-3d h-11 px-6 bg-brand-blue hover:bg-brand-blue-hover text-white rounded-xl font-black text-xs uppercase shadow-[0_3px_0_#1692cd] tracking-wide"
-            >
-              Transmit Signal
-            </button>
-          </div>
-        </form>
-      </div>
-
-    </section>
-
-  </main>
-
-  <!-- APPLICATION FOOTER -->
-  <footer class="bg-white dark:bg-[#141F24] border-t-2 border-zinc-200 dark:border-[#202F36] py-10 transition-colors text-center px-4 mt-16">
-    <div class="max-w-[1200px] mx-auto space-y-4">
-      <p class="text-[11px] text-zinc-400 dark:text-zinc-500 font-black uppercase tracking-widest font-sans">
-        VITCOORE SYSTEMS • 2026 | ANSHU RAJHANS
-      </p>
-      <div class="flex items-center justify-center gap-6 text-xs font-bold text-zinc-400 dark:text-zinc-500 font-sans">
-        <a href="mailto:vipwebff@gmail.com" class="hover:underline">Email</a>
-        <span class="w-1.5 h-1.5 bg-zinc-300 dark:bg-zinc-700 rounded-full"></span>
-        <a href="https://instagram.com/vitcoore" target="_blank" rel="noopener noreferrer" class="hover:underline">Instagram</a>
-        <span class="w-1.5 h-1.5 bg-zinc-300 dark:bg-zinc-700 rounded-full"></span>
-        <a href="https://youtube.com/@vitcoore" target="_blank" rel="noopener noreferrer" class="hover:underline">YouTube</a>
-      </div>
-      <p class="text-[10px] text-zinc-400/70 dark:text-zinc-500/50 font-sans">
-        Constructed in pure Duolingo flat vectors design standard. 
-      </p>
     </div>
-  </footer>
+  </div>
 
-  <!-- NATIVE VANILLA JAVASCRIPT LOGIC ENGINE -->
+  <!-- Toast Popovers System Notification -->
+  <div id="global-toast" class="fixed bottom-6 right-6 bg-white/95 dark:bg-slate-900/95 border border-black/10 dark:border-white/10 shadow-2xl py-4 px-6 flex items-center space-x-4 translate-y-24 opacity-0 transition-all duration-300 z-50 pointer-events-none glass-panel rounded-2xl">
+    <div id="toast-icon-bg" class="h-7 w-7 rounded-full bg-slate-900 dark:bg-white flex items-center justify-center text-white dark:text-slate-950">
+      <i id="toast-icon-render" data-lucide="check" class="w-4 h-4"></i>
+    </div>
+    <div class="text-sm font-bold text-slate-800 dark:text-slate-200" id="toast-message">Process Completed.</div>
+  </div>
+
+  <!-- Styled dynamic custom styles tag injection -->
+  <style id="dynamic-accent-style"></style>
+
   <script>
-    // System State Tracker
-    let currentWorkspace = 'DEV';
-    let theme = 'light';
-    let userXP = 120;
-    let selectedOptionIndex = null;
+    // System Target Projects Array mapping subdomains cleanly (Added Inline High-Quality Preview SVGs)
+    const projectsList = [
+      {
+        id: "its",
+        title: "its.vitcoore.xyz",
+        desc: "Official vocational study portal. Access reference IT-ITeS notes and board exam syllabus guides.",
+        tech: "JAC IT-ITeS Notes",
+        node: "its.vitcoore.xyz",
+        url: "https://its.vitcoore.xyz",
+        icon: "book-open",
+        previewSvg: `
+          <svg viewBox="0 0 100 100" class="w-full h-full opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+            <rect x="15" y="15" width="70" height="70" rx="12" class="fill-slate-100/40 dark:fill-slate-800/40 stroke-slate-300 dark:stroke-slate-700" stroke-width="2"/>
+            <line x1="30" y1="35" x2="70" y2="35" class="stroke-brand-blue" stroke-width="4" stroke-linecap="round"/>
+            <line x1="30" y1="50" x2="60" y2="50" class="stroke-slate-400 dark:stroke-slate-500" stroke-width="3" stroke-linecap="round"/>
+            <line x1="30" y1="65" x2="50" y2="65" class="stroke-slate-400 dark:stroke-slate-500" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="70" cy="58" r="8" class="fill-brand-green/20 stroke-brand-green" stroke-width="2"/>
+            <path d="M67 58 L69 60 L73 56" class="stroke-brand-green fill-none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        `
+      },
+      {
+        id: "anshu4u",
+        title: "anshu4u.vitcoore.xyz",
+        desc: "Interactive 3D dynamic sandbox and developer laboratory demonstrating client-side vector mechanics.",
+        tech: "Three.js • WebGL",
+        node: "anshu4u.vitcoore.xyz",
+        url: "https://anshu4u.vitcoore.xyz",
+        icon: "layout",
+        previewSvg: `
+          <svg viewBox="0 0 100 100" class="w-full h-full opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+            <path d="M50 18 L82 34 L82 66 L50 82 L18 66 L18 34 Z" class="fill-brand-orange/5 stroke-brand-orange" stroke-width="2" stroke-linejoin="round"/>
+            <line x1="50" y1="18" x2="50" y2="82" class="stroke-brand-orange" stroke-width="1.5" stroke-dasharray="2 2"/>
+            <line x1="18" y1="34" x2="82" y2="66" class="stroke-brand-orange" stroke-width="1.5" stroke-dasharray="2 2"/>
+            <line x1="82" y1="34" x2="18" y2="66" class="stroke-brand-orange" stroke-width="1.5" stroke-dasharray="2 2"/>
+            <circle cx="50" cy="50" r="14" class="fill-brand-orange/20 stroke-brand-orange" stroke-width="2"/>
+          </svg>
+        `
+      },
+      {
+        id: "gr",
+        title: "gr.vitcoore.xyz",
+        desc: "Local utility tool configured completely with offline support using Service Worker network caching.",
+        tech: "PWA • Storage",
+        node: "gr.vitcoore.xyz",
+        url: "https://gr.vitcoore.xyz",
+        icon: "shopping-bag",
+        previewSvg: `
+          <svg viewBox="0 0 100 100" class="w-full h-full opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+            <rect x="25" y="20" width="50" height="60" rx="8" class="fill-none stroke-brand-green" stroke-width="3"/>
+            <circle cx="38" cy="35" r="4.5" class="fill-brand-green"/>
+            <line x1="48" y1="35" x2="68" y2="35" class="stroke-slate-400 dark:stroke-slate-500" stroke-width="3.5" stroke-linecap="round"/>
+            <circle cx="38" cy="50" r="4.5" class="fill-brand-green"/>
+            <line x1="48" y1="50" x2="68" y2="50" class="stroke-slate-400 dark:stroke-slate-500" stroke-width="3.5" stroke-linecap="round"/>
+            <circle cx="38" cy="65" r="4.5" class="fill-brand-green"/>
+            <line x1="48" y1="65" x2="58" y2="65" class="stroke-slate-400 dark:stroke-slate-500" stroke-width="3.5" stroke-linecap="round"/>
+          </svg>
+        `
+      },
+      {
+        id: "vipweb",
+        title: "vipweb.vitcoore.xyz",
+        desc: "Flagship arcade repository hosting over 15 custom browser titles with responsive layouts.",
+        tech: "Arcade Engine",
+        node: "vipweb.vitcoore.xyz",
+        url: "https://vipweb.vitcoore.xyz",
+        icon: "gamepad-2",
+        previewSvg: `
+          <svg viewBox="0 0 100 100" class="w-full h-full opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+            <rect x="15" y="15" width="70" height="52" rx="8" class="fill-slate-900/40 stroke-slate-700" stroke-width="2"/>
+            <rect x="25" y="22" width="50" height="38" rx="4" class="fill-brand-red/10 stroke-brand-red" stroke-width="1.5"/>
+            <line x1="25" y1="78" x2="40" y2="78" class="stroke-slate-500" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="32" cy="74" r="5" class="fill-brand-red"/>
+            <circle cx="60" cy="78" r="4" class="fill-brand-orange"/>
+            <circle cx="72" cy="78" r="4" class="fill-brand-green"/>
+          </svg>
+        `
+      },
+      {
+        id: "play",
+        title: "play.vitcoore.xyz",
+        desc: "Lightweight gateway node for direct gameplay access of retro browser games.",
+        tech: "Canvas Synth",
+        node: "play.vitcoore.xyz",
+        url: "https://play.vitcoore.xyz",
+        icon: "play-circle",
+        previewSvg: `
+          <svg viewBox="0 0 100 100" class="w-full h-full opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+            <path d="M20 40 C20 28, 40 28, 50 33 C60 28, 80 28, 80 40 C80 65, 70 75, 60 75 C55 75, 45 75, 40 75 C30 75, 20 65, 20 40 Z" class="fill-none stroke-brand-blue" stroke-width="3"/>
+            <line x1="30" y1="52" x2="42" y2="52" class="stroke-brand-blue" stroke-width="3.5" stroke-linecap="round"/>
+            <line x1="36" y1="46" x2="36" y2="58" class="stroke-brand-blue" stroke-width="3.5" stroke-linecap="round"/>
+            <circle cx="62" cy="55" r="4" class="fill-brand-red"/>
+            <circle cx="70" cy="48" r="4" class="fill-brand-orange"/>
+          </svg>
+        `
+      },
+      {
+        id: "ai",
+        title: "ai.vitcoore.xyz",
+        desc: "AI-Powered intelligent integration node exploring web frameworks and automated model endpoints.",
+        tech: "AI Integration",
+        node: "ai.vitcoore.xyz",
+        url: "https://ai.vitcoore.xyz",
+        icon: "cpu",
+        previewSvg: `
+          <svg viewBox="0 0 100 100" class="w-full h-full opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+            <circle cx="50" cy="22" r="7" class="fill-brand-orange/20 stroke-brand-orange" stroke-width="2"/>
+            <circle cx="22" cy="50" r="7" class="fill-brand-orange/20 stroke-brand-orange" stroke-width="2"/>
+            <circle cx="50" cy="78" r="7" class="fill-brand-orange/20 stroke-brand-orange" stroke-width="2"/>
+            <circle cx="78" cy="50" r="7" class="fill-brand-orange/20 stroke-brand-orange" stroke-width="2"/>
+            <circle cx="50" cy="50" r="10" class="fill-none stroke-brand-orange" stroke-width="2"/>
+            <line x1="50" y1="29" x2="50" y2="40" class="stroke-brand-orange" stroke-width="2" stroke-linecap="round"/>
+            <line x1="50" y1="60" x2="50" y2="71" class="stroke-brand-orange" stroke-width="2" stroke-linecap="round"/>
+            <line x1="29" y1="50" x2="40" y2="50" class="stroke-brand-orange" stroke-width="2" stroke-linecap="round"/>
+            <line x1="60" y1="50" x2="71" y2="50" class="stroke-brand-orange" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        `
+      },
+      {
+        id: "lab",
+        title: "lab.vitcoore.xyz",
+        desc: "Experimental laboratory with canvas rendering, dynamic animation engines, and graphical layouts.",
+        tech: "HTML5 Canvas",
+        node: "lab.vitcoore.xyz",
+        url: "https://lab.vitcoore.xyz",
+        icon: "flask-conical",
+        previewSvg: `
+          <svg viewBox="0 0 100 100" class="w-full h-full opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+            <path d="M44 20 L56 20 L56 38 L76 74 C79 79, 75 85, 68 85 L32 85 C25 85, 21 79, 24 74 L44 38 Z" class="fill-none stroke-brand-green" stroke-width="3" stroke-linejoin="round"/>
+            <path d="M30 75 C35 73, 40 77, 45 75 C50 73, 55 77, 60 75 C65 73, 70 75, 70 75 L67 82 L33 82 Z" class="fill-brand-green/20 stroke-none"/>
+            <circle cx="45" cy="55" r="3" class="fill-brand-green"/>
+            <circle cx="55" cy="65" r="4" class="fill-brand-green"/>
+            <circle cx="50" cy="45" r="2" class="fill-brand-green"/>
+          </svg>
+        `
+      },
+      {
+        id: "status",
+        title: "status.vitcoore.xyz",
+        desc: "Network diagnostic platform checking active worker subdomains and telemetry logs in real time.",
+        tech: "Telemetry Logs",
+        node: "status.vitcoore.xyz",
+        url: "https://status.vitcoore.xyz",
+        icon: "activity",
+        previewSvg: `
+          <svg viewBox="0 0 100 100" class="w-full h-full opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+            <path d="M10 50 L30 50 L38 25 L46 75 L52 42 L58 58 L64 50 L90 50" class="fill-none stroke-brand-blue" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="38" cy="25" r="3" class="fill-brand-blue"/>
+            <circle cx="46" cy="75" r="3" class="fill-brand-blue"/>
+            <line x1="10" y1="25" x2="90" y2="25" class="stroke-slate-200 dark:stroke-slate-800" stroke-width="1.5" stroke-dasharray="4 4"/>
+            <line x1="10" y1="75" x2="90" y2="75" class="stroke-slate-200 dark:stroke-slate-800" stroke-width="1.5" stroke-dasharray="4 4"/>
+          </svg>
+        `
+      }
+    ];
 
-    // Quests Database divided by toggled mode
-    const questsDatabase = {
-      DEV: [
-        {
-          id: "its",
-          tag: "⭐ RECOMMENDED · EDUCATION HUB",
-          title: "its.vitcoore.xyz",
-          desc: "Official vocational ITS Academy study portal. Access JAC Board IT-ITeS vocational syllabus notes, video classes, and reference question guides.",
-          detail: "Core Target: ITS Students • Notes • Lectures",
-          icon: "🎓",
-          actionText: "Open ITS Portal",
-          url: "https://its.vitcoore.xyz"
-        },
-        {
-          id: "anshu4u",
-          tag: "Quest 02 · WebGL Sandbox",
-          title: "anshu4u.xyz",
-          desc: "Interactive 3D laboratory showing real-time graphics layouts, particle systems, and canvas frameworks.",
-          detail: "Tech Stack: Three.js • WebGL • Vanilla",
-          icon: "🔮",
-          actionText: "Launch Project",
-          url: "https://anshu4u.xyz"
-        },
-        {
-          id: "gr",
-          tag: "Quest 03 · Local Utility",
-          title: "gr.vitcoore.xyz",
-          desc: "Lightweight, offline-first digital utility list builder. Structured completely on native service-worker caches.",
-          detail: "Tech Stack: PWA • Offline Cache • JS",
-          icon: "🛒",
-          actionText: "Open App",
-          url: "https://gr.vitcoore.xyz"
-        },
-        {
-          id: "pdf",
-          tag: "Quest 04 · Document Hub",
-          title: "pdf.vitcoore.xyz",
-          desc: "Serverless structural documentation parser and downloader built on lightweight programmatic frameworks.",
-          detail: "Tech Stack: Serverless • API • PDF",
-          icon: "📑",
-          actionText: "Launch Tool",
-          url: "https://pdf.vitcoore.xyz"
-        }
-      ],
-      PLAY: [
-        {
-          id: "vipweb",
-          tag: "Quest 01 · Flagship Hub",
-          title: "VIPWEB.SHOP",
-          desc: "Clean arcade dashboard holding 15 original lightweight browser titles completely integrated with offline support.",
-          detail: "Tech Stack: Arcade PWA • Vanilla • Sync API",
-          icon: "🕹️",
-          actionText: "Access Arcade",
-          url: "https://vipweb.shop"
-        },
-        {
-          id: "play",
-          tag: "Quest 04 · Game Terminal",
-          title: "Play Portal",
-          desc: "Quick gateway holding responsive retro puzzle modules and interactive logical games.",
-          detail: "Tech Stack: Canvas API • Audio Synth",
-          icon: "👾",
-          actionText: "Start Terminal",
-          url: "https://play.anshu4u.xyz"
-        },
-        {
-          id: "ai",
-          tag: "Quest 05 · Intelligent Sandbox",
-          title: "AI.anshu4u",
-          desc: "Experimental client-side semantic interfaces holding direct connections to browser layout models.",
-          detail: "Tech Stack: Semantic Model • Web App",
-          icon: "🧠",
-          actionText: "Open Sandbox",
-          url: "https://ai.anshu4u.xyz"
-        }
+    const quizData = {
+      question: "Which layout system is primarily recommended in modern CSS to design structured Bento grids?",
+      options: [
+        { text: "CSS Grid (display: grid)", isCorrect: true },
+        { text: "Flexbox (display: flex)", isCorrect: false },
+        { text: "Traditional Blocks (block)", isCorrect: false }
       ]
     };
 
-    // Gamified Duolingo Trivia Database
-    const quizDatabase = {
-      DEV: {
-        tag: "DEV MODE - WEB LAYOUT",
-        question: "Which layout system is primarily recommended in modern CSS to design structured Bento grids?",
-        options: [
-          { text: "CSS Grid (display: grid)", isCorrect: true },
-          { text: "Flexbox Layout (display: flex)", isCorrect: false },
-          { text: "Traditional Blocks (display: block)", isCorrect: false },
-          { text: "Float Systems (float: left)", isCorrect: false }
-        ],
-        hint: "This standard grid layout operates in both rows and columns simultaneously."
-      },
-      PLAY: {
-        tag: "PLAY MODE - ENGINE LOOP",
-        question: "In browser-based arcade setups, which standard API guarantees synchronized logical loops without frame-tearing?",
-        options: [
-          { text: "setTimeout() Method", isCorrect: false },
-          { text: "requestAnimationFrame() API", isCorrect: true },
-          { text: "setInterval() Loop", isCorrect: false },
-          { text: "requestIdleCallback()", isCorrect: false }
-        ],
-        hint: "This API signals the browser to redraw before rendering the next physical monitor refresh."
-      }
-    };
+    let theme = 'dark';
+    let selectedOptionIndex = null;
+    let telemetryIntervalVal = 1000;
+    let telemetryTimer = null;
 
-    // Web Audio Synthesizer Engine
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('vitcore_theme') || 'dark';
+      theme = savedTheme;
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+
+      // Load Saved Settings parameters
+      const savedAccent = localStorage.getItem('vitcore_accent') || '#1CB0F6';
+      const savedVolume = localStorage.getItem('storm-volume') || '50';
+      const savedTelemetry = localStorage.getItem('telemetry-rate') || '1000';
+
+      applyAccentColor(savedAccent);
+      document.getElementById('volume-slider').value = savedVolume;
+      document.getElementById('volume-val').innerText = `${savedVolume}%`;
+      telemetryIntervalVal = parseInt(savedTelemetry);
+
+      syncSettingsButtonIndicators();
+
+      lucide.createIcons();
+      renderDirectory();
+      renderQuiz();
+      initTelemetryMonitor();
+      initTicTacToeGrid();
+
+      const terminalInput = document.getElementById('terminal-input');
+      terminalInput.addEventListener('keydown', handleTerminalKeypress);
+
+      // Register Service Worker for PWA
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js')
+          .then(reg => console.log('Service Worker registered:', reg.scope))
+          .catch(err => console.error('Service Worker registration failed:', err));
+      }
+    });
+
+    // Custom Synthesizer Audio Engine
     function playSynthSound(type) {
       try {
+        const currentProfile = localStorage.getItem('storm-sound') || 'mech';
+        if (currentProfile === 'none') return;
+
         const ctx = new (window.AudioContext || window.webkitAudioContext)();
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
         osc.connect(gain);
         gain.connect(ctx.destination);
 
-        if (type === 'correct') {
+        const currentVol = parseInt(localStorage.getItem('storm-volume') || '50') / 100;
+        
+        if (type === 'click') {
+          if (currentProfile === 'mech') {
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(120, ctx.currentTime);
+            gain.gain.setValueAtTime(0.04 * currentVol, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01 * currentVol, ctx.currentTime + 0.05);
+            osc.stop(ctx.currentTime + 0.06);
+          } else if (currentProfile === 'arcade') {
+            osc.type = 'square';
+            osc.frequency.setValueAtTime(450, ctx.currentTime);
+            gain.gain.setValueAtTime(0.06 * currentVol, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01 * currentVol, ctx.currentTime + 0.1);
+            osc.stop(ctx.currentTime + 0.12);
+          } else { // soft
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(300, ctx.currentTime);
+            gain.gain.setValueAtTime(0.03 * currentVol, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01 * currentVol, ctx.currentTime + 0.08);
+            osc.stop(ctx.currentTime + 0.1);
+          }
+          osc.start();
+        } else if (type === 'correct') {
           osc.type = 'sine';
           osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
-          gain.gain.setValueAtTime(0.12, ctx.currentTime);
+          gain.gain.setValueAtTime(0.08 * currentVol, ctx.currentTime);
           osc.start();
-          setTimeout(() => {
-            osc.frequency.setValueAtTime(659.25, ctx.currentTime); // E5
-          }, 100);
-          gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.45);
-          osc.stop(ctx.currentTime + 0.5);
-        } else if (type === 'click') {
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(320, ctx.currentTime);
-          gain.gain.setValueAtTime(0.08, ctx.currentTime);
-          osc.start();
-          gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.08);
-          osc.stop(ctx.currentTime + 0.1);
+          setTimeout(() => { osc.frequency.setValueAtTime(659.25, ctx.currentTime); }, 80);
+          gain.gain.exponentialRampToValueAtTime(0.01 * currentVol, ctx.currentTime + 0.4);
+          osc.stop(ctx.currentTime + 0.45);
         } else if (type === 'congrats') {
           osc.type = 'triangle';
-          osc.frequency.setValueAtTime(261.63, ctx.currentTime); // C4
-          gain.gain.setValueAtTime(0.12, ctx.currentTime);
+          osc.frequency.setValueAtTime(329.63, ctx.currentTime);
+          gain.gain.setValueAtTime(0.08 * currentVol, ctx.currentTime);
           osc.start();
-          setTimeout(() => osc.frequency.setValueAtTime(329.63, ctx.currentTime), 80); // E4
-          setTimeout(() => osc.frequency.setValueAtTime(392.00, ctx.currentTime), 160); // G4
-          setTimeout(() => osc.frequency.setValueAtTime(523.25, ctx.currentTime), 240); // C5
-          gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.7);
-          osc.stop(ctx.currentTime + 0.8);
+          setTimeout(() => osc.frequency.setValueAtTime(392.00, ctx.currentTime), 80);
+          setTimeout(() => osc.frequency.setValueAtTime(523.25, ctx.currentTime), 160);
+          gain.gain.exponentialRampToValueAtTime(0.01 * currentVol, ctx.currentTime + 0.6);
+          osc.stop(ctx.currentTime + 0.65);
         } else if (type === 'error') {
           osc.type = 'sawtooth';
-          osc.frequency.setValueAtTime(150, ctx.currentTime);
-          gain.gain.setValueAtTime(0.15, ctx.currentTime);
+          osc.frequency.setValueAtTime(140, ctx.currentTime);
+          gain.gain.setValueAtTime(0.1 * currentVol, ctx.currentTime);
           osc.start();
-          gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.25);
-          osc.stop(ctx.currentTime + 0.3);
+          gain.gain.exponentialRampToValueAtTime(0.01 * currentVol, ctx.currentTime + 0.2);
+          osc.stop(ctx.currentTime + 0.25);
         }
-      } catch (e) {
-        // Handled silently
-      }
+      } catch (e) {}
     }
 
-    // Dynamic Toast Alert
-    function showToast(message, emoji = '💡', bgClass = 'bg-brand-darkBlue') {
-      const toast = document.getElementById('toast-window');
-      const textNode = document.getElementById('toast-text');
-      const emojiNode = document.getElementById('toast-emoji');
-      
-      toast.className = `fixed bottom-6 left-1/2 -translate-x-1/2 z-[9999] ${bgClass} text-white px-5 py-3.5 rounded-2xl flex items-center gap-2.5 shadow-2xl border border-white/10 transition-all duration-300 transform translate-y-0 opacity-100`;
-      textNode.textContent = message;
-      emojiNode.textContent = emoji;
-
-      setTimeout(() => {
-        toast.className = "fixed bottom-6 left-1/2 -translate-x-1/2 z-[9999] bg-brand-darkBlue text-white px-5 py-3.5 rounded-2xl flex items-center gap-2.5 shadow-2xl border border-white/10 transition-all duration-300 transform translate-y-20 opacity-0 pointer-events-none";
-      }, 3000);
-    }
-
-    // SPLASH SCREEN LOADER
-    window.addEventListener('DOMContentLoaded', () => {
-      let progress = 0;
-      const progressInterval = setInterval(() => {
-        progress += 10;
-        if (progress >= 100) {
-          progress = 100;
-          clearInterval(progressInterval);
-          setTimeout(() => {
-            const splash = document.getElementById('splash-screen');
-            splash.classList.add('opacity-0', 'scale-95');
-            setTimeout(() => {
-              splash.classList.add('hidden');
-              playSynthSound('congrats');
-            }, 350);
-          }, 400);
-        }
-        document.getElementById('splash-progress').style.width = `${progress}%`;
-      }, 80);
-
-      // Initialize Content Render
-      renderQuestsGrid();
-      renderQuizUnit();
-      init3DCloud();
-    });
-
-    // Handle Workspace Switch
-    function handleWorkspaceSwitch(workspaceName) {
-      if (currentWorkspace === workspaceName) return;
+    // Toggle Theme Mode
+    function toggleTheme() {
+      const html = document.documentElement;
       playSynthSound('click');
-      currentWorkspace = workspaceName;
-
-      const btnDev = document.getElementById('btn-workspace-dev');
-      const btnPlay = document.getElementById('btn-workspace-play');
-
-      if (workspaceName === 'DEV') {
-        btnDev.className = "flex-1 h-full text-center text-xs font-black rounded-full transition-all duration-300 z-10 bg-brand-green text-white shadow-sm";
-        btnPlay.className = "flex-1 h-full text-center text-xs font-black rounded-full transition-all duration-300 z-10 text-zinc-400 hover:text-white";
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        theme = 'light';
+        localStorage.setItem('vitcore_theme', 'light');
       } else {
-        btnPlay.className = "flex-1 h-full text-center text-xs font-black rounded-full transition-all duration-300 z-10 bg-brand-green text-white shadow-sm";
-        btnDev.className = "flex-1 h-full text-center text-xs font-black rounded-full transition-all duration-300 z-10 text-zinc-400 hover:text-white";
+        html.classList.add('dark');
+        theme = 'dark';
+        localStorage.setItem('vitcore_theme', 'dark');
       }
-
-      document.getElementById('syllabus-section-heading').textContent = `Quest Select · ${workspaceName === 'DEV' ? 'Full-Stack Terminal' : 'Arcade Playground'}`;
-
-      renderQuestsGrid();
-      renderQuizUnit();
-
-      showToast(`Switched terminal workspace to ${workspaceName} Mode!`, '🖥️', 'bg-brand-blue');
     }
 
-    // Draw active Bento Quests
-    function renderQuestsGrid() {
-      const container = document.getElementById('quests-grid');
-      container.innerHTML = '';
-
-      const quests = questsDatabase[currentWorkspace];
-      quests.forEach((qst) => {
-        const item = document.createElement('div');
-        item.className = "bg-white dark:bg-[#1F2E35] rounded-3xl border-2 border-zinc-200 dark:border-zinc-700 p-6 space-y-4 shadow-sm hover:border-brand-blue dark:hover:border-brand-blue transition-all flex flex-col justify-between";
-        item.innerHTML = `
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-retro uppercase text-brand-orange bg-brand-orange/10 px-2.5 py-1 rounded-md tracking-normal">${qst.tag}</span>
-              <span class="text-2xl">${qst.icon}</span>
-            </div>
-            <h4 class="text-xl font-black text-zinc-900 dark:text-white font-sans">${qst.title}</h4>
-            <p class="text-xs text-zinc-500 dark:text-zinc-400 font-bold leading-relaxed font-sans">${qst.desc}</p>
-          </div>
-          <div class="pt-4 border-t border-zinc-100 dark:border-zinc-800 space-y-3 font-sans">
-            <span class="text-[10px] font-black text-brand-blue uppercase tracking-wider block">${qst.detail}</span>
-            <a 
-              href="${qst.url}" 
-              target="_blank" 
-              onclick="playSynthSound('click')"
-              class="btn-3d w-full h-10 bg-brand-green hover:bg-brand-green-hover text-white rounded-xl text-xs font-black uppercase shadow-[0_3px_0_#4BB200] flex items-center justify-center"
-            >
-              ${qst.actionText}
-            </a>
-          </div>
-        `;
-        container.appendChild(item);
+    // Dynamic Accent Colors preset application
+    function applyAccentColor(colorHex) {
+      localStorage.setItem('vitcore_accent', colorHex);
+      let styleTag = document.getElementById('dynamic-accent-style');
+      if (!styleTag) {
+        styleTag = document.createElement('style');
+        styleTag.id = 'dynamic-accent-style';
+        document.head.appendChild(styleTag);
+      }
+      styleTag.innerHTML = `
+        .text-brand-blue { color: ${colorHex} !important; }
+        .bg-brand-blue { background-color: ${colorHex} !important; }
+        .border-brand-blue { border-color: ${colorHex} !important; }
+        .bg-brand-blue\\/10 { background-color: ${colorHex}1a !important; }
+        .bg-brand-blue\\/5 { background-color: ${colorHex}0d !important; }
+      `;
+      document.querySelectorAll('.accent-selector-btn').forEach(btn => {
+        if (btn.getAttribute('data-color') === colorHex) {
+          btn.classList.add('ring-4', 'ring-offset-2', 'dark:ring-offset-slate-900', 'ring-slate-500');
+        } else {
+          btn.classList.remove('ring-4', 'ring-offset-2', 'dark:ring-offset-slate-900', 'ring-slate-500');
+        }
       });
     }
 
-    // Render interactive Quiz
-    function renderQuizUnit() {
-      const quiz = quizDatabase[currentWorkspace];
+    // Full Screen SPA Settings Navigation Controls
+    function openSettingsPage() {
+      playSynthSound('click');
+      syncSettingsButtonIndicators();
+      const settingsView = document.getElementById('settings-page');
+      settingsView.classList.remove('translate-x-full');
+      settingsView.classList.add('translate-x-0');
+    }
+
+    // Close Settings Page
+    function closeSettingsPage() {
+      playSynthSound('click');
+      const settingsView = document.getElementById('settings-page');
+      settingsView.classList.remove('translate-x-0');
+      settingsView.classList.add('translate-x-full');
+    }
+
+    // Dynamic state saving updates
+    function updateVolume(val) {
+      localStorage.setItem('storm-volume', val);
+      document.getElementById('volume-val').innerText = `${val}%`;
+    }
+
+    function updateSoundConfig(profile) {
+      playSynthSound('click');
+      localStorage.setItem('storm-sound', profile);
+      syncSettingsButtonIndicators();
+    }
+
+    function updateVibeConfig(level) {
+      playSynthSound('click');
+      localStorage.setItem('storm-vibe', level);
+      syncSettingsButtonIndicators();
+    }
+
+    function updateShakeConfig(shake) {
+      playSynthSound('click');
+      localStorage.setItem('storm-shake', shake);
+      syncSettingsButtonIndicators();
+    }
+
+    function updateTelemetryRate(rate) {
+      playSynthSound('click');
+      localStorage.setItem('telemetry-rate', rate);
+      telemetryIntervalVal = rate;
+      syncSettingsButtonIndicators();
+      initTelemetryMonitor(); // Reboot graph loop interval
+    }
+
+    function syncSettingsButtonIndicators() {
+      const sound = localStorage.getItem('storm-sound') || 'mech';
+      const vibe = localStorage.getItem('storm-vibe') || 'low';
+      const shake = localStorage.getItem('storm-shake') || 'none';
+      const telemetry = localStorage.getItem('telemetry-rate') || '1000';
+
+      // Sound buttons indicators reset
+      ['mech', 'arcade', 'soft', 'none'].forEach(id => {
+        const btn = document.getElementById(`cfg-sound-${id}`);
+        if(btn) {
+          btn.className = (id === sound) 
+            ? "p-3 text-xs sm:text-sm font-bold border-2 border-brand-blue bg-brand-blue/10 text-brand-blue rounded-xl transition-all" 
+            : "p-3 text-xs sm:text-sm font-bold border border-slate-300 dark:border-slate-700 bg-transparent text-slate-700 dark:text-slate-300 rounded-xl transition-all";
+        }
+      });
+
+      // Vibe buttons indicators reset
+      ['none', 'low', 'medium', 'high'].forEach(id => {
+        const btn = document.getElementById(`cfg-vibe-${id}`);
+        if(btn) {
+          btn.className = (id === vibe)
+            ? "p-2 text-xs font-bold border-2 border-brand-orange bg-brand-orange/10 text-brand-orange rounded-xl transition-all"
+            : "p-2 text-xs font-bold border border-slate-300 dark:border-slate-700 bg-transparent text-slate-700 dark:text-slate-300 rounded-xl transition-all";
+        }
+      });
+
+      // Shake buttons indicators reset
+      ['none', 'light', 'strong'].forEach(id => {
+        const btn = document.getElementById(`cfg-shake-${id}`);
+        if(btn) {
+          btn.className = (id === shake)
+            ? "p-2.5 text-xs font-bold border-2 border-brand-orange bg-brand-orange/10 text-brand-orange rounded-xl transition-all"
+            : "p-2.5 text-xs font-bold border border-slate-300 dark:border-slate-700 bg-transparent text-slate-700 dark:text-slate-300 rounded-xl transition-all";
+        }
+      });
+
+      // Telemetry rate buttons indicators reset
+      ['500', '1000', '2000'].forEach(id => {
+        const btn = document.getElementById(`cfg-telemetry-${id}`);
+        if(btn) {
+          btn.className = (id === telemetry)
+            ? "p-2.5 text-xs font-bold border-2 border-brand-red bg-brand-red/10 text-brand-red rounded-xl transition-all"
+            : "p-2.5 text-xs font-bold border border-slate-300 dark:border-slate-700 bg-transparent text-slate-700 dark:text-slate-300 rounded-xl transition-all";
+        }
+      });
+    }
+
+    // Render Bento Squares
+    function renderDirectory() {
+      const container = document.getElementById('quests-directory-container');
+      container.innerHTML = '';
+
+      projectsList.forEach((item) => {
+        const div = document.createElement('div');
+        div.id = `dir-btn-${item.id}`;
+        // Direct click behavior: Inspects local details AND opens external preview link instantly in a new tab
+        div.onclick = () => {
+          selectDirectoryTarget(item.id);
+          playSynthSound('click');
+          window.open(item.url, '_blank');
+        };
+        div.className = "project-btn bento-card-glow aspect-square w-full text-left p-4 sm:p-5 rounded-3xl border border-black/[0.04] dark:border-white/[0.04] hover:border-black/20 dark:hover:border-white/20 transition-all flex flex-col justify-between cursor-pointer bg-slate-50/50 dark:bg-slate-900/50 relative overflow-hidden group shadow-sm";
+        div.innerHTML = `
+          <!-- Top Row Navigation & Meta -->
+          <div class="flex items-center justify-between w-full z-10">
+            <div class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-black/[0.05] dark:border-white/[0.05] text-slate-700 dark:text-slate-300">
+              <i data-lucide="${item.icon || 'folder'}" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+            </div>
+            <i data-lucide="arrow-up-right" class="w-4 h-4 sm:w-5 sm:h-5 text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors"></i>
+          </div>
+
+          <!-- Mid Section: Premium SVG High-Quality Graphics Preview -->
+          <div class="flex-1 w-full flex items-center justify-center py-2 sm:py-3 px-1 z-0 overflow-hidden transform group-hover:scale-105 transition-transform duration-500 ease-out">
+            <div class="w-20 h-20 sm:w-24 sm:h-24">
+              ${item.previewSvg}
+            </div>
+          </div>
+
+          <!-- Bottom Row Meta -->
+          <div class="mt-auto space-y-1 z-10">
+            <h4 class="text-sm sm:text-base font-extrabold text-slate-800 dark:text-white truncate" title="${item.title}">${item.title}</h4>
+            <p class="text-[10px] sm:text-xs text-slate-400 font-mono font-bold tracking-wide truncate">${item.tech}</p>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+      lucide.createIcons();
+
+      if (projectsList.length > 0) {
+        selectDirectoryTarget(projectsList[0].id);
+      }
+    }
+
+    function selectDirectoryTarget(id) {
+      const selected = projectsList.find(i => i.id === id);
+      if (!selected) return;
+
+      document.querySelectorAll('.project-btn').forEach(btn => {
+        btn.classList.remove('border-black/25', 'dark:border-white/20', 'bg-black/[0.02]', 'dark:bg-white/[0.02]');
+      });
+
+      const activeBtn = document.getElementById(`dir-btn-${id}`);
+      if (activeBtn) {
+        activeBtn.classList.add('border-black/25', 'dark:border-white/20', 'bg-black/[0.02]', 'dark:bg-white/[0.02]');
+      }
+
+      document.getElementById('target-title').innerText = selected.title;
+      document.getElementById('target-description').innerText = selected.desc;
+      document.getElementById('target-node').innerText = selected.node;
+      document.getElementById('target-tech').innerText = selected.tech;
+      document.getElementById('target-link').href = selected.url;
+    }
+
+    // Render Quiz Question
+    function renderQuiz() {
       selectedOptionIndex = null;
-
-      document.getElementById('quiz-class-tag').textContent = quiz.tag;
-      document.getElementById('quiz-question-text').textContent = quiz.question;
-
+      document.getElementById('quiz-question-text').innerText = quizData.question;
       const optionsContainer = document.getElementById('quiz-options-container');
       optionsContainer.innerHTML = '';
 
-      quiz.options.forEach((opt, idx) => {
-        const optButton = document.createElement('button');
-        optButton.id = `quiz-option-${idx}`;
-        optButton.onclick = () => selectQuizOption(idx);
-        optButton.className = "w-full text-left p-4 rounded-xl border-2 border-zinc-200 dark:border-zinc-700 hover:border-zinc-300 dark:hover:border-zinc-600 bg-transparent text-xs font-black transition-all flex items-center justify-between font-sans";
-        optButton.innerHTML = `
+      quizData.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.id = `quiz-option-${idx}`;
+        btn.onclick = () => selectQuizOption(idx);
+        btn.className = "w-full text-left p-3.5 rounded-2xl border border-black/[0.08] dark:border-white/[0.08] hover:border-black/20 dark:hover:border-white/20 bg-transparent text-sm sm:text-base font-extrabold transition-all flex items-center justify-between";
+        btn.innerHTML = `
           <span>${opt.text}</span>
-          <span class="w-4 h-4 rounded-full border border-zinc-300 dark:border-zinc-600 flex items-center justify-center text-[10px]" id="indicator-${idx}"></span>
+          <span class="w-3.5 h-3.5 rounded-full border border-slate-300 dark:border-slate-700 flex items-center justify-center text-[10px]" id="indicator-${idx}"></span>
         `;
-        optionsContainer.appendChild(optButton);
+        optionsContainer.appendChild(btn);
       });
 
       const verifyButton = document.getElementById('quiz-action-btn');
-      verifyButton.textContent = 'Verify Answer';
-      verifyButton.className = "btn-3d h-11 px-6 bg-brand-green hover:bg-brand-green-hover text-white rounded-xl font-black text-xs uppercase shadow-[0_3px_0_#4BB200] tracking-wider";
+      verifyButton.innerText = 'Verify';
+      verifyButton.className = "bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-neutral-200 text-white dark:text-slate-950 font-bold text-xs py-2 px-4 rounded-xl shadow-sm transition-all uppercase tracking-wider";
       verifyButton.onclick = checkQuizAnswer;
 
-      document.getElementById('quiz-feedback-status').className = "text-xs font-black uppercase tracking-wider text-zinc-400";
-      document.getElementById('quiz-feedback-status').textContent = "Pick one choice above!";
+      document.getElementById('quiz-feedback-status').className = "text-xs font-mono uppercase text-slate-400 font-extrabold";
+      document.getElementById('quiz-feedback-status').innerText = "Select Choice";
     }
 
     function selectQuizOption(index) {
       playSynthSound('click');
       selectedOptionIndex = index;
-      const quiz = quizDatabase[currentWorkspace];
 
-      quiz.options.forEach((_, idx) => {
+      quizData.options.forEach((_, idx) => {
         const btn = document.getElementById(`quiz-option-${idx}`);
         const indicator = document.getElementById(`indicator-${idx}`);
         if (idx === index) {
-          btn.className = "w-full text-left p-4 rounded-xl border-2 border-brand-blue bg-brand-blue/5 dark:bg-brand-blue/10 text-brand-blue text-xs font-black transition-all flex items-center justify-between font-sans";
-          indicator.className = "w-4 h-4 rounded-full bg-brand-blue text-white flex items-center justify-center text-[8px]";
+          btn.className = "w-full text-left p-3.5 rounded-2xl border-2 border-brand-blue bg-brand-blue/5 dark:bg-brand-blue/10 text-brand-blue text-sm sm:text-base font-extrabold transition-all flex items-center justify-between";
+          indicator.className = "w-3.5 h-3.5 rounded-full bg-brand-blue text-white flex items-center justify-center text-[8px]";
           indicator.innerHTML = "✓";
         } else {
-          btn.className = "w-full text-left p-4 rounded-xl border-2 border-zinc-200 dark:border-zinc-700 hover:border-zinc-300 dark:hover:border-zinc-600 bg-transparent text-xs font-black transition-all flex items-center justify-between font-sans";
-          indicator.className = "w-4 h-4 rounded-full border border-zinc-300 dark:border-zinc-600 flex items-center justify-center text-[10px]";
+          btn.className = "w-full text-left p-3.5 rounded-2xl border border-black/[0.08] dark:border-white/[0.08] hover:border-black/20 dark:hover:border-white/20 bg-transparent text-sm sm:text-base font-extrabold transition-all flex items-center justify-between";
+          indicator.className = "w-3.5 h-3.5 rounded-full border border-slate-300 dark:border-slate-700 flex items-center justify-center text-[10px]";
           indicator.innerHTML = "";
         }
       });
 
-      document.getElementById('quiz-feedback-status').className = "text-xs font-black uppercase tracking-wider text-brand-blue";
-      document.getElementById('quiz-feedback-status').textContent = "Choice loaded! Ready to verify?";
+      document.getElementById('quiz-feedback-status').className = "text-xs font-mono uppercase text-brand-blue font-extrabold";
+      document.getElementById('quiz-feedback-status').innerText = "Loaded...";
     }
 
     function checkQuizAnswer() {
       if (selectedOptionIndex === null) {
         playSynthSound('error');
-        showToast("Please select an option first!", "⚠️", "bg-brand-red");
+        showToast("Select an option first.", true);
         return;
       }
 
-      const quiz = quizDatabase[currentWorkspace];
-      const isCorrect = quiz.options[selectedOptionIndex].isCorrect;
+      const isCorrect = quizData.options[selectedOptionIndex].isCorrect;
       const feedbackText = document.getElementById('quiz-feedback-status');
       const actionButton = document.getElementById('quiz-action-btn');
 
       if (isCorrect) {
         playSynthSound('correct');
-        userXP += 15;
-        document.getElementById('quiz-xp-count').textContent = userXP;
-        
-        feedbackText.className = "text-xs font-black uppercase tracking-wider text-brand-green";
-        feedbackText.textContent = "🔥 Outstanding! Correct Response (+15 XP)";
+        feedbackText.className = "text-xs font-mono uppercase text-brand-green font-extrabold";
+        feedbackText.innerText = "SUCCESSFUL";
 
         const correctBtn = document.getElementById(`quiz-option-${selectedOptionIndex}`);
-        correctBtn.className = "w-full text-left p-4 rounded-xl border-2 border-brand-green bg-brand-green/10 text-brand-green text-xs font-black transition-all flex items-center justify-between font-sans";
+        correctBtn.className = "w-full text-left p-3.5 rounded-2xl border-2 border-brand-green bg-brand-green/10 text-brand-green text-sm sm:text-base font-extrabold transition-all flex items-center justify-between";
 
-        showToast("XP Updated! Excellent paradigm conceptualization.", "🏆", "bg-brand-green");
+        showToast("Correct choice.", false);
       } else {
         playSynthSound('error');
-        feedbackText.className = "text-xs font-black uppercase tracking-wider text-brand-red";
-        feedbackText.textContent = "❌ Incorrect. Try evaluating standard technical parameters.";
+        feedbackText.className = "text-xs font-mono uppercase text-brand-red font-extrabold";
+        feedbackText.innerText = "FAILED";
 
         const wrongBtn = document.getElementById(`quiz-option-${selectedOptionIndex}`);
-        wrongBtn.className = "w-full text-left p-4 rounded-xl border-2 border-brand-red bg-brand-red/10 text-brand-red text-xs font-black transition-all flex items-center justify-between font-sans";
+        wrongBtn.className = "w-full text-left p-3.5 rounded-2xl border-2 border-brand-red bg-brand-red/10 text-brand-red text-sm sm:text-base font-extrabold transition-all flex items-center justify-between";
       }
 
-      actionButton.textContent = "Reset Logic Challenge";
-      actionButton.className = "btn-3d h-11 px-6 bg-brand-blue hover:bg-brand-blue-hover text-white rounded-xl font-black text-xs uppercase shadow-[0_3px_0_#1692cd] tracking-wider";
-      actionButton.onclick = renderQuizUnit;
+      actionButton.innerText = "Reset";
+      actionButton.className = "bg-brand-blue hover:bg-brand-blue/90 text-white font-bold text-xs py-2 px-4 rounded-xl shadow-sm transition-all uppercase tracking-wider";
+      actionButton.onclick = renderQuiz;
     }
 
-    // Toggle Themes (Sun/Moon animations)
-    function handleToggleTheme() {
+    function handleTerminalKeypress(e) {
       playSynthSound('click');
-      const htmlNode = document.documentElement;
-      const sunIcon = document.getElementById('theme-sun-icon');
-      const moonIcon = document.getElementById('theme-moon-icon');
+      if (e.key === 'Enter') {
+        const val = e.target.value.trim().toLowerCase();
+        e.target.value = '';
 
-      if (theme === 'light') {
-        theme = 'dark';
-        htmlNode.classList.add('dark');
-        
-        sunIcon.classList.replace('rotate-0', 'rotate-90');
-        sunIcon.classList.replace('scale-100', 'scale-0');
-        sunIcon.classList.replace('opacity-100', 'opacity-0');
+        if (!val) return;
 
-        moonIcon.classList.replace('-rotate-90', 'rotate-0');
-        moonIcon.classList.replace('scale-0', 'scale-100');
-        moonIcon.classList.replace('opacity-0', 'opacity-100');
-        showToast("Switched theme to Dark", "🌙", "bg-[#1F2E35]");
-      } else {
-        theme = 'light';
-        htmlNode.classList.remove('dark');
+        const output = document.getElementById('terminal-output');
+        const userLine = document.createElement('p');
+        userLine.innerHTML = `<span class="text-blue-400 font-bold">vitcore ~ %</span> ${val}`;
+        output.appendChild(userLine);
 
-        sunIcon.classList.replace('rotate-90', 'rotate-0');
-        sunIcon.classList.replace('scale-0', 'scale-100');
-        sunIcon.classList.replace('opacity-0', 'opacity-100');
+        const responseLine = document.createElement('p');
+        responseLine.className = 'text-slate-400 pl-2';
 
-        moonIcon.classList.replace('rotate-0', '-rotate-90');
-        moonIcon.classList.replace('scale-100', 'scale-0');
-        moonIcon.classList.replace('opacity-100', 'opacity-0');
-        showToast("Switched theme to Light", "☀️", "bg-zinc-200 !text-zinc-800");
+        switch (val) {
+          case 'help':
+            responseLine.innerText = "System targets: 'about', 'quests', 'theme', 'clear', 'settings'";
+            break;
+          case 'about':
+            responseLine.innerText = "Anshu Rajhans is a Developer based out of vitcoore network nodes.";
+            break;
+          case 'quests':
+            responseLine.innerText = "Active systems nodes: its, anshu4u, gr, vipweb, play, ai, lab, status";
+            break;
+          case 'theme':
+            toggleTheme();
+            responseLine.innerText = "Workspace theme flipped.";
+            break;
+          case 'settings':
+            openSettingsPage();
+            responseLine.innerText = "Workspace settings page loaded.";
+            break;
+          case 'clear':
+            output.innerHTML = '';
+            return;
+          default:
+            responseLine.innerText = `sh: command not found: ${val}. Type 'help' for directory audits.`;
+            responseLine.className = 'text-red-400 pl-2';
+        }
+
+        output.appendChild(responseLine);
+        output.scrollTop = output.scrollHeight;
       }
     }
 
-    // Storm Core customizable configurations
-    if(!localStorage.getItem('storm-vibe')) localStorage.setItem('storm-vibe', 'low');
-    if(!localStorage.getItem('storm-shake')) localStorage.setItem('storm-shake', 'none');
-
-    function showStormSettings() {
-      playSynthSound('click');
-      const currentVibe = localStorage.getItem('storm-vibe') || 'low';
-      const currentShake = localStorage.getItem('storm-shake') || 'none';
-
-      Swal.fire({
-        title: '⛈️ Storm Core Settings',
-        html: `
-          <div class="text-left space-y-4 font-sans text-xs">
-            <div>
-              <label class="block font-black mb-1.5 text-zinc-800">Haptic Vibration feedback:</label>
-              <select id="vibe-select" class="w-full bg-zinc-100 text-zinc-900 rounded-lg p-2.5 border border-zinc-300 outline-none">
-                <option value="none" ${currentVibe === 'none' ? 'selected' : ''}>None / Off</option>
-                <option value="low" ${currentVibe === 'low' ? 'selected' : ''}>Low (Short Tap)</option>
-                <option value="medium" ${currentVibe === 'medium' ? 'selected' : ''}>Medium</option>
-                <option value="high" ${currentVibe === 'high' ? 'selected' : ''}>High (Rumble)</option>
-              </select>
-            </div>
-            <div>
-              <label class="block font-black mb-1.5 text-zinc-800">Screen Thunder Shake:</label>
-              <select id="shake-select" class="w-full bg-zinc-100 text-zinc-900 rounded-lg p-2.5 border border-zinc-300 outline-none">
-                <option value="none" ${currentShake === 'none' ? 'selected' : ''}>No Shake</option>
-                <option value="light" ${currentShake === 'light' ? 'selected' : ''}>Light Rumble</option>
-                <option value="strong" ${currentShake === 'strong' ? 'selected' : ''}>Strong Rumble</option>
-              </select>
-            </div>
-          </div>
-        `,
-        showCancelButton: true,
-        confirmButtonText: 'Save Configuration',
-        cancelButtonText: 'Cancel',
-        background: '#ffffff',
-        color: '#18181b',
-        customClass: {
-          confirmButton: 'bg-brand-green text-white px-6 py-2 rounded-xl font-bold uppercase text-[11px] outline-none mr-2',
-          cancelButton: 'bg-zinc-300 text-zinc-700 px-6 py-2 rounded-xl font-bold uppercase text-[11px] outline-none'
-        },
-        preConfirm: () => {
-          return {
-            vibe: document.getElementById('vibe-select').value,
-            shake: document.getElementById('shake-select').value
-          }
-        }
-      }).then((result) => {
-        if (result.isConfirmed) {
-          playSynthSound('correct');
-          localStorage.setItem('storm-vibe', result.value.vibe);
-          localStorage.setItem('storm-shake', result.value.shake);
-          
-          iziToast.success({
-            title: 'Saved',
-            message: 'Feedback preferences updated successfully.',
-            position: 'bottomCenter',
-            timeout: 2000
-          });
-        }
-      });
-    }
-
-    function showFlexDetail(msg) {
-      playSynthSound('correct');
-      iziToast.info({
-        title: 'XP Record Unlocked',
-        message: msg,
-        position: 'topCenter',
-        backgroundColor: '#100F3E',
-        titleColor: '#58CC02',
-        messageColor: '#ffffff',
-        timeout: 4000
-      });
-    }
-
-    function triggerEasterEgg() {
-      playSynthSound('congrats');
-      if ('speechSynthesis' in window) {
-        let utter = new SpeechSynthesisUtterance("Vitcoore Storm Online");
-        utter.rate = 0.8;
-        utter.pitch = 0.5;
-        speechSynthesis.speak(utter);
-      }
-      iziToast.success({
-        title: '⛈️ Storm Core Activated',
-        message: 'Master trigger processed successfully!',
-        position: 'bottomRight'
-      });
-    }
-
-    function handleContactSubmit(event) {
-      event.preventDefault();
+    function handleContactSubmit(e) {
+      e.preventDefault();
       playSynthSound('correct');
       const name = document.getElementById('form-name').value;
-      
-      showToast(`Signal sent successfully! Thank you, ${name}.`, "📬", "bg-brand-green");
+      showToast(`Signal dispatched. Thanks, ${name}!`);
       
       document.getElementById('form-name').value = '';
       document.getElementById('form-email').value = '';
@@ -1113,138 +1195,281 @@
       document.getElementById('form-msg').value = '';
     }
 
-    // Static 3D Low-Poly Thunder Cloud implementation
-    function init3DCloud() {
-      const container3d = document.getElementById('three-canvas-container');
-      if (!container3d) return;
+    // Telemetry Canvas Graphic Monitor Loop
+    function initTelemetryMonitor() {
+      // Clear previous running interval if any
+      if (telemetryTimer) clearInterval(telemetryTimer);
 
-      const width = container3d.clientWidth || 280;
-      const height = container3d.clientHeight || 280;
-      const scene = new THREE.Scene();
+      const cpuCanvas = document.getElementById('cpu-graph');
+      const ramCanvas = document.getElementById('ram-graph');
+      if (!cpuCanvas || !ramCanvas) return;
+
+      const cpuCtx = cpuCanvas.getContext('2d');
+      const ramCtx = ramCanvas.getContext('2d');
       
-      const aspect = width / height;
-      const camera = new THREE.OrthographicCamera(-2.5 * aspect, 2.5 * aspect, 2.5, -2.5, 1, 100);
-      camera.position.set(0, 0, 10);
-      camera.lookAt(0, 0, 0);
+      let cpuPoints = Array(20).fill(20);
+      let ramPoints = Array(20).fill(40);
 
-      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-      renderer.setSize(width, height);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-      container3d.appendChild(renderer.domElement);
+      function drawGraph(ctx, points, maxVal, strokeColor) {
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        ctx.beginPath();
+        ctx.strokeStyle = strokeColor;
+        ctx.lineWidth = 1.5;
 
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.45);
-      const sunLight = new THREE.DirectionalLight(0xffffff, 1.1);
-      sunLight.position.set(5, 10, 8);
-      const lightningFlashLight = new THREE.PointLight(0x1CB0F6, 0, 15);
-      lightningFlashLight.position.set(0, 0, 0);
-      scene.add(ambientLight, sunLight, lightningFlashLight);
-
-      const cloudGroup = new THREE.Group();
-      const cloudMat = new THREE.MeshStandardMaterial({ color: 0xeeeeee, roughness: 0.95, metalness: 0.05, emissive: 0x000000 });
-      const sphereGeo = new THREE.SphereGeometry(0.8, 16, 16);
-      const cloudSegments = [
-        { p: [0, 0, 0], s: [1.2, 0.9, 1.1] },
-        { p: [-0.7, -0.1, 0.1], s: [0.8, 0.7, 0.8] },
-        { p: [0.7, -0.1, -0.1], s: [0.85, 0.75, 0.85] },
-        { p: [0.2, 0.5, -0.1], s: [0.75, 0.7, 0.75] },
-        { p: [-0.3, -0.2, 0.4], s: [0.6, 0.5, 0.6] }
-      ];
-
-      cloudSegments.forEach(data => {
-        const segMesh = new THREE.Mesh(sphereGeo, cloudMat);
-        segMesh.position.set(...data.p);
-        segMesh.scale.set(...data.s);
-        const edges = new THREE.EdgesGeometry(sphereGeo);
-        const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x000000, opacity: 0.08, transparent: true }));
-        segMesh.add(line);
-        cloudGroup.add(segMesh);
-      });
-      scene.add(cloudGroup);
-
-      const lightningGeo = new THREE.BufferGeometry();
-      const lightningMat = new THREE.LineBasicMaterial({ color: 0x58CC02, linewidth: 3 }); 
-      const lightningLine = new THREE.Line(lightningGeo, lightningMat);
-      lightningLine.visible = false;
-      scene.add(lightningLine);
-
-      cloudGroup.rotation.y = -0.2;
-      cloudGroup.position.set(0, 0.3, 0);
-
-      function triggerLightningStrike() {
-        const boltPoints = [];
-        let curPoint = new THREE.Vector3((Math.random() - 0.5) * 0.4, -0.2, 0.1);
-        boltPoints.push(curPoint.clone());
-        for(let i=0; i<4; i++) {
-          curPoint.x += (Math.random() - 0.5) * 0.55;
-          curPoint.y -= 0.45;
-          curPoint.z += (Math.random() - 0.5) * 0.25;
-          boltPoints.push(curPoint.clone());
+        const step = ctx.canvas.width / (points.length - 1);
+        for(let i=0; i<points.length; i++) {
+          const x = i * step;
+          const y = ctx.canvas.height - (points[i] / maxVal) * ctx.canvas.height;
+          if (i === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
         }
-        lightningGeo.setFromPoints(boltPoints);
-        let count = 0;
-        const flicker = setInterval(() => {
-          const on = count % 2 === 0;
-          lightningLine.visible = on;
-          lightningFlashLight.intensity = on ? 14 : 0;
-          cloudMat.emissive.setHex(on ? 0x2244aa : 0x000000); 
-          count++;
-          if(count > 5) {
-            clearInterval(flicker);
-            lightningLine.visible = false;
-            lightningFlashLight.intensity = 0;
-            cloudMat.emissive.setHex(0x000000);
-          }
-        }, 50);
-
-        const vibePreference = localStorage.getItem('storm-vibe') || 'low';
-        if ('vibrate' in navigator && vibePreference !== 'none') {
-          if (vibePreference === 'low') navigator.vibrate(25);
-          else if (vibePreference === 'medium') navigator.vibrate(60);
-          else if (vibePreference === 'high') navigator.vibrate([100, 50, 100]);
-        }
-
-        const shakePreference = localStorage.getItem('storm-shake') || 'none';
-        const mainApp = document.getElementById('app');
-        if (mainApp && shakePreference !== 'none') {
-          const shakeClass = shakePreference === 'light' ? 'animate-rumble-light' : 'animate-rumble-strong';
-          mainApp.classList.add(shakeClass);
-          setTimeout(() => { mainApp.classList.remove(shakeClass); }, 280);
-        }
+        ctx.stroke();
       }
 
-      function loopStrikes() {
-        const nextStrike = 4000 + Math.random() * 3000;
-        setTimeout(() => { triggerLightningStrike(); loopStrikes(); }, nextStrike);
-      }
-      loopStrikes();
+      telemetryTimer = setInterval(() => {
+        // Randomly adjust CPU metrics
+        const newCpu = Math.floor(15 + Math.random() * 45);
+        cpuPoints.push(newCpu);
+        cpuPoints.shift();
+        drawGraph(cpuCtx, cpuPoints, 100, '#EF4444');
+        document.getElementById('cpu-numeric').innerText = `${newCpu}%`;
 
-      function animate() { requestAnimationFrame(animate); renderer.render(scene, camera); }
-      animate();
-
-      window.addEventListener('resize', () => {
-        const w = container3d.clientWidth;
-        const h = container3d.clientHeight;
-        const newAspect = w / h;
-        camera.left = -2.5 * newAspect;
-        camera.right = 2.5 * newAspect;
-        camera.top = 2.5;
-        camera.bottom = -2.5;
-        camera.updateProjectionMatrix();
-        renderer.setSize(w, h);
-      });
+        // Adjust memory usage simulating network threads
+        const newRam = (3.8 + Math.random() * 0.9).toFixed(1);
+        ramPoints.push(parseFloat(newRam) * 10);
+        ramPoints.shift();
+        drawGraph(ramCtx, ramPoints, 80, '#1CB0F6');
+        document.getElementById('ram-numeric').innerText = `${newRam} GB / 8.0 GB`;
+      }, telemetryIntervalVal);
     }
 
-    // PWA Service Worker Registration
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js')
-          .then(reg => {
-            console.log('PWA Service Worker registered on scope:', reg.scope);
-          })
-          .catch(err => {
-            console.error('PWA Service Worker registration failed:', err);
-          });
+    // ============================================
+    // DYNAMIC TIC-TAC-TOE VS INTELLIGENT AI SYSTEM
+    // ============================================
+    let board = ['', '', '', '', '', '', '', '', ''];
+    let human = 'X';
+    let ai = 'O';
+    let difficulty = 'easy';
+    let isGameActive = true;
+
+    function initTicTacToeGrid() {
+      const field = document.getElementById('tic-tac-toe-field');
+      field.innerHTML = '';
+      for (let i = 0; i < 9; i++) {
+        const cell = document.createElement('button');
+        cell.id = `ttt-cell-${i}`;
+        cell.onclick = () => handlePlayerMove(i);
+        cell.className = "aspect-square rounded-xl bg-slate-50 dark:bg-slate-950 border border-black/[0.05] dark:border-white/[0.05] flex items-center justify-center font-bold text-base transition-all focus:outline-none";
+        field.appendChild(cell);
+      }
+    }
+
+    function setDifficulty(level) {
+      playSynthSound('click');
+      difficulty = level;
+
+      document.querySelectorAll('[id^="diff-"]').forEach(btn => {
+        btn.className = "text-[10px] font-mono px-2 py-0.5 text-slate-400 font-bold";
       });
+
+      const activeBtn = document.getElementById(`diff-${level}`);
+      if (activeBtn) {
+        activeBtn.className = "text-[10px] font-mono px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold";
+      }
+      resetTicTacToe();
+    }
+
+    function handlePlayerMove(idx) {
+      if (board[idx] !== '' || !isGameActive) return;
+
+      playSynthSound('click');
+      makeMove(idx, human);
+
+      if (evaluateGameState()) return;
+
+      // AI Response Trigger
+      isGameActive = false; // Lock board during AI computation
+      document.getElementById('game-status-label').innerText = "AI Processing...";
+      setTimeout(() => {
+        triggerAiMove();
+        isGameActive = true;
+        evaluateGameState();
+      }, 500);
+    }
+
+    // TTT Make Move
+    function makeMove(idx, player) {
+      board[idx] = player;
+      const cell = document.getElementById('ttt-cell-' + idx);
+      if (cell) {
+        cell.innerText = player;
+        cell.disabled = true;
+        if (player === 'X') {
+          cell.className = "aspect-square rounded-xl bg-slate-100 dark:bg-slate-900 border border-black/[0.05] dark:border-white/[0.05] flex items-center justify-center font-extrabold text-lg text-brand-blue";
+        } else {
+          cell.className = "aspect-square rounded-xl bg-slate-100 dark:bg-slate-900 border border-black/[0.05] dark:border-white/[0.05] flex items-center justify-center font-extrabold text-lg text-brand-red";
+        }
+      }
+    }
+
+    function triggerAiMove() {
+      let move = -1;
+
+      if (difficulty === 'easy') {
+        move = getRandomMove();
+      } else if (difficulty === 'medium') {
+        if (Math.random() < 0.5) {
+          move = getBestMinimaxMove();
+        } else {
+          move = getRandomMove();
+        }
+      } else { // hard
+        move = getBestMinimaxMove();
+      }
+
+      if (move !== -1) {
+        makeMove(move, ai);
+      }
+    }
+
+    function getRandomMove() {
+      let empties = [];
+      for (let i = 0; i < 9; i++) {
+        if (board[i] === '') empties.push(i);
+      }
+      if (empties.length === 0) return -1;
+      return empties[Math.floor(Math.random() * empties.length)];
+    }
+
+    // Minimax Algorithm core implementation for Hard/Medium AI
+    function getBestMinimaxMove() {
+      let bestScore = -Infinity;
+      let move = -1;
+      for (let i = 0; i < 9; i++) {
+        if (board[i] === '') {
+          board[i] = ai;
+          let score = minimax(board, 0, false);
+          board[i] = '';
+          if (score > bestScore) {
+            bestScore = score;
+            move = i;
+          }
+        }
+      }
+      return move;
+    }
+
+    function minimax(tempBoard, depth, isMaximizing) {
+      let result = checkWinState(tempBoard);
+      if (result !== null) {
+        if (result === ai) return 10 - depth;
+        if (result === human) return depth - 10;
+        if (result === 'tie') return 0;
+      }
+
+      if (isMaximizing) {
+        let bestScore = -Infinity;
+        for (let i = 0; i < 9; i++) {
+          if (tempBoard[i] === '') {
+            tempBoard[i] = ai;
+            let score = minimax(tempBoard, depth + 1, false);
+            tempBoard[i] = '';
+            bestScore = Math.max(score, bestScore);
+          }
+        }
+        return bestScore;
+      } else {
+        let bestScore = Infinity;
+        for (let i = 0; i < 9; i++) {
+          if (tempBoard[i] === '') {
+            tempBoard[i] = human;
+            let score = minimax(tempBoard, depth + 1, true);
+            tempBoard[i] = '';
+            bestScore = Math.min(score, bestScore);
+          }
+        }
+        return bestScore;
+      }
+    }
+
+    function checkWinState(b) {
+      const winPatterns = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],
+        [0, 4, 8], [2, 4, 6]
+      ];
+
+      for (let pattern of winPatterns) {
+        const [x, y, z] = pattern;
+        if (b[x] && b[x] === b[y] && b[x] === b[z]) {
+          return b[x];
+        }
+      }
+
+      let openSpots = 0;
+      for (let i = 0; i < 9; i++) {
+        if (b[i] === '') openSpots++;
+      }
+
+      if (openSpots === 0) return 'tie';
+      return null;
+    }
+
+    function evaluateGameState() {
+      let winner = checkWinState(board);
+      const statusLabel = document.getElementById('game-status-label');
+
+      if (winner !== null) {
+        isGameActive = false;
+        if (winner === 'tie') {
+          statusLabel.innerText = "Draw Game";
+          showToast("Match ended in a draw.");
+        } else {
+          statusLabel.innerText = `${winner} Wins`;
+          if (winner === human) {
+            playSynthSound('congrats');
+            showToast("Congratulations! You won.");
+          } else {
+            playSynthSound('error');
+            showToast("AI won. Better luck next time!", true);
+          }
+        }
+        return true;
+      }
+      statusLabel.innerText = "Your Turn (X)";
+      return false;
+    }
+
+    function resetTicTacToe() {
+      playSynthSound('click');
+      board = ['', '', '', '', '', '', '', '', ''];
+      isGameActive = true;
+      document.getElementById('game-status-label').innerText = "Your Turn (X)";
+      initTicTacToeGrid();
+    }
+
+    function showToast(text, isError = false) {
+      const toast = document.getElementById('global-toast');
+      const toastMsg = document.getElementById('toast-message');
+      const iconBg = document.getElementById('toast-icon-bg');
+      const iconRender = document.getElementById('toast-icon-render');
+      
+      toastMsg.innerText = text;
+      
+      if (isError) {
+        iconBg.className = "h-7 w-7 rounded-full bg-red-500 flex items-center justify-center text-white";
+        iconRender.setAttribute('data-lucide', 'alert-triangle');
+      } else {
+        iconBg.className = "h-7 w-7 rounded-full bg-slate-900 dark:bg-white flex items-center justify-center text-white dark:text-slate-950";
+        iconRender.setAttribute('data-lucide', 'check');
+      }
+
+      lucide.createIcons();
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      
+      setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 3000);
     }
   </script>
 </body>

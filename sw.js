@@ -1,42 +1,40 @@
-const CACHE_NAME = 'vitcoore-pwa-cache-v3';
+const CACHE_NAME = 'vitcoore-workspace-v1';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './manifest.json',
+  'https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800;900&display=swap',
   'https://cdn.tailwindcss.com',
   'https://cdn.jsdelivr.net/npm/sweetalert2@11',
-  'https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js',
-  'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js',
-  'https://unpkg.com/@phosphor-icons/web'
+  'https://unpkg.com/lucide@latest'
 ];
 
-// Perform Installation and cache core static assets
+// Install Event - Resources cache karna
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
+      console.log('[Service Worker] Static assets being cached');
       return cache.addAll(ASSETS_TO_CACHE);
     })
   );
-  self.skipWaiting();
 });
 
-// Clear out old caches during activation
+// Activate Event - Old cache delete karna
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cache) => {
-          if (cache !== CACHE_NAME) {
-            return caches.delete(cache);
-          }
-        })
-      );
+    caches.keys().then((keyList) => {
+      return Promise.all(keyList.map((key) => {
+        if (key !== CACHE_NAME) {
+          console.log('[Service Worker] Clearing old cache', key);
+          return caches.delete(key);
+        }
+      }));
     })
   );
-  self.clients.claim();
+  return self.clients.claim();
 });
 
-// Cache-First with Network Fallback fetch handler
+// Fetch Event - Dynamic cache response provide karna (Offline capabilities)
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
@@ -44,19 +42,12 @@ self.addEventListener('fetch', (event) => {
         return cachedResponse;
       }
       return fetch(event.request).then((networkResponse) => {
-        if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
-          return networkResponse;
-        }
-
-        // Cache dynamically fetched project routes
-        const responseToCache = networkResponse.clone();
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, responseToCache);
-        });
-
         return networkResponse;
       }).catch(() => {
-        // Fallback for offline network drops
+        // Navigational page fail hone par offline support fallback
+        if (event.request.mode === 'navigate') {
+          return caches.match('./index.html');
+        }
       });
     })
   );
