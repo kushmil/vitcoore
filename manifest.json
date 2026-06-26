@@ -1,22 +1,29 @@
 {
-  "short_name": "vitcoore",
-  "name": "Anshu Rajhans · Systems Workspace",
-  "description": "Premium multi-project developer portfolio and workspace ecosystem.",
-  "icons": [
-    {
-      "src": "https://img.icons8.com/fluency/192/system-task.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "https://img.icons8.com/fluency/512/system-task.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
-  ],
+  "name": "Anshu Rajhans • Developer Workspace",
+  "short_name": "anshu.dev",
+  "description": "Premium developer studio and client portfolio index workspace for Anshu Rajhans.",
   "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait-primary",
   "background_color": "#0d0d0f",
   "theme_color": "#0d0d0f",
-  "display": "standalone",
-  "orientation": "any"
+  "icons": [
+    {
+      "src": "https://its.vitcoore.xyz/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "https://its.vitcoore.xyz/favicon.ico",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://its.vitcoore.xyz/favicon.ico",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
 }

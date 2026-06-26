@@ -1,53 +1,56 @@
-const CACHE_NAME = 'vitcoore-workspace-v1';
+const CACHE_NAME = 'anshu-dev-workspace-v1';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './manifest.json',
-  'https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800;900&display=swap',
-  'https://cdn.tailwindcss.com',
-  'https://cdn.jsdelivr.net/npm/sweetalert2@11',
-  'https://unpkg.com/lucide@latest'
+  'https://unpkg.com/lucide@latest',
+  'https://cdn.jsdelivr.net/npm/sweetalert2@11'
 ];
 
-// Install Event - Resources cache karna
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('[Service Worker] Static assets being cached');
+      console.log('[Service Worker] Caching workspace assets');
       return cache.addAll(ASSETS_TO_CACHE);
     })
   );
+  self.skipWaiting();
 });
 
-// Activate Event - Old cache delete karna
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keyList) => {
-      return Promise.all(keyList.map((key) => {
-        if (key !== CACHE_NAME) {
-          console.log('[Service Worker] Clearing old cache', key);
-          return caches.delete(key);
-        }
-      }));
+      return Promise.all(
+        keyList.map((key) => {
+          if (key !== CACHE_NAME) {
+            console.log('[Service Worker] Flashing legacy cache parameters', key);
+            return caches.delete(key);
+          }
+        })
+      );
     })
   );
-  return self.clients.claim();
+  self.clients.claim();
 });
 
-// Fetch Event - Dynamic cache response provide karna (Offline capabilities)
 self.addEventListener('fetch', (event) => {
+  if (event.request.method !== 'GET') return;
+
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {
         return cachedResponse;
       }
       return fetch(event.request).then((networkResponse) => {
+        if (networkResponse && networkResponse.status === 200) {
+          const responseToCache = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseToCache);
+          });
+        }
         return networkResponse;
       }).catch(() => {
-        // Navigational page fail hone par offline support fallback
-        if (event.request.mode === 'navigate') {
-          return caches.match('./index.html');
-        }
+        return new Response('Workspace Offline: Connectivity down.');
       });
     })
   );

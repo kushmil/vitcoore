@@ -1,1476 +1,1110 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="dark scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <meta name="theme-color" content="#0d0d0f">
-  <title>Anshu Rajhans · vitcoore · Premium Workspace</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Anshu Rajhans — Full Stack Developer Portfolio</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
 
-  <!-- PWA Manifest -->
-  <link rel="manifest" href="manifest.json">
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Tailwind Config -->
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-            mono: ['Fira Code', 'monospace'],
-          },
-          colors: {
-            brand: {
-              green: '#58CC02',
-              blue: '#1CB0F6',
-              orange: '#FF9600',
-              golden: '#FFC800',
-              red: '#EF4444'
-            },
-            slate: {
-              950: '#0d0d0f',
-              900: '#16161a',
-              800: '#202024',
-              700: '#2d2d34',
-              600: '#4a4a52',
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['var(--font-primary, Inter)', 'sans-serif'],
+                        syne: ['Syne', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        orangeAccent: 'var(--accent-color, #FF4F18)',
+                        darkBg: '#0D0D0D',
+                        cardDark: '#161616',
+                    },
+                    screens: {
+                        'xs': '375px',
+                    },
+                    animation: {
+                        'spin-slow': 'spin 12s linear infinite',
+                    }
+                }
             }
-          }
         }
-      }
-    }
-  </script>
+    </script>
 
-  <!-- SweetAlert2 CDN for alerts -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Sora:wght@300;400;600;800&family=Space+Grotesk:wght@400;500;700&family=Syne:wght@700;800&family=Work+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- SweetAlert2 CSS & JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-  <style>
-    ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
-    .dark ::-webkit-scrollbar-track { background: #0d0d0f; }
-    ::-webkit-scrollbar-track { background: #f4f4f7; }
-    .dark ::-webkit-scrollbar-thumb { background: #2d2d34; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb { background: #d1d1d6; border-radius: 4px; }
-    
-    .glass-panel {
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-    }
+    <!-- iziToast CSS & JS CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
 
-    /* Premium Matte Dynamic Heading Styles */
-    .premium-matte-heading {
-      color: #121214; /* Dark Matter Black in Light Theme */
-      text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.05);
-      transition: color 0.4s cubic-bezier(0.16, 1, 0.3, 1), text-shadow 0.4s ease;
-    }
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
-    .dark .premium-matte-heading {
-      color: #F4F4F7; /* Matte White in Dark Theme */
-      text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.05);
-    }
-
-    /* Interactive Hover Glow effects with cubic-bezier */
-    .bento-card-glow {
-      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .bento-card-glow:hover {
-      transform: translateY(-6px) scale(1.03);
-      box-shadow: 0 20px 38px -12px rgba(0, 0, 0, 0.12);
-    }
-    .dark .bento-card-glow:hover {
-      box-shadow: 0 20px 38px -12px rgba(255, 255, 255, 0.03);
-    }
-
-    /* Screen rumble shake animations */
-    @keyframes rumbleLight {
-      0% { transform: translate(0, 0); }
-      10% { transform: translate(-1.5px, -1.5px); }
-      20% { transform: translate(-2px, 0px); }
-      30% { transform: translate(1.5px, 1.5px); }
-      45% { transform: translate(1.5px, -1.5px); }
-      50% { transform: translate(-1.5px, 1.5px); }
-      100% { transform: translate(0, 0); }
-    }
-    @keyframes rumbleStrong {
-      0% { transform: translate(0, 0) rotate(0deg); }
-      10% { transform: translate(-3px, -3px) rotate(-0.5deg); }
-      20% { transform: translate(-4px, 0px) rotate(0.5deg); }
-      30% { transform: translate(3px, 3px) rotate(0deg); }
-      40% { transform: translate(3px, -3px) rotate(0.5deg); }
-      50% { transform: translate(-3px, 3px) rotate(-0.5deg); }
-      100% { transform: translate(0, 0) rotate(0deg); }
-    }
-    .animate-rumble-light {
-      animation: rumbleLight 0.2s linear;
-    }
-    .animate-rumble-strong {
-      animation: rumbleStrong 0.28s cubic-bezier(.36,.07,.19,.97) both;
-    }
-  </style>
+    <style>
+        body, section, div, h1, h2, p, span, a, svg, button {
+            transition: background-color 0.4s ease, border-color 0.4s ease, color 0.3s ease, transform 0.3s ease;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0D0D0D;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-color, #FF4F18);
+            border-radius: 4px;
+        }
+        .glass-panel {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        @keyframes progress-grow {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+        .animate-progress-grow {
+            animation: progress-grow 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+    </style>
 </head>
-<body class="bg-[#f4f4f6] dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans antialiased selection:bg-slate-200 dark:selection:bg-slate-800 transition-colors duration-500 overflow-x-hidden">
+<body class="bg-stone-50 text-neutral-900 dark:bg-darkBg dark:text-neutral-100 font-sans overflow-x-hidden antialiased">
 
-  <!-- Main System App Layout -->
-  <div id="app-container" class="flex flex-col min-h-screen">
-    
-    <!-- macOS Premium System Header Bar -->
-    <header class="sticky top-0 z-40 border-b border-black/[0.06] dark:border-white/[0.06] bg-white/90 dark:bg-slate-950/90 backdrop-blur-md px-6 sm:px-10 py-4 flex items-center justify-between transition-colors duration-300">
-      <div class="flex items-center space-x-6 sm:space-x-10">
-        <!-- macOS Traffic Lights -->
-        <div class="flex items-center space-x-2.5">
-          <span class="w-4 h-4 rounded-full bg-[#ff5f56] border border-[#e0443e]"></span>
-          <span class="w-4 h-4 rounded-full bg-[#ffbd2e] border border-[#dea123]"></span>
-          <span class="w-4 h-4 rounded-full bg-[#27c93f] border border-[#1aab29]"></span>
+    <!-- SPLASH SCREEN OVERLAY -->
+    <div id="splash-screen" class="fixed inset-0 z-[100] bg-slate-950 flex flex-col items-center justify-center transition-opacity duration-500">
+        <div class="space-y-6 text-center max-w-xs w-full px-4">
+            <div class="flex items-center justify-center">
+                <span class="text-orangeAccent text-5xl font-extrabold animate-spin-slow">✦</span>
+            </div>
+            <div class="space-y-2">
+                <h3 class="font-syne font-extrabold text-xl text-white tracking-widest uppercase">anshu.dev</h3>
+                <p class="text-[10px] text-slate-500 font-mono tracking-wide">COMPILING WORKSPACE ENVIRONMENT</p>
+            </div>
+            <div class="w-full h-1 bg-slate-800 rounded-full overflow-hidden">
+                <div class="h-full bg-orangeAccent animate-progress-grow rounded-full" style="background-color: var(--accent-color, #FF4F18);"></div>
+            </div>
         </div>
+    </div>
 
-        <!-- Identity Block -->
-        <div class="flex items-center space-x-3">
-          <span class="font-extrabold text-lg tracking-tight text-slate-900 dark:text-white">vitcoore</span>
-          <span class="text-xs text-slate-400 dark:text-slate-500 font-mono border border-black/[0.08] dark:border-white/[0.08] px-2.5 py-0.5 rounded bg-black/[0.02] dark:bg-white/[0.02] font-semibold">WORKSPACE</span>
+    <!-- HEADER / NAVIGATION -->
+    <header class="max-w-7xl mx-auto px-4 sm:px-6 py-6 flex items-center justify-between border-b border-neutral-200 dark:border-neutral-800">
+        <div class="flex items-center gap-2">
+            <span class="text-orangeAccent font-syne font-extrabold text-xl sm:text-2xl tracking-tight" style="color: var(--accent-color, #FF4F18);">✦ anshu.dev</span>
         </div>
-      </div>
+        
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide">
+            <a href="#projects" class="hover:text-orangeAccent" style="--hover-color: var(--accent-color, #FF4F18);">Projects</a>
+            <a href="#expertise" class="hover:text-orangeAccent">Expertise</a>
+            <a href="#about" class="hover:text-orangeAccent">About</a>
+            <a href="#footer" class="hover:text-orangeAccent">Contact</a>
+        </nav>
 
-      <!-- App-style Navigation Menu -->
-      <div class="hidden md:flex items-center space-x-10 text-base text-slate-500 dark:text-slate-400 font-bold">
-        <a href="#quests-directory-container" class="hover:text-slate-950 dark:hover:text-white transition-colors">Bento Squares</a>
-        <a href="#monitor-container" class="hover:text-slate-950 dark:hover:text-white transition-colors">Live Telemetry</a>
-        <a href="#terminal-pane" class="hover:text-slate-950 dark:hover:text-white transition-colors">Console</a>
-        <a href="#contact-form" class="hover:text-slate-950 dark:hover:text-white transition-colors">Dispatch Packet</a>
-      </div>
+        <div class="flex items-center gap-3 sm:gap-4">
+            <!-- Settings trigger button -->
+            <button onclick="openSettingsPage()" class="p-2 sm:p-2.5 rounded-full border border-neutral-300 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900/50 hover:bg-neutral-200 dark:hover:bg-neutral-800 text-neutral-600 dark:text-neutral-300 transition-all animate-none" title="Workspace Settings">
+                <i data-lucide="settings" class="w-4.5 h-4.5 sm:w-5 sm:h-5"></i>
+            </button>
 
-      <!-- Action Area -->
-      <div class="flex items-center space-x-4">
-        <!-- Storm Settings Gear (Full Screen Settings View) -->
-        <button onclick="openSettingsPage()" class="p-2.5 rounded-xl border border-black/[0.06] dark:border-white/[0.06] bg-black/[0.02] dark:bg-white/[0.02] hover:bg-black/[0.06] dark:hover:bg-white/[0.06] text-brand-orange transition-all" title="Open Dashboard Settings">
-          <i data-lucide="settings" class="w-5 h-5"></i>
-        </button>
-
-        <!-- Theme Toggle -->
-        <button onclick="toggleTheme()" class="p-2.5 rounded-xl border border-black/[0.06] dark:border-white/[0.06] bg-black/[0.02] dark:bg-white/[0.02] hover:bg-black/[0.06] dark:hover:bg-white/[0.06] text-slate-600 dark:text-slate-300 transition-all" aria-label="Toggle Theme">
-          <i id="theme-icon-dark" data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
-          <i id="theme-icon-light" data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
-        </button>
-      </div>
+            <!-- LIQUID GLASS / WATER DROP THEME SWITCHER -->
+            <div id="dual-theme-switch" class="relative flex w-24 sm:w-32 h-9 sm:h-11 rounded-full overflow-hidden cursor-pointer select-none border border-neutral-300 dark:border-neutral-800 bg-neutral-200/50 dark:bg-neutral-900/50 p-1 shadow-inner" title="Toggle Theme">
+                <div id="switch-sun" class="w-1/2 h-full flex items-center justify-center z-10">
+                    <svg class="w-4 sm:w-5 h-4 sm:h-5 text-amber-500 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z"></path>
+                    </svg>
+                </div>
+                <div id="switch-moon" class="w-1/2 h-full flex items-center justify-center z-10">
+                    <svg class="w-3.5 sm:w-4 h-3.5 sm:h-4 text-neutral-400 dark:text-neutral-300 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                    </svg>
+                </div>
+                <!-- Dynamic Glass Droplet Indicator -->
+                <div id="switch-indicator" class="absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] rounded-[35%_65%_55%_45%_/_45%_40%_60%_55%] bg-white/30 dark:bg-white/10 backdrop-blur-md border border-white/50 dark:border-white/20 shadow-[inset_0_4px_6px_rgba(255,255,255,0.4),_inset_0_-2px_4px_rgba(0,0,0,0.05),_0_8px_16px_rgba(0,0,0,0.15)] transition-all duration-500 ease-in-out pointer-events-none"></div>
+            </div>
+        </div>
     </header>
 
-    <!-- Main Workspace Area -->
-    <main class="grid grid-cols-1 lg:grid-cols-12 flex-1">
-      
-      <!-- Left Column - Explorer & Directory (5 columns) -->
-      <section class="lg:col-span-5 border-r border-black/[0.06] dark:border-white/[0.06] bg-white dark:bg-slate-900 p-6 sm:p-10 flex flex-col justify-between transition-colors duration-500">
-        <div class="space-y-8">
-          
-          <!-- Large Premium Showcase Card -->
-          <div class="p-8 rounded-3xl bg-slate-100 dark:bg-slate-950/50 border border-black/[0.05] dark:border-white/[0.05] space-y-5 shadow-sm">
-            <div class="space-y-2.5">
-              <span class="text-xs font-mono text-slate-400 dark:text-slate-500 uppercase tracking-widest block font-bold">Systems Engineer & Designer</span>
-              
-              <!-- Matte White / Matte Black Heading (Strictly 1 line, giant size) -->
-              <h1 class="text-4xl sm:text-5xl md:text-[3.35rem] font-extrabold tracking-tighter uppercase select-none leading-none premium-matte-heading whitespace-nowrap overflow-hidden text-ellipsis">
-                Anshu Rajhans
-              </h1>
-            </div>
+    <!-- HERO SECTION -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12 md:py-20">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             
-            <p class="text-base text-slate-600 dark:text-slate-400 leading-relaxed font-sans pt-4 border-t border-black/[0.05] dark:border-white/[0.05]">
-              Full-stack developer, PWA system architect, and game systems designer. Shipped over 15 lightweight browser arcade titles utilizing highly optimized runtime caching.
-            </p>
-          </div>
+            <!-- Left Text Content -->
+            <div class="lg:col-span-7 space-y-6 sm:space-y-8">
+                <div class="text-xs tracking-widest text-neutral-500 dark:text-neutral-400 uppercase font-mono">Full Stack Software Engineer</div>
+                
+                <h1 class="font-syne font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-8xl leading-tight tracking-tight">
+                    I write impactful digital <span class="text-orangeAccent" style="color: var(--accent-color, #FF4F18);">solutions</span>
+                </h1>
 
-          <!-- Dynamic Project Directory Bento Grid -->
-          <div class="space-y-4 pt-6 border-t border-black/[0.06] dark:border-white/[0.06]">
-            <div class="flex items-center justify-between">
-              <label class="text-xs font-extrabold text-slate-400 dark:text-slate-500 tracking-wider uppercase">Project Bento Squares</label>
-              <span class="text-[10px] font-mono text-brand-blue uppercase font-bold">Click to Open Live Target</span>
+                <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 pt-2">
+                    <div class="flex items-center -space-x-3">
+                        <div class="w-10 h-10 rounded-full border-2 border-stone-50 dark:border-darkBg bg-neutral-300 dark:bg-neutral-700 flex items-center justify-center font-bold text-xs text-neutral-800 dark:text-neutral-200">
+                            AR
+                        </div>
+                        <button onclick="handleMailContact()" class="w-10 h-10 rounded-full bg-orangeAccent text-white flex items-center justify-center hover:scale-105 transition-transform" style="background-color: var(--accent-color, #FF4F18);" title="Contact Anshu">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"></path></svg>
+                        </button>
+                    </div>
+                    <p class="max-w-sm text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                        Anshu Rajhans is a developer building web products, turning complex requirements into production-grade systems, clean databases, and intuitive interfaces.
+                    </p>
+                </div>
+
+                <div class="pt-6 sm:pt-8 border-t border-neutral-200 dark:border-neutral-800 flex gap-10 sm:gap-12">
+                    <div>
+                        <div class="font-syne font-extrabold text-3xl sm:text-4xl text-orangeAccent" style="color: var(--accent-color, #FF4F18);">50+</div>
+                        <div class="text-xs uppercase tracking-wider text-neutral-500 mt-1">Projects Launched</div>
+                    </div>
+                    <div>
+                        <div class="font-syne font-extrabold text-3xl sm:text-4xl text-orangeAccent" style="color: var(--accent-color, #FF4F18);">5+</div>
+                        <div class="text-xs uppercase tracking-wider text-neutral-500 mt-1">Years Experience</div>
+                    </div>
+                </div>
             </div>
-            
-            <!-- Bento grid setup auto-arranging for PC/Mobile resolutions -->
-            <div id="quests-directory-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-3 gap-4">
-              <!-- Rendered Dynamically via JS as Premium Square Bento Cards -->
+
+            <!-- Right Dynamic Code Preview Graphic -->
+            <div class="lg:col-span-5 relative flex justify-center w-full">
+                <div class="relative w-full max-w-sm sm:max-w-md aspect-[4/5] rounded-3xl sm:rounded-[3rem] overflow-hidden group shadow-2xl bg-neutral-900 border border-neutral-800 p-4 sm:p-6">
+                    
+                    <!-- Code IDE view -->
+                    <div class="absolute inset-0 p-6 sm:p-8 font-mono text-[10px] sm:text-[11px] leading-relaxed text-neutral-400 select-none overflow-hidden">
+                        <div class="flex items-center gap-2 mb-4 sm:mb-6 border-b border-neutral-800 pb-3">
+                            <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
+                            <span class="ml-2 text-[9px] sm:text-[10px] text-neutral-500">anshu-portfolio.ts</span>
+                        </div>
+                        <span class="text-amber-500">const</span> developer = {<br>
+                        &nbsp;&nbsp;name: <span class="text-emerald-400">"Anshu"</span>,<br>
+                        &nbsp;&nbsp;role: <span class="text-emerald-400">"Architect"</span>,<br>
+                        &nbsp;&nbsp;stack: [<span class="text-emerald-400">"TS"</span>, <span class="text-emerald-400">"Next"</span>, <span class="text-emerald-400">"Node"</span>, <span class="text-emerald-400">"AWS"</span>],<br>
+                        &nbsp;&nbsp;passion: <span class="text-purple-400">() =></span> <span class="text-blue-400">cleanCode</span> && <span class="text-blue-400">performance</span><br>
+                        };<br><br>
+                        <span class="text-neutral-600">// Compiled system profiles...</span><br>
+                        <span class="text-orangeAccent font-bold" style="color: var(--accent-color, #FF4F18);">export default</span> developer;<br>
+                        <div class="mt-4 sm:mt-8 text-neutral-700">
+                            [System info] Server online.<br>
+                            Waiting for handshake...
+                        </div>
+                    </div>
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-neutral-950 via-transparent to-transparent pointer-events-none"></div>
+                    
+                    <!-- Floating Badge -->
+                    <button onclick="handleMailContact()" class="absolute bottom-6 sm:bottom-8 right-6 sm:right-8 bg-orangeAccent hover:bg-orangeAccent/95 text-white rounded-full py-3.5 sm:py-4 px-5 sm:px-6 flex items-center gap-2.5 shadow-lg transform hover:-translate-y-1 transition-all text-xs sm:text-sm" style="background-color: var(--accent-color, #FF4F18);">
+                        <span class="font-syne font-bold tracking-wider uppercase">Hire Developer</span>
+                        <span class="text-base sm:text-lg animate-spin-slow">✦</span>
+                    </button>
+                </div>
             </div>
-          </div>
-
-          <!-- Chronology Milestones Timeline -->
-          <div class="space-y-4 pt-6 border-t border-black/[0.06] dark:border-white/[0.06]">
-            <label class="text-xs font-extrabold text-slate-400 dark:text-slate-500 tracking-wider uppercase">Development Milestones</label>
-            <div class="space-y-5 pl-5 border-l-2 border-slate-200 dark:border-slate-800 ml-1">
-              
-              <div class="relative space-y-1.5 cursor-pointer" onclick="showNotification('VipWeb Hub launched with 15+ interactive play frames.')">
-                <div class="absolute -left-[26px] top-1.5 w-3.5 h-3.5 rounded-full bg-brand-green border-2 border-white dark:border-slate-900"></div>
-                <span class="text-[10px] font-mono text-brand-green uppercase tracking-wider block font-bold">Target Year</span>
-                <h4 class="text-base font-extrabold text-slate-800 dark:text-white">VipWeb Arcade Domination</h4>
-              </div>
-
-              <div class="relative space-y-1.5 cursor-pointer" onclick="showNotification('Engineered advanced client-side persistent caches.')">
-                <div class="absolute -left-[26px] top-1.5 w-3.5 h-3.5 rounded-full bg-brand-blue border-2 border-white dark:border-slate-900"></div>
-                <span class="text-[10px] font-mono text-brand-blue uppercase tracking-wider block font-bold">PWA Systems</span>
-                <h4 class="text-base font-extrabold text-slate-800 dark:text-white">Progressive Web App Compliance</h4>
-              </div>
-
-              <div class="relative space-y-1.5 cursor-pointer" onclick="showNotification('Graduated B.Sc from Deoghar College, Deoghar while shipping open-source packages.')">
-                <div class="absolute -left-[26px] top-1.5 w-3.5 h-3.5 rounded-full bg-brand-orange border-2 border-white dark:border-slate-900"></div>
-                <span class="text-[10px] font-mono text-brand-orange uppercase tracking-wider block font-bold">Academics</span>
-                <h4 class="text-base font-extrabold text-slate-800 dark:text-white">B.Sc Degree Achievement</h4>
-              </div>
-
-            </div>
-          </div>
 
         </div>
-
-        <!-- Social Anchors Footer -->
-        <div class="pt-6 border-t border-black/[0.06] dark:border-white/[0.06] mt-8 space-y-4">
-          <div class="grid grid-cols-3 gap-3.5">
-            <a href="https://youtube.com/@vitcoore" target="_blank" onclick="playSynthSound('click')" class="bg-black/[0.02] dark:bg-white/[0.02] border border-black/[0.06] dark:border-white/[0.06] hover:border-brand-red rounded-xl py-3.5 text-center text-sm font-extrabold transition-all flex items-center justify-center space-x-2">
-              <span class="text-base">📺</span> <span>YouTube</span>
-            </a>
-            <a href="https://instagram.com/vitcoore" target="_blank" onclick="playSynthSound('click')" class="bg-black/[0.02] dark:bg-white/[0.02] border border-black/[0.06] dark:border-white/[0.06] hover:border-brand-blue rounded-xl py-3.5 text-center text-sm font-extrabold transition-all flex items-center justify-center space-x-2">
-              <span class="text-base">📸</span> <span>Instagram</span>
-            </a>
-            <a href="https://github.com/kushmil" target="_blank" onclick="playSynthSound('click')" class="bg-black/[0.02] dark:bg-white/[0.02] border border-black/[0.06] dark:border-white/[0.06] hover:border-brand-green rounded-xl py-3.5 text-center text-sm font-extrabold transition-all flex items-center justify-center space-x-2">
-              <span class="text-base">📂</span> <span>GitHub</span>
-            </a>
-          </div>
-          <div class="flex items-start gap-4 bg-brand-orange/5 dark:bg-brand-orange/10 border border-brand-orange/20 p-4 rounded-2xl cursor-pointer" onclick="triggerEasterEgg()">
-            <span class="text-lg">📢</span>
-            <div class="space-y-0.5">
-              <span class="text-[11px] font-bold text-brand-orange block uppercase tracking-wider leading-none">Speech Synthesis Engine</span>
-              <p class="text-xs sm:text-sm text-slate-500 leading-normal">Click to trigger vocal audio "Vitcoore Storm Online".</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Right Column - Inspector and Sandbox Environment (7 columns) -->
-      <section class="lg:col-span-7 bg-[#fbfbfd] dark:bg-slate-950/40 p-6 sm:p-10 flex flex-col justify-between overflow-y-auto max-h-[calc(100vh-45px)] transition-colors duration-500">
-        
-        <div class="space-y-8 flex-1 flex flex-col justify-between">
-          
-          <!-- Dynamic Project Inspector Workspace Canvas -->
-          <div id="inspector-canvas" class="w-full bg-white dark:bg-slate-900 border border-black/[0.08] dark:border-white/[0.08] rounded-3xl shadow-sm dark:shadow-2xl overflow-hidden p-6 sm:p-8 transition-all duration-300 flex flex-col justify-between min-h-[260px]">
-            <div class="border-b border-black/[0.06] dark:border-white/[0.06] pb-5 flex justify-between items-center">
-              <div>
-                <span class="text-xs font-mono text-slate-400 dark:text-slate-500 uppercase tracking-wider">Dynamic Inspector Target</span>
-                <h3 id="target-title" class="text-lg sm:text-xl font-extrabold text-slate-800 dark:text-white">vitcoore node</h3>
-              </div>
-              <span id="target-badge" class="text-xs font-mono px-3 py-1 rounded bg-blue-500/10 text-blue-500 border border-blue-500/20 uppercase font-bold">TARGET_LOADED</span>
-            </div>
-
-            <div class="py-5 space-y-5">
-              <p id="target-description" class="text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed font-sans">
-                Select a system directory target from the Left Explorer column to parse detailed runtime descriptions, specifications, and source files.
-              </p>
-
-              <div class="grid grid-cols-2 gap-4 font-sans">
-                <div class="bg-black/[0.01] dark:bg-white/[0.01] border border-black/[0.05] dark:border-white/[0.05] rounded-xl p-4">
-                  <span class="text-[10px] font-mono text-slate-400 block uppercase font-bold">Operational Node</span>
-                  <span id="target-node" class="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-200">vitcoore.xyz</span>
-                </div>
-                <div class="bg-black/[0.01] dark:bg-white/[0.01] border border-black/[0.05] dark:border-white/[0.05] rounded-xl p-4">
-                  <span class="text-[10px] font-mono text-slate-400 block uppercase font-bold">Platform Architecture</span>
-                  <span id="target-tech" class="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-200 font-mono">Edge Framework</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="pt-5 border-t border-black/[0.06] dark:border-white/[0.06] flex justify-between items-center">
-              <a id="target-link" href="#" target="_blank" class="text-sm sm:text-base text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white flex items-center space-x-2.5 font-bold transition-colors">
-                <i data-lucide="external-link" class="w-4.5 h-4.5"></i>
-                <span id="target-action-label">Open Live Target</span>
-              </a>
-              <span class="text-xs font-mono text-slate-400 dark:text-slate-500">256-bit SHA Encryption</span>
-            </div>
-          </div>
-
-          <!-- Dual Section Grid: Real-time Performance Metrics & Terminal Console -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-            
-            <!-- Real-Time Metrics Sandbox Frame -->
-            <div id="monitor-container" class="w-full bg-white dark:bg-slate-900 border border-black/[0.08] dark:border-white/[0.08] rounded-3xl shadow-sm overflow-hidden p-5 sm:p-6 flex flex-col justify-between aspect-video">
-              <div class="flex items-center justify-between border-b border-black/[0.06] dark:border-white/[0.06] pb-3 mb-3">
-                <span class="text-sm font-bold text-slate-400 dark:text-slate-500 tracking-wider uppercase font-mono">Live Node Metrics</span>
-                <span class="flex items-center space-x-1.5">
-                  <span class="h-2.5 w-2.5 rounded-full bg-green-500 animate-pulse"></span>
-                  <span class="text-xs font-mono text-green-500 font-bold">SYS_STABLE</span>
-                </span>
-              </div>
-              <div class="flex-1 grid grid-cols-2 gap-4">
-                <div class="flex flex-col justify-between bg-slate-50 dark:bg-slate-950/60 border border-black/[0.05] dark:border-white/[0.05] rounded-2xl p-3.5">
-                  <span class="text-[10px] font-mono text-slate-400 font-bold">CPU LOAD</span>
-                  <div class="relative h-12 w-full overflow-hidden">
-                    <canvas id="cpu-graph" class="w-full h-full"></canvas>
-                  </div>
-                  <span id="cpu-numeric" class="text-sm font-mono text-slate-700 dark:text-slate-300 font-bold">22%</span>
-                </div>
-                <div class="flex flex-col justify-between bg-slate-50 dark:bg-slate-950/60 border border-black/[0.05] dark:border-white/[0.05] rounded-2xl p-3.5">
-                  <span class="text-[10px] font-mono text-slate-400 font-bold">RAM USAGE</span>
-                  <div class="relative h-12 w-full overflow-hidden">
-                    <canvas id="ram-graph" class="w-full h-full"></canvas>
-                  </div>
-                  <span id="ram-numeric" class="text-sm font-mono text-slate-700 dark:text-slate-300 font-bold">4.1 GB / 8.0 GB</span>
-                </div>
-              </div>
-              <p class="text-[11px] text-slate-400 dark:text-slate-500 leading-tight mt-3 font-mono">
-                System telemetry generated asynchronously through active client threads.
-              </p>
-            </div>
-
-            <!-- Terminal CLI Simulator Console -->
-            <div id="terminal-pane" class="w-full bg-slate-950 rounded-3xl p-5 sm:p-6 border border-white/[0.06] shadow-xl font-mono text-sm text-green-400 flex flex-col justify-between aspect-video">
-              <div class="flex items-center justify-between border-b border-white/[0.06] pb-3 text-slate-500 text-xs uppercase tracking-wider font-semibold">
-                <div class="flex items-center space-x-2.5">
-                  <span class="h-2.5 w-2.5 rounded-full bg-[#ff5f56]"></span>
-                  <span class="h-2.5 w-2.5 rounded-full bg-[#ffbd2e]"></span>
-                  <span class="h-2.5 w-2.5 rounded-full bg-[#27c93f]"></span>
-                  <span class="pl-1">vitcore-sh v1.2</span>
-                </div>
-                <span>TTY/01 (OK)</span>
-              </div>
-              <div id="terminal-output" class="flex-1 overflow-y-auto space-y-2 py-3 text-xs sm:text-sm leading-relaxed select-text">
-                <p class="text-slate-500">Session loaded. Type 'help' to audit commands.</p>
-              </div>
-              <div class="flex items-center space-x-2 pt-3 border-t border-white/[0.05]">
-                <span class="text-blue-400 font-bold">vitcore ~ %</span>
-                <input id="terminal-input" type="text" autocomplete="off" class="bg-transparent text-green-400 border-none outline-none flex-1 font-mono focus:ring-0 text-xs sm:text-sm" placeholder="">
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Dual Dynamic Interactive Games & Quizzes System -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-            
-            <!-- Tic-Tac-Toe Game Window VS AI -->
-            <div class="bg-white dark:bg-slate-900 border border-black/[0.08] dark:border-white/[0.08] rounded-3xl p-5 sm:p-6 flex flex-col justify-between aspect-video">
-              <div>
-                <div class="flex items-center justify-between border-b border-black/[0.06] dark:border-white/[0.06] pb-3 mb-3">
-                  <span class="text-xs sm:text-sm font-bold text-slate-400 dark:text-slate-500 tracking-wider uppercase font-mono">Tic-Tac-Toe VS AI</span>
-                  
-                  <!-- Selectable Difficulty Level Controls -->
-                  <div class="flex items-center space-x-1.5 bg-slate-100 dark:bg-slate-950 p-1 rounded border border-black/[0.08] dark:border-white/[0.08]">
-                    <button id="diff-easy" onclick="setDifficulty('easy')" class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-350 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold">EASY</button>
-                    <button id="diff-medium" onclick="setDifficulty('medium')" class="text-[10px] font-mono px-2 py-0.5 text-slate-400 font-bold">MED</button>
-                    <button id="diff-hard" onclick="setDifficulty('hard')" class="text-[10px] font-mono px-2 py-0.5 text-slate-400 font-bold">HARD</button>
-                  </div>
-                </div>
-
-                <!-- Tic-Tac-Toe Grid System Layout -->
-                <div class="grid grid-cols-3 gap-2 w-full max-w-[170px] mx-auto" id="tic-tac-toe-field">
-                  <!-- Generated Dynamically -->
-                </div>
-              </div>
-              
-              <div class="pt-3 border-t border-black/[0.06] dark:border-white/[0.06] flex items-center justify-between mt-3">
-                <span id="game-status-label" class="text-xs font-mono text-slate-400 uppercase font-bold">Your Turn (X)</span>
-                <button onclick="resetTicTacToe()" class="bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-neutral-200 text-white dark:text-slate-950 font-bold text-xs py-2 px-4 rounded-xl shadow-sm transition-all uppercase tracking-wider">
-                  Restart
-                </button>
-              </div>
-            </div>
-
-            <!-- Gamified Knowledge Challenge -->
-            <div class="bg-white dark:bg-slate-900 border border-black/[0.08] dark:border-white/[0.08] rounded-3xl p-5 sm:p-6 flex flex-col justify-between aspect-video">
-              <div>
-                <div class="flex items-center justify-between border-b border-black/[0.06] dark:border-white/[0.06] pb-3 mb-3">
-                  <span class="text-xs sm:text-sm font-bold text-slate-400 dark:text-slate-500 tracking-wider uppercase font-mono">Logic Challenge</span>
-                  <span class="text-[10px] font-mono px-2.5 py-0.5 rounded bg-brand-golden/10 text-brand-orange border border-brand-orange/20 font-bold">READY</span>
-                </div>
-                <h5 id="quiz-question-text" class="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 leading-normal mb-3 font-sans">
-                  Loading parameters...
-                </h5>
-                <div id="quiz-options-container" class="space-y-2">
-                  <!-- Options -->
-                </div>
-              </div>
-              <div class="pt-3 border-t border-black/[0.06] dark:border-white/[0.06] flex justify-between items-center mt-3">
-                <span id="quiz-feedback-status" class="text-xs font-mono uppercase text-slate-400 font-extrabold">Select Choice</span>
-                <button id="quiz-action-btn" onclick="checkQuizAnswer()" class="bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-neutral-200 text-white dark:text-slate-950 font-bold text-xs py-2 px-4 rounded-xl shadow-sm transition-all uppercase tracking-wider">
-                  Verify
-                </button>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Encrypted Transmission Form -->
-          <div id="contact-form" class="bg-white dark:bg-slate-900 border border-black/[0.08] dark:border-white/[0.08] rounded-3xl p-6 sm:p-10 mt-6 space-y-6">
-            <div class="space-y-2">
-              <h4 class="text-base font-extrabold text-slate-800 dark:text-white uppercase tracking-wider">Initialize Encrypted Messaging Center</h4>
-              <p class="text-sm text-slate-500 dark:text-slate-400 font-sans">Submit structural architecture profiles directly to developer console repositories.</p>
-            </div>
-            <form onsubmit="handleContactSubmit(event)" class="space-y-4 font-sans">
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <input id="form-name" required type="text" placeholder="Identity name" class="w-full bg-slate-50 dark:bg-slate-950 border border-black/[0.08] dark:border-white/[0.08] rounded-2xl p-4 text-sm sm:text-base text-slate-800 dark:text-slate-200 focus:outline-none">
-                <input id="form-email" required type="email" placeholder="Contact address" class="w-full bg-slate-50 dark:bg-slate-950 border border-black/[0.08] dark:border-white/[0.08] rounded-2xl p-4 text-sm sm:text-base text-slate-800 dark:text-slate-200 focus:outline-none">
-              </div>
-              <input id="form-topic" required type="text" placeholder="Subject Target" class="w-full bg-slate-50 dark:bg-slate-950 border border-black/[0.08] dark:border-white/[0.08] rounded-2xl p-4 text-sm sm:text-base text-slate-800 dark:text-slate-200 focus:outline-none">
-              <textarea id="form-msg" required rows="4" placeholder="Message stream data parameters..." class="w-full bg-slate-50 dark:bg-slate-950 border border-black/[0.08] dark:border-white/[0.08] rounded-2xl p-4 text-sm sm:text-base text-slate-800 dark:text-slate-200 resize-none focus:outline-none"></textarea>
-              <button type="submit" class="w-full bg-slate-950 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white font-extrabold text-sm sm:text-base py-4 rounded-2xl transition-all shadow-md">
-                Dispatch Encrypted Packet
-              </button>
-            </form>
-          </div>
-
-        </div>
-
-      </section>
     </main>
-  </div>
 
-  <!-- Dedicated Full-Screen Single Page Application (SPA) Settings overlay -->
-  <div id="settings-page" class="fixed inset-0 z-50 bg-[#f4f4f6] dark:bg-slate-950/98 backdrop-blur-3xl translate-x-full transition-transform duration-500 ease-in-out overflow-y-auto p-6 sm:p-12 flex flex-col justify-between font-sans">
-    <div class="space-y-10 max-w-5xl mx-auto w-full">
-      
-      <!-- Settings Header Row -->
-      <div class="flex items-center justify-between border-b border-black/[0.08] dark:border-white/[0.08] pb-6">
-        <div class="flex items-center space-x-5">
-          <button onclick="closeSettingsPage()" class="p-3 rounded-2xl bg-black/[0.03] dark:bg-white/[0.03] border border-black/[0.08] dark:border-white/[0.08] hover:bg-black/[0.08] dark:hover:bg-white/[0.08] text-slate-800 dark:text-white transition-all">
-            <i data-lucide="arrow-left" class="w-6 h-6"></i>
-          </button>
-          <div>
-            <h2 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-slate-900 dark:text-white">Workspace Controls</h2>
-            <p class="text-sm sm:text-base text-slate-500">Customize interactive acoustics, physical rumbles, and primary interface accent matrices.</p>
-          </div>
+    <!-- BIO SECTION -->
+    <section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-12">
+        <div class="bg-neutral-900 text-white rounded-3xl sm:rounded-[2.5rem] p-6 sm:p-10 md:p-16 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center border border-neutral-800">
+            <div class="lg:col-span-8">
+                <p class="font-syne text-xl sm:text-2xl md:text-4xl leading-relaxed font-bold text-neutral-300">
+                    I build robust systems for businesses. Both user interfaces and databases are mapped out to <span class="text-orangeAccent" style="color: var(--accent-color, #FF4F18);">deliver performance based on what users need and expect</span>, keeping security and code maintenance central.
+                </p>
+            </div>
+            <div class="lg:col-span-4 lg:border-l lg:border-neutral-800 lg:pl-12 flex flex-col justify-between h-full py-2">
+                <span class="text-orangeAccent text-3xl sm:text-4xl mb-4 sm:mb-6" style="color: var(--accent-color, #FF4F18);">✦</span>
+                <div>
+                    <h3 class="font-syne font-extrabold text-xl sm:text-2xl tracking-tight">Anshu Rajhans</h3>
+                    <p class="text-xs uppercase tracking-widest text-neutral-500 mt-1 sm:mt-2">Web & Cloud Engineer</p>
+                </div>
+            </div>
         </div>
-        <span class="text-xs font-mono font-bold bg-brand-blue/10 text-brand-blue px-3.5 py-1.5 rounded-full border border-brand-blue/20">CONFIG_MODE_ACTIVE</span>
-      </div>
+    </section>
 
-      <!-- Settings Panels Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        
-        <!-- Column 1: Acoustics and Vibration -->
-        <div class="space-y-6">
-          <!-- Sound Systems Card -->
-          <div class="bg-white dark:bg-slate-900 border border-black/[0.06] dark:border-white/[0.06] p-6 rounded-3xl space-y-4 shadow-sm">
-            <div class="flex items-center space-x-3 text-brand-blue">
-              <i data-lucide="volume-2" class="w-6 h-6"></i>
-              <h3 class="text-base font-extrabold uppercase tracking-wide text-slate-900 dark:text-white">Acoustic Audio Systems</h3>
+    <!-- PROJECTS SECTION -->
+    <section id="projects" class="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-16">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end border-b border-neutral-200 dark:border-neutral-800 pb-6 mb-8 sm:mb-12 gap-4">
+            <div>
+                <span class="text-orangeAccent font-syne font-bold text-2xl" style="color: var(--accent-color, #FF4F18);">Projects</span>
+                <span class="text-neutral-400 dark:text-neutral-500 mx-2">/</span>
+                <span class="text-neutral-500 text-sm">Active Subdomains Index</span>
             </div>
-            <p class="text-xs sm:text-sm text-slate-500">Switch keypress audio synth profiles generated natively through HTML5 Audio Context APIs.</p>
-            
-            <div class="space-y-3">
-              <label class="block text-xs font-bold uppercase tracking-wider text-slate-400">Audio Profile Preset</label>
-              <div class="grid grid-cols-2 gap-2">
-                <button onclick="updateSoundConfig('mech')" id="cfg-sound-mech" class="p-3 text-xs sm:text-sm font-bold border border-slate-300 dark:border-slate-700 rounded-xl transition-all">Mech Switch</button>
-                <button onclick="updateSoundConfig('arcade')" id="cfg-sound-arcade" class="p-3 text-xs sm:text-sm font-bold border border-slate-300 dark:border-slate-700 rounded-xl transition-all">Arcade Synth</button>
-                <button onclick="updateSoundConfig('soft')" id="cfg-sound-soft" class="p-3 text-xs sm:text-sm font-bold border border-slate-300 dark:border-slate-700 rounded-xl transition-all">Elegant Resonance</button>
-                <button onclick="updateSoundConfig('none')" id="cfg-sound-none" class="p-3 text-xs sm:text-sm font-bold border border-slate-300 dark:border-slate-700 rounded-xl transition-all">None / Silent</button>
-              </div>
-            </div>
-
-            <div class="space-y-2 pt-2">
-              <div class="flex justify-between items-center">
-                <label class="text-xs font-bold uppercase tracking-wider text-slate-400">Master Volume</label>
-                <span id="volume-val" class="text-sm font-mono font-bold text-slate-700 dark:text-slate-300">50%</span>
-              </div>
-              <input id="volume-slider" type="range" min="0" max="100" value="50" oninput="updateVolume(this.value)" class="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer">
-            </div>
-          </div>
-
-          <!-- Physical Rumbles Card -->
-          <div class="bg-white dark:bg-slate-900 border border-black/[0.06] dark:border-white/[0.06] p-6 rounded-3xl space-y-4 shadow-sm">
-            <div class="flex items-center space-x-3 text-brand-orange">
-              <i data-lucide="zap" class="w-6 h-6"></i>
-              <h3 class="text-base font-extrabold uppercase tracking-wide text-slate-900 dark:text-white">Haptic Vibration & Rumbles</h3>
-            </div>
-            <p class="text-xs sm:text-sm text-slate-500">Set tactile physical vibration and screens coordinates rumbles generated on diagnostic alerts.</p>
-            
-            <div class="space-y-3">
-              <label class="block text-xs font-bold uppercase tracking-wider text-slate-400">Mobile Haptics Level</label>
-              <div class="grid grid-cols-4 gap-2">
-                <button onclick="updateVibeConfig('none')" id="cfg-vibe-none" class="p-2 text-xs font-bold border border-slate-300 dark:border-slate-700 rounded-xl transition-all">None</button>
-                <button onclick="updateVibeConfig('low')" id="cfg-vibe-low" class="p-2 text-xs font-bold border border-slate-300 dark:border-slate-700 rounded-xl transition-all">Low</button>
-                <button onclick="updateVibeConfig('medium')" id="cfg-vibe-medium" class="p-2 text-xs font-bold border border-slate-300 dark:border-slate-700 rounded-xl transition-all">Medium</button>
-                <button onclick="updateVibeConfig('high')" id="cfg-vibe-high" class="p-2 text-xs font-bold border border-slate-300 dark:border-slate-700 rounded-xl transition-all">High</button>
-              </div>
-            </div>
-
-            <div class="space-y-3">
-              <label class="block text-xs font-bold uppercase tracking-wider text-slate-400">Screen Rumble Intensity</label>
-              <div class="grid grid-cols-3 gap-2">
-                <button onclick="updateShakeConfig('none')" id="cfg-shake-none" class="p-2.5 text-xs font-bold border border-slate-300 dark:border-slate-700 rounded-xl transition-all">No Shake</button>
-                <button onclick="updateShakeConfig('light')" id="cfg-shake-light" class="p-2.5 text-xs font-bold border border-slate-300 dark:border-slate-700 rounded-xl transition-all">Light</button>
-                <button onclick="updateShakeConfig('strong')" id="cfg-shake-strong" class="p-2.5 text-xs font-bold border border-slate-300 dark:border-slate-700 rounded-xl transition-all">Strong</button>
-              </div>
-            </div>
-          </div>
+            <button onclick="triggerViewAll()" class="text-xs uppercase tracking-widest font-bold border border-neutral-300 dark:border-neutral-700 rounded-full px-5 py-2 hover:bg-orangeAccent hover:border-orangeAccent hover:text-white transition-all w-full sm:w-auto" style="--hover-bg: var(--accent-color, #FF4F18);">
+                View Github
+            </button>
         </div>
 
-        <!-- Column 2: Visual Accents and Telemetry diagnostics -->
-        <div class="space-y-6">
-          <!-- Visual Personalization Card -->
-          <div class="bg-white dark:bg-slate-900 border border-black/[0.06] dark:border-white/[0.06] p-6 rounded-3xl space-y-4 shadow-sm">
-            <div class="flex items-center space-x-3 text-brand-green">
-              <i data-lucide="palette" class="w-6 h-6"></i>
-              <h3 class="text-base font-extrabold uppercase tracking-wide text-slate-900 dark:text-white">Aesthetics & Primary Accent</h3>
-            </div>
-            <p class="text-xs sm:text-sm text-slate-500">Pick the custom system accent color and workspace light modes presets directly from live layouts.</p>
-            
-            <div class="space-y-3">
-              <label class="block text-xs font-bold uppercase tracking-wider text-slate-400">Visual System Palette Accent</label>
-              <div class="flex items-center space-x-3">
-                <button onclick="applyAccentColor('#1CB0F6')" class="accent-selector-btn w-9 h-9 rounded-full bg-[#1CB0F6] border-2 border-white dark:border-slate-800 transition-transform hover:scale-110" data-color="#1CB0F6"></button>
-                <button onclick="applyAccentColor('#58CC02')" class="accent-selector-btn w-9 h-9 rounded-full bg-[#58CC02] border-2 border-white dark:border-slate-800 transition-transform hover:scale-110" data-color="#58CC02"></button>
-                <button onclick="applyAccentColor('#FF9600')" class="accent-selector-btn w-9 h-9 rounded-full bg-[#FF9600] border-2 border-white dark:border-slate-800 transition-transform hover:scale-110" data-color="#FF9600"></button>
-                <button onclick="applyAccentColor('#EF4444')" class="accent-selector-btn w-9 h-9 rounded-full bg-[#EF4444] border-2 border-white dark:border-slate-800 transition-transform hover:scale-110" data-color="#EF4444"></button>
-              </div>
-            </div>
+        <!-- Dynamic Projects Grid -->
+        <div id="projects-grid-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+            <!-- Rendered Dynamically via JavaScript -->
+        </div>
+    </section>
 
-            <div class="space-y-2 pt-2">
-              <label class="block text-xs font-bold uppercase tracking-wider text-slate-400">Base Theme Selection</label>
-              <div class="flex items-center justify-between bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl border border-black/[0.04] dark:border-white/[0.04]">
-                <span class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-semibold">Enable System dark mode</span>
-                <button onclick="toggleTheme()" class="px-4 py-2 bg-slate-200 dark:bg-slate-800 rounded-xl text-xs font-bold uppercase">Toggle Mode</button>
-              </div>
+    <!-- EXPERTISE SECTION -->
+    <section id="expertise" class="max-w-7xl mx-auto px-6 py-16">
+        <div class="flex justify-between items-end border-b border-neutral-200 dark:border-neutral-800 pb-6 mb-10 sm:mb-12 gap-2">
+            <div>
+                <span class="text-orangeAccent font-syne font-bold text-2xl" style="color: var(--accent-color, #FF4F18);">Expertise</span>
+                <span class="text-neutral-400 dark:text-neutral-500 mx-2">/</span>
+                <span class="text-neutral-500 text-sm">Tech Stack & capabilities</span>
             </div>
-          </div>
-
-          <!-- Telemetry and Diagnostic Speeds Card -->
-          <div class="bg-white dark:bg-slate-900 border border-black/[0.06] dark:border-white/[0.06] p-6 rounded-3xl space-y-4 shadow-sm">
-            <div class="flex items-center space-x-3 text-brand-red">
-              <i data-lucide="activity" class="w-6 h-6"></i>
-              <h3 class="text-base font-extrabold uppercase tracking-wide text-slate-900 dark:text-white">Engine Live Telemetry diagnostics</h3>
-            </div>
-            <p class="text-xs sm:text-sm text-slate-500">Configure refresh intervals of telemetry canvas graphs for active virtual network threads.</p>
-            
-            <div class="space-y-3">
-              <label class="block text-xs font-bold uppercase tracking-wider text-slate-400">Refresh telemetry Interval</label>
-              <div class="grid grid-cols-3 gap-2">
-                <button onclick="updateTelemetryRate(500)" id="cfg-telemetry-500" class="p-2.5 text-xs font-bold border border-slate-300 dark:border-slate-700 rounded-xl transition-all">Fast (500ms)</button>
-                <button onclick="updateTelemetryRate(1000)" id="cfg-telemetry-1000" class="p-2.5 text-xs font-bold border border-slate-300 dark:border-slate-700 rounded-xl transition-all">Standard (1s)</button>
-                <button onclick="updateTelemetryRate(2000)" id="cfg-telemetry-2000" class="p-2.5 text-xs font-bold border border-slate-300 dark:border-slate-700 rounded-xl transition-all">Eco (2s)</button>
-              </div>
-            </div>
-          </div>
+            <span class="text-xs uppercase tracking-widest text-neutral-400 font-mono">ANSHU / DEV 2026</span>
         </div>
 
-      </div>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Left Dynamic Display Element (Warping mockup layout container) -->
+            <div class="lg:col-span-5 flex justify-center w-full">
+                <div id="service-mockup-container" class="relative w-full max-w-xs aspect-[3/4] sm:h-[420px] sm:w-80 rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden bg-gradient-to-tr from-orangeAccent to-amber-500 flex items-center justify-center shadow-2xl transition-all duration-500" style="background-image: linear-gradient(135deg, var(--accent-color, #FF4F18) 0%, #FFA07A 100%);">
+                    <div id="service-mockup-item" class="w-48 sm:w-52 h-72 sm:h-80 rounded-2xl sm:rounded-3xl bg-neutral-950/40 backdrop-blur-md border border-white/20 shadow-xl flex flex-col justify-between p-6 sm:p-8 text-white transition-all duration-500 transform rotate-3 hover:rotate-0">
+                        <div class="flex justify-between w-full items-start">
+                            <span id="service-mockup-number" class="text-5xl sm:text-6xl font-syne font-black tracking-tight leading-none">01</span>
+                            <span class="text-lg sm:text-xl animate-spin-slow">✦</span>
+                        </div>
+                        <div class="w-full">
+                            <p class="text-[10px] sm:text-xs tracking-wider uppercase text-white/60 mb-1">Architecture focus</p>
+                            <h5 id="service-mockup-text" class="text-base sm:text-lg font-syne font-extrabold tracking-tight uppercase leading-snug">Frontend</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-      <!-- Settings Page Actions Footer -->
-      <div class="flex justify-end pt-6 border-t border-black/[0.08] dark:border-white/[0.08]">
-        <button onclick="closeSettingsPage()" class="bg-slate-950 dark:bg-slate-100 hover:bg-slate-800 dark:hover:bg-neutral-200 text-white dark:text-slate-950 font-bold text-sm py-3 px-8 rounded-2xl shadow-sm transition-all uppercase tracking-wider">
-          Save & Apply Workspace Profiles
-        </button>
-      </div>
+            <!-- Right interactive hover lists (Fewer padding on mobile elements) -->
+            <div class="lg:col-span-7 space-y-2 sm:space-y-4">
+                
+                <div class="service-item group py-4 sm:py-6 border-b border-neutral-200 dark:border-neutral-800 flex items-center justify-between cursor-pointer" data-num="01">
+                    <div class="flex items-center gap-4 sm:gap-6">
+                        <span class="font-mono text-xs sm:text-sm text-neutral-400 group-hover:text-orangeAccent transition-colors">01</span>
+                        <h3 class="font-syne font-bold text-xl sm:text-2xl md:text-4xl text-neutral-400 dark:text-neutral-500 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors">Frontend Architectures</h3>
+                    </div>
+                    <span class="text-orangeAccent opacity-0 group-hover:opacity-100 transition-opacity text-xl sm:text-2xl animate-none" style="color: var(--accent-color, #FF4F18);">➔</span>
+                </div>
 
+                <div class="service-item group py-4 sm:py-6 border-b border-neutral-200 dark:border-neutral-800 flex items-center justify-between cursor-pointer" data-num="02">
+                    <div class="flex items-center gap-4 sm:gap-6">
+                        <span class="font-mono text-xs sm:text-sm text-neutral-400 group-hover:text-orangeAccent transition-colors">02</span>
+                        <h3 class="font-syne font-bold text-xl sm:text-2xl md:text-4xl text-neutral-400 dark:text-neutral-500 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors">Robust Backend Systems</h3>
+                    </div>
+                    <span class="text-orangeAccent opacity-0 group-hover:opacity-100 transition-opacity text-xl sm:text-2xl animate-none" style="color: var(--accent-color, #FF4F18);">➔</span>
+                </div>
+
+                <div class="service-item group py-4 sm:py-6 border-b border-neutral-200 dark:border-neutral-800 flex items-center justify-between cursor-pointer" data-num="03">
+                    <div class="flex items-center gap-4 sm:gap-6">
+                        <span class="font-mono text-xs sm:text-sm text-neutral-400 group-hover:text-orangeAccent transition-colors">03</span>
+                        <h3 class="font-syne font-bold text-xl sm:text-2xl md:text-4xl text-neutral-400 dark:text-neutral-500 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors">Cross-Platform Development</h3>
+                    </div>
+                    <span class="text-orangeAccent opacity-0 group-hover:opacity-100 transition-opacity text-xl sm:text-2xl animate-none" style="color: var(--accent-color, #FF4F18);">➔</span>
+                </div>
+
+                <div class="service-item group py-4 sm:py-6 border-b border-neutral-200 dark:border-neutral-800 flex items-center justify-between cursor-pointer" data-num="04">
+                    <div class="flex items-center gap-4 sm:gap-6">
+                        <span class="font-mono text-xs sm:text-sm text-neutral-400 group-hover:text-orangeAccent transition-colors">04</span>
+                        <h3 class="font-syne font-bold text-xl sm:text-2xl md:text-4xl text-neutral-400 dark:text-neutral-500 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors">DevOps &amp; Database Design</h3>
+                    </div>
+                    <span class="text-orangeAccent opacity-0 group-hover:opacity-100 transition-opacity text-xl sm:text-2xl animate-none" style="color: var(--accent-color, #FF4F18);">➔</span>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- TECH STACK SECTION -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-16 border-t border-neutral-200 dark:border-neutral-800">
+        <div class="flex justify-between items-end pb-8 mb-8">
+            <div>
+                <span class="text-orangeAccent font-syne font-bold text-base sm:text-lg" style="color: var(--accent-color, #FF4F18);">Stack</span>
+                <span class="text-neutral-400 mx-2">/</span>
+                <span class="text-neutral-500 text-xs uppercase tracking-wider font-mono">Technologies commonly deployed</span>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-y-8 gap-x-6 text-center text-lg sm:text-xl font-syne font-extrabold tracking-tighter opacity-60 dark:opacity-40">
+            <span class="hover:text-orangeAccent hover:opacity-100 transition-all cursor-pointer">React</span>
+            <span class="hover:text-orangeAccent hover:opacity-100 transition-all cursor-pointer">Next.js</span>
+            <span class="hover:text-orangeAccent hover:opacity-100 transition-all cursor-pointer">Node.js</span>
+            <span class="hover:text-orangeAccent hover:opacity-100 transition-all cursor-pointer">TypeScript</span>
+            <span class="hover:text-orangeAccent hover:opacity-100 transition-all cursor-pointer">PostgreSQL</span>
+            <span class="hover:text-orangeAccent hover:opacity-100 transition-all cursor-pointer">AWS Cloud</span>
+            <span class="hover:text-orangeAccent hover:opacity-100 transition-all cursor-pointer">Docker</span>
+            <span class="hover:text-orangeAccent hover:opacity-100 transition-all cursor-pointer">LangChain</span>
+            <span class="hover:text-orangeAccent hover:opacity-100 transition-all cursor-pointer">GraphQL</span>
+            <span class="hover:text-orangeAccent hover:opacity-100 transition-all cursor-pointer">Redis</span>
+        </div>
+    </section>
+
+    <!-- FOOTER / CALL TO ACTION -->
+    <footer id="footer" class="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12 md:py-24">
+        <div class="bg-neutral-900 text-white rounded-3xl sm:rounded-[2.5rem] p-6 sm:p-10 md:p-16 space-y-12 sm:space-y-16 border border-neutral-800">
+            
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 sm:gap-8">
+                <h2 class="font-syne font-extrabold text-3xl sm:text-5xl md:text-6xl tracking-tight leading-none">
+                    Ready to build<br>your next product?
+                </h2>
+                
+                <button onclick="handleMailContact()" class="bg-orangeAccent hover:bg-orangeAccent/95 text-white rounded-full py-4 sm:py-5 px-6 sm:px-8 flex items-center gap-3 sm:gap-4 text-xs sm:text-sm font-syne font-bold tracking-wider uppercase shadow-xl transform hover:-translate-y-1 transition-all" style="background-color: var(--accent-color, #FF4F18);">
+                    <span>Contact Anshu</span>
+                    <span class="text-base sm:text-lg animate-spin-slow">✦</span>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12 pt-8 sm:pt-12 border-t border-neutral-800 text-sm">
+                
+                <div class="space-y-3">
+                    <h5 class="text-neutral-500 font-bold tracking-widest text-xs uppercase font-mono">Navigation</h5>
+                    <div class="grid grid-cols-2 gap-2 text-neutral-300">
+                        <a href="#projects" class="hover:text-orangeAccent">Projects</a>
+                        <a href="#about" class="hover:text-orangeAccent">About</a>
+                        <a href="#expertise" class="hover:text-orangeAccent">Expertise</a>
+                        <a href="https://github.com" target="_blank" class="hover:text-orangeAccent">Github</a>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <h5 class="text-neutral-500 font-bold tracking-widest text-xs uppercase font-mono">Get in Touch</h5>
+                    <div class="text-neutral-300 space-y-1">
+                        <p class="hover:text-orangeAccent cursor-pointer truncate">vitcoore@gmail.com</p>
+                        <p class="hover:text-orangeAccent cursor-pointer truncate">vipwebff@gmail.com</p>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <h5 class="text-neutral-500 font-bold tracking-widest text-xs uppercase font-mono">Location</h5>
+                    <div class="text-neutral-300">
+                        <p>Available for Full-time</p>
+                        <p>and Contract engagements globally</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mt-8 text-xs text-neutral-500 font-mono">
+            <div class="flex gap-4 sm:gap-6">
+                <span class="hover:text-orangeAccent cursor-pointer" onclick="openPolicy('Privacy Policy')">Privacy Policy</span>
+                <span class="hover:text-orangeAccent cursor-pointer" onclick="openPolicy('Terms of Service')">Terms of Service</span>
+            </div>
+            <span>© Anshu Rajhans 2026. Code curated with care.</span>
+        </div>
+    </footer>
+
+    <!-- DEDICATED SETTINGS OVERLAY PANEL (SPA Mode) -->
+    <div id="settings-page" class="fixed inset-y-0 right-0 z-50 w-full sm:max-w-md bg-stone-50 dark:bg-neutral-900 border-l border-neutral-200 dark:border-neutral-800 shadow-2xl translate-x-full transition-transform duration-500 ease-in-out overflow-y-auto p-4 sm:p-8 flex flex-col justify-between font-sans">
+        <div class="space-y-6 sm:space-y-8">
+            
+            <!-- Settings Header -->
+            <div class="flex items-center justify-between border-b border-neutral-200 dark:border-neutral-800 pb-4">
+                <div class="flex items-center gap-3">
+                    <button onclick="closeSettingsPage()" class="p-2 rounded-xl bg-neutral-200/50 dark:bg-neutral-800/50 hover:bg-neutral-200 dark:hover:bg-neutral-800 text-neutral-800 dark:text-neutral-200 transition-all animate-none">
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </button>
+                    <div>
+                        <h3 class="font-syne font-extrabold text-sm sm:text-base text-neutral-950 dark:text-white uppercase tracking-tight">Configuration Matrix</h3>
+                        <p class="text-[10px] sm:text-xs text-neutral-500">Fine-tune system variables, acoustics, and scale layouts.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Content Panels -->
+            <div class="space-y-4 sm:space-y-6">
+                
+                <!-- Native App Installation Card -->
+                <div class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-cardDark border border-neutral-200 dark:border-neutral-800/50 space-y-3">
+                    <div class="flex items-center gap-2 text-neutral-800 dark:text-neutral-200">
+                        <i data-lucide="smartphone" class="w-4.5 h-4.5 text-orangeAccent" style="color: var(--accent-color, #FF4F18);"></i>
+                        <span class="font-syne font-bold text-xs sm:text-sm uppercase tracking-wider">Application Deployment</span>
+                    </div>
+                    <p class="text-[10px] sm:text-xs text-neutral-500">Install this portfolio natively on your device desktop or homescreen for complete offline support.</p>
+                    <button id="pwa-install-btn" onclick="triggerPwaInstall()" class="w-full py-2.5 bg-neutral-950 dark:bg-neutral-100 hover:bg-neutral-800 dark:hover:bg-neutral-200 text-white dark:text-neutral-950 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all">
+                        <i data-lucide="download" class="w-4 h-4"></i>
+                        <span>Install Application</span>
+                    </button>
+                </div>
+
+                <!-- Font Customization System -->
+                <div class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-cardDark border border-neutral-200 dark:border-neutral-800/50 space-y-4">
+                    <div class="flex items-center gap-2 text-neutral-800 dark:text-neutral-200">
+                        <i data-lucide="type" class="w-4.5 h-4.5"></i>
+                        <span class="font-syne font-bold text-xs sm:text-sm uppercase tracking-wider">Font Customization Engine</span>
+                    </div>
+                    <div class="space-y-3">
+                        <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-wide">Select Font Family</label>
+                        <div class="grid grid-cols-1 xs:grid-cols-2 gap-1.5 sm:gap-2">
+                            <button onclick="applySystemFont('Inter')" id="font-btn-Inter" class="p-2 text-left rounded-lg border text-[11px] font-semibold truncate" style="font-family: 'Inter';">Inter Default</button>
+                            <button onclick="applySystemFont('Syne')" id="font-btn-Syne" class="p-2 text-left rounded-lg border text-[11px] font-semibold truncate" style="font-family: 'Syne';">Syne Display</button>
+                            <button onclick="applySystemFont('Sora')" id="font-btn-Sora" class="p-2 text-left rounded-lg border text-[11px] font-semibold truncate" style="font-family: 'Sora';">Sora Tech</button>
+                            <button onclick="applySystemFont('Outfit')" id="font-btn-Outfit" class="p-2 text-left rounded-lg border text-[11px] font-semibold truncate" style="font-family: 'Outfit';">Outfit Clean</button>
+                            <button onclick="applySystemFont('Space Grotesk')" id="font-btn-Space-Grotesk" class="p-2 text-left rounded-lg border text-[11px] font-semibold truncate" style="font-family: 'Space Grotesk';">Space Grotesk</button>
+                            <button onclick="applySystemFont('Plus Jakarta Sans')" id="font-btn-Plus-Jakarta-Sans" class="p-2 text-left rounded-lg border text-[11px] font-semibold truncate" style="font-family: 'Plus Jakarta Sans';">Plus Jakarta</button>
+                            <button onclick="applySystemFont('DM Sans')" id="font-btn-DM-Sans" class="p-2 text-left rounded-lg border text-[11px] font-semibold truncate" style="font-family: 'DM Sans';">DM Sans</button>
+                            <button onclick="applySystemFont('Work Sans')" id="font-btn-Work-Sans" class="p-2 text-left rounded-lg border text-[11px] font-semibold truncate" style="font-family: 'Work Sans';">Work Sans</button>
+                            <button onclick="applySystemFont('Playfair Display')" id="font-btn-Playfair-Display" class="p-2 text-left rounded-lg border text-[11px] font-semibold truncate" style="font-family: 'Playfair Display';">Playfair Serif</button>
+                            <button onclick="applySystemFont('JetBrains Mono')" id="font-btn-JetBrains-Mono" class="p-2 text-left rounded-lg border text-[11px] font-semibold truncate" style="font-family: 'JetBrains Mono';">JetBrains Mono</button>
+                        </div>
+                    </div>
+
+                    <!-- Size Sizer scale buttons -->
+                    <div class="space-y-2 pt-1">
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="font-bold text-neutral-400 uppercase tracking-wide">Adjust Viewport Scale</span>
+                            <span id="font-scale-val" class="font-mono text-neutral-500 font-bold">Normal (100%)</span>
+                        </div>
+                        <div class="grid grid-cols-4 gap-1 sm:gap-2">
+                            <button onclick="applyFontScale('small')" id="scale-btn-small" class="p-2 text-[10px] font-bold border rounded-lg transition-all">Small</button>
+                            <button onclick="applyFontScale('normal')" id="scale-btn-normal" class="p-2 text-[10px] font-bold border rounded-lg transition-all">Normal</button>
+                            <button onclick="applyFontScale('large')" id="scale-btn-large" class="p-2 text-[10px] font-bold border rounded-lg transition-all">Large</button>
+                            <button onclick="applyFontScale('extra')" id="scale-btn-extra" class="p-2 text-[10px] font-bold border rounded-lg transition-all">Extra</button>
+                        </div>
+                    </div>
+
+                    <div class="pt-1">
+                        <button onclick="simulateFontInstallation()" class="w-full py-2.5 bg-neutral-100 dark:bg-neutral-800/80 hover:bg-neutral-200 dark:hover:bg-neutral-800 text-neutral-800 dark:text-neutral-200 rounded-xl text-[10px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 border border-neutral-200 dark:border-neutral-700 transition-all">
+                            <i data-lucide="download-cloud" class="w-3.5 h-3.5"></i>
+                            <span>Compile Workspace Typography</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Acoustic Audio Systems Config -->
+                <div class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-cardDark border border-neutral-200 dark:border-neutral-800/50 space-y-4">
+                    <div class="flex items-center gap-2 text-neutral-800 dark:text-neutral-200">
+                        <i data-lucide="volume-2" class="w-4.5 h-4.5"></i>
+                        <span class="font-syne font-bold text-xs sm:text-sm uppercase tracking-wider">Acoustic Audio System</span>
+                    </div>
+                    <div class="space-y-3">
+                        <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-wide">Synthesizer Profile Preset</label>
+                        <div class="grid grid-cols-2 gap-1.5 sm:gap-2">
+                            <button onclick="updateSoundConfig('mech')" id="cfg-sound-mech" class="p-2 text-[10px] font-bold border rounded-lg">Mech Switch</button>
+                            <button onclick="updateSoundConfig('arcade')" id="cfg-sound-arcade" class="p-2 text-[10px] font-bold border rounded-lg">Arcade Synth</button>
+                            <button onclick="updateSoundConfig('soft')" id="cfg-sound-soft" class="p-2 text-[10px] font-bold border rounded-lg">Elegant Tone</button>
+                            <button onclick="updateSoundConfig('none')" id="cfg-sound-none" class="p-2 text-[10px] font-bold border rounded-lg">None / Mute</button>
+                        </div>
+                    </div>
+                    <div class="space-y-2 pt-1">
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="font-bold text-neutral-400 uppercase tracking-wide">Master Volume</span>
+                            <span id="volume-val" class="font-mono text-neutral-500 font-bold">50%</span>
+                        </div>
+                        <input id="volume-slider" type="range" min="0" max="100" value="50" oninput="updateVolume(this.value)" class="w-full h-1 bg-neutral-200 dark:bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-orangeAccent" style="accent-color: var(--accent-color, #FF4F18);">
+                    </div>
+                </div>
+
+                <!-- Color Palette Config -->
+                <div class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-cardDark border border-neutral-200 dark:border-neutral-800/50 space-y-4">
+                    <div class="flex items-center gap-2 text-neutral-800 dark:text-neutral-200">
+                        <i data-lucide="palette" class="w-4.5 h-4.5"></i>
+                        <span class="font-syne font-bold text-xs sm:text-sm uppercase tracking-wider">Visual Interface Accents</span>
+                    </div>
+                    <div class="space-y-3">
+                        <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-wide">System Accent Preset</label>
+                        <div class="flex items-center gap-3">
+                            <button onclick="applyAccentColor('#FF4F18')" class="accent-selector-btn w-8 h-8 rounded-full bg-[#FF4F18] border-2 border-white dark:border-neutral-900 transition-all" data-color="#FF4F18"></button>
+                            <button onclick="applyAccentColor('#1CB0F6')" class="accent-selector-btn w-8 h-8 rounded-full bg-[#1CB0F6] border-2 border-white dark:border-neutral-900 transition-all" data-color="#1CB0F6"></button>
+                            <button onclick="applyAccentColor('#58CC02')" class="accent-selector-btn w-8 h-8 rounded-full bg-[#58CC02] border-2 border-white dark:border-neutral-900 transition-all" data-color="#58CC02"></button>
+                            <button onclick="applyAccentColor('#EF4444')" class="accent-selector-btn w-8 h-8 rounded-full bg-[#EF4444] border-2 border-white dark:border-neutral-900 transition-all" data-color="#EF4444"></button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Settings Save Button -->
+        <div class="pt-4 sm:pt-6 border-t border-neutral-200 dark:border-neutral-800 mt-4">
+            <button onclick="closeSettingsPage()" class="w-full py-3 bg-neutral-950 dark:bg-neutral-100 hover:bg-neutral-800 dark:hover:bg-neutral-200 text-white dark:text-neutral-950 font-bold text-xs uppercase tracking-wider rounded-xl transition-all">
+                Save & Apply Config
+            </button>
+        </div>
     </div>
-  </div>
 
-  <!-- Toast Popovers System Notification -->
-  <div id="global-toast" class="fixed bottom-6 right-6 bg-white/95 dark:bg-slate-900/95 border border-black/10 dark:border-white/10 shadow-2xl py-4 px-6 flex items-center space-x-4 translate-y-24 opacity-0 transition-all duration-300 z-50 pointer-events-none glass-panel rounded-2xl">
-    <div id="toast-icon-bg" class="h-7 w-7 rounded-full bg-slate-900 dark:bg-white flex items-center justify-center text-white dark:text-slate-950">
-      <i id="toast-icon-render" data-lucide="check" class="w-4 h-4"></i>
-    </div>
-    <div class="text-sm font-bold text-slate-800 dark:text-slate-200" id="toast-message">Process Completed.</div>
-  </div>
+    <!-- Dynamic Styles Injection Block -->
+    <style id="dynamic-accent-style"></style>
 
-  <!-- Styled dynamic custom styles tag injection -->
-  <style id="dynamic-accent-style"></style>
+    <!-- INTERACTIVE SCRIPTS -->
+    <script>
+        // System Subdomain projects configured with static viewport media heights to preserve grid alignment
+        const projectsList = [
+            {
+                id: "its",
+                title: "its.vitcoore.xyz",
+                desc: "Official JAC board study syllabus guides and vocational IT-ITeS documentation notes.",
+                tech: "Study Portal",
+                url: "https://its.vitcoore.xyz",
+                previewSvg: `
+                    <svg viewBox="0 0 100 100" class="w-20 h-20 sm:w-24 sm:h-24 opacity-80 group-hover:opacity-100 transition-all duration-300">
+                        <rect x="15" y="15" width="70" height="70" rx="12" class="fill-neutral-100/40 dark:fill-neutral-800/40 stroke-neutral-300 dark:stroke-neutral-700" stroke-width="2"/>
+                        <line x1="30" y1="35" x2="70" y2="35" class="stroke-[#FF4F18]" style="stroke: var(--accent-color, #FF4F18);" stroke-width="4" stroke-linecap="round"/>
+                        <line x1="30" y1="50" x2="60" y2="50" class="stroke-neutral-400 dark:stroke-neutral-500" stroke-width="3" stroke-linecap="round"/>
+                        <line x1="30" y1="65" x2="50" y2="65" class="stroke-neutral-400 dark:stroke-neutral-500" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                `
+            },
+            {
+                id: "anshu4u",
+                title: "anshu4u.vitcoore.xyz",
+                desc: "Interactive 3D laboratory exploring custom browser render layouts.",
+                tech: "WebGL Sandbox",
+                url: "https://anshu4u.vitcoore.xyz",
+                previewSvg: `
+                    <svg viewBox="0 0 100 100" class="w-20 h-20 sm:w-24 sm:h-24 opacity-80 group-hover:opacity-100 transition-all duration-300">
+                        <path d="M50 18 L82 34 L82 66 L50 82 L18 66 L18 34 Z" class="fill-none stroke-[#FF4F18]" style="stroke: var(--accent-color, #FF4F18);" stroke-width="2" stroke-linejoin="round"/>
+                        <circle cx="50" cy="50" r="14" class="fill-[#FF4F18]/10 stroke-[#FF4F18]" style="fill: var(--accent-color-alpha, rgba(255,79,24,0.1)); stroke: var(--accent-color, #FF4F18);" stroke-width="2"/>
+                    </svg>
+                `
+            },
+            {
+                id: "gr",
+                title: "gr.vitcoore.xyz",
+                desc: "Offline client productivity management tool integrated with clean caches.",
+                tech: "PWA Utility",
+                url: "https://gr.vitcoore.xyz",
+                previewSvg: `
+                    <svg viewBox="0 0 100 100" class="w-20 h-20 sm:w-24 sm:h-24 opacity-80 group-hover:opacity-100 transition-all duration-300">
+                        <rect x="25" y="20" width="50" height="60" rx="8" class="fill-none stroke-neutral-400 dark:stroke-neutral-600" stroke-width="3"/>
+                        <circle cx="38" cy="35" r="4.5" class="fill-[#FF4F18]" style="fill: var(--accent-color, #FF4F18);"/>
+                        <line x1="48" y1="35" x2="68" y2="35" class="stroke-neutral-400 dark:stroke-neutral-500" stroke-width="3.5" stroke-linecap="round"/>
+                        <circle cx="38" cy="55" r="4.5" class="fill-[#FF4F18]" style="fill: var(--accent-color, #FF4F18);"/>
+                        <line x1="48" y1="55" x2="68" y2="55" class="stroke-neutral-400 dark:stroke-neutral-500" stroke-width="3.5" stroke-linecap="round"/>
+                    </svg>
+                `
+            },
+            {
+                id: "vipweb",
+                title: "vipweb.vitcoore.xyz",
+                desc: "Modular web library sandbox running 15+ interactive browser games.",
+                tech: "Arcade Engine",
+                url: "https://vipweb.vitcoore.xyz",
+                previewSvg: `
+                    <svg viewBox="0 0 100 100" class="w-20 h-20 sm:w-24 sm:h-24 opacity-80 group-hover:opacity-100 transition-all duration-300">
+                        <rect x="15" y="20" width="70" height="48" rx="8" class="fill-neutral-900/40 stroke-neutral-700" stroke-width="2"/>
+                        <circle cx="32" cy="44" r="5" class="fill-[#FF4F18]" style="fill: var(--accent-color, #FF4F18);"/>
+                        <circle cx="68" cy="44" r="5" class="fill-neutral-400"/>
+                        <rect x="44" y="38" width="12" height="12" rx="2" class="fill-none stroke-neutral-400" stroke-width="2"/>
+                    </svg>
+                `
+            },
+            {
+                id: "play",
+                title: "play.vitcoore.xyz",
+                desc: "Gateway access layer rendering canvas frames and emulator runs.",
+                tech: "Direct Play",
+                url: "https://play.vitcoore.xyz",
+                previewSvg: `
+                    <svg viewBox="0 0 100 100" class="w-20 h-20 sm:w-24 sm:h-24 opacity-80 group-hover:opacity-100 transition-all duration-300">
+                        <path d="M20 40 C20 28, 40 28, 50 33 C60 28, 80 28, 80 40 C80 65, 70 75, 60 75 C50 75, 30 75, 20 40 Z" class="fill-none stroke-neutral-300 dark:stroke-neutral-700" stroke-width="3"/>
+                        <polygon points="45,45 60,52 45,59" class="fill-[#FF4F18]" style="fill: var(--accent-color, #FF4F18);"/>
+                    </svg>
+                `
+            },
+            {
+                id: "ai",
+                title: "ai.vitcoore.xyz",
+                desc: "Automated framework processing natural language vector nodes.",
+                tech: "Language Models",
+                url: "https://ai.vitcoore.xyz",
+                previewSvg: `
+                    <svg viewBox="0 0 100 100" class="w-20 h-20 sm:w-24 sm:h-24 opacity-80 group-hover:opacity-100 transition-all duration-300">
+                        <circle cx="50" cy="22" r="7" class="fill-none stroke-[#FF4F18]" style="stroke: var(--accent-color, #FF4F18);" stroke-width="2"/>
+                        <circle cx="22" cy="50" r="7" class="fill-none stroke-[#FF4F18]" style="stroke: var(--accent-color, #FF4F18);" stroke-width="2"/>
+                        <circle cx="50" cy="78" r="7" class="fill-none stroke-[#FF4F18]" style="stroke: var(--accent-color, #FF4F18);" stroke-width="2"/>
+                        <circle cx="78" cy="50" r="7" class="fill-none stroke-[#FF4F18]" style="stroke: var(--accent-color, #FF4F18);" stroke-width="2"/>
+                        <line x1="50" y1="29" x2="50" y2="71" class="stroke-neutral-300 dark:stroke-neutral-700" stroke-width="2"/>
+                        <line x1="29" y1="50" x2="71" y2="50" class="stroke-neutral-300 dark:stroke-neutral-700" stroke-width="2"/>
+                    </svg>
+                `
+            },
+            {
+                id: "lab",
+                title: "lab.vitcoore.xyz",
+                desc: "Design laboratory checking layouts and browser canvas performance.",
+                tech: "Experimental",
+                url: "https://lab.vitcoore.xyz",
+                previewSvg: `
+                    <svg viewBox="0 0 100 100" class="w-20 h-20 sm:w-24 sm:h-24 opacity-80 group-hover:opacity-100 transition-all duration-300">
+                        <path d="M44 20 L56 20 L56 38 L76 74 C79 79, 75 85, 68 85 L32 85 C25 85, 21 79, 24 74 L44 38 Z" class="fill-none stroke-neutral-400 dark:stroke-neutral-600" stroke-width="3" stroke-linejoin="round"/>
+                        <path d="M30 75 C35 73, 40 77, 45 75 C50 73, 55 77, 60 75 C65 73, 70 75, 70 75 L67 82 L33 82 Z" class="fill-[#FF4F18]/10" style="fill: var(--accent-color-alpha, rgba(255,79,24,0.1));"/>
+                    </svg>
+                `
+            },
+            {
+                id: "status",
+                title: "status.vitcoore.xyz",
+                desc: "System uptime index parsing active servers and runtime telemetry logs.",
+                tech: "Monitor",
+                url: "https://status.vitcoore.xyz",
+                previewSvg: `
+                    <svg viewBox="0 0 100 100" class="w-20 h-20 sm:w-24 sm:h-24 opacity-80 group-hover:opacity-100 transition-all duration-300">
+                        <path d="M10 50 L30 50 L38 25 L46 75 L52 42 L58 58 L64 50 L90 50" class="fill-none stroke-[#FF4F18]" style="stroke: var(--accent-color, #FF4F18);" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                `
+            }
+        ];
 
-  <script>
-    // System Target Projects Array mapping subdomains cleanly (Added Inline High-Quality Preview SVGs)
-    const projectsList = [
-      {
-        id: "its",
-        title: "its.vitcoore.xyz",
-        desc: "Official vocational study portal. Access reference IT-ITeS notes and board exam syllabus guides.",
-        tech: "JAC IT-ITeS Notes",
-        node: "its.vitcoore.xyz",
-        url: "https://its.vitcoore.xyz",
-        icon: "book-open",
-        previewSvg: `
-          <svg viewBox="0 0 100 100" class="w-full h-full opacity-80 group-hover:opacity-100 transition-opacity duration-300">
-            <rect x="15" y="15" width="70" height="70" rx="12" class="fill-slate-100/40 dark:fill-slate-800/40 stroke-slate-300 dark:stroke-slate-700" stroke-width="2"/>
-            <line x1="30" y1="35" x2="70" y2="35" class="stroke-brand-blue" stroke-width="4" stroke-linecap="round"/>
-            <line x1="30" y1="50" x2="60" y2="50" class="stroke-slate-400 dark:stroke-slate-500" stroke-width="3" stroke-linecap="round"/>
-            <line x1="30" y1="65" x2="50" y2="65" class="stroke-slate-400 dark:stroke-slate-500" stroke-width="3" stroke-linecap="round"/>
-            <circle cx="70" cy="58" r="8" class="fill-brand-green/20 stroke-brand-green" stroke-width="2"/>
-            <path d="M67 58 L69 60 L73 56" class="stroke-brand-green fill-none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        `
-      },
-      {
-        id: "anshu4u",
-        title: "anshu4u.vitcoore.xyz",
-        desc: "Interactive 3D dynamic sandbox and developer laboratory demonstrating client-side vector mechanics.",
-        tech: "Three.js • WebGL",
-        node: "anshu4u.vitcoore.xyz",
-        url: "https://anshu4u.vitcoore.xyz",
-        icon: "layout",
-        previewSvg: `
-          <svg viewBox="0 0 100 100" class="w-full h-full opacity-80 group-hover:opacity-100 transition-opacity duration-300">
-            <path d="M50 18 L82 34 L82 66 L50 82 L18 66 L18 34 Z" class="fill-brand-orange/5 stroke-brand-orange" stroke-width="2" stroke-linejoin="round"/>
-            <line x1="50" y1="18" x2="50" y2="82" class="stroke-brand-orange" stroke-width="1.5" stroke-dasharray="2 2"/>
-            <line x1="18" y1="34" x2="82" y2="66" class="stroke-brand-orange" stroke-width="1.5" stroke-dasharray="2 2"/>
-            <line x1="82" y1="34" x2="18" y2="66" class="stroke-brand-orange" stroke-width="1.5" stroke-dasharray="2 2"/>
-            <circle cx="50" cy="50" r="14" class="fill-brand-orange/20 stroke-brand-orange" stroke-width="2"/>
-          </svg>
-        `
-      },
-      {
-        id: "gr",
-        title: "gr.vitcoore.xyz",
-        desc: "Local utility tool configured completely with offline support using Service Worker network caching.",
-        tech: "PWA • Storage",
-        node: "gr.vitcoore.xyz",
-        url: "https://gr.vitcoore.xyz",
-        icon: "shopping-bag",
-        previewSvg: `
-          <svg viewBox="0 0 100 100" class="w-full h-full opacity-80 group-hover:opacity-100 transition-opacity duration-300">
-            <rect x="25" y="20" width="50" height="60" rx="8" class="fill-none stroke-brand-green" stroke-width="3"/>
-            <circle cx="38" cy="35" r="4.5" class="fill-brand-green"/>
-            <line x1="48" y1="35" x2="68" y2="35" class="stroke-slate-400 dark:stroke-slate-500" stroke-width="3.5" stroke-linecap="round"/>
-            <circle cx="38" cy="50" r="4.5" class="fill-brand-green"/>
-            <line x1="48" y1="50" x2="68" y2="50" class="stroke-slate-400 dark:stroke-slate-500" stroke-width="3.5" stroke-linecap="round"/>
-            <circle cx="38" cy="65" r="4.5" class="fill-brand-green"/>
-            <line x1="48" y1="65" x2="58" y2="65" class="stroke-slate-400 dark:stroke-slate-500" stroke-width="3.5" stroke-linecap="round"/>
-          </svg>
-        `
-      },
-      {
-        id: "vipweb",
-        title: "vipweb.vitcoore.xyz",
-        desc: "Flagship arcade repository hosting over 15 custom browser titles with responsive layouts.",
-        tech: "Arcade Engine",
-        node: "vipweb.vitcoore.xyz",
-        url: "https://vipweb.vitcoore.xyz",
-        icon: "gamepad-2",
-        previewSvg: `
-          <svg viewBox="0 0 100 100" class="w-full h-full opacity-80 group-hover:opacity-100 transition-opacity duration-300">
-            <rect x="15" y="15" width="70" height="52" rx="8" class="fill-slate-900/40 stroke-slate-700" stroke-width="2"/>
-            <rect x="25" y="22" width="50" height="38" rx="4" class="fill-brand-red/10 stroke-brand-red" stroke-width="1.5"/>
-            <line x1="25" y1="78" x2="40" y2="78" class="stroke-slate-500" stroke-width="4" stroke-linecap="round"/>
-            <circle cx="32" cy="74" r="5" class="fill-brand-red"/>
-            <circle cx="60" cy="78" r="4" class="fill-brand-orange"/>
-            <circle cx="72" cy="78" r="4" class="fill-brand-green"/>
-          </svg>
-        `
-      },
-      {
-        id: "play",
-        title: "play.vitcoore.xyz",
-        desc: "Lightweight gateway node for direct gameplay access of retro browser games.",
-        tech: "Canvas Synth",
-        node: "play.vitcoore.xyz",
-        url: "https://play.vitcoore.xyz",
-        icon: "play-circle",
-        previewSvg: `
-          <svg viewBox="0 0 100 100" class="w-full h-full opacity-80 group-hover:opacity-100 transition-opacity duration-300">
-            <path d="M20 40 C20 28, 40 28, 50 33 C60 28, 80 28, 80 40 C80 65, 70 75, 60 75 C55 75, 45 75, 40 75 C30 75, 20 65, 20 40 Z" class="fill-none stroke-brand-blue" stroke-width="3"/>
-            <line x1="30" y1="52" x2="42" y2="52" class="stroke-brand-blue" stroke-width="3.5" stroke-linecap="round"/>
-            <line x1="36" y1="46" x2="36" y2="58" class="stroke-brand-blue" stroke-width="3.5" stroke-linecap="round"/>
-            <circle cx="62" cy="55" r="4" class="fill-brand-red"/>
-            <circle cx="70" cy="48" r="4" class="fill-brand-orange"/>
-          </svg>
-        `
-      },
-      {
-        id: "ai",
-        title: "ai.vitcoore.xyz",
-        desc: "AI-Powered intelligent integration node exploring web frameworks and automated model endpoints.",
-        tech: "AI Integration",
-        node: "ai.vitcoore.xyz",
-        url: "https://ai.vitcoore.xyz",
-        icon: "cpu",
-        previewSvg: `
-          <svg viewBox="0 0 100 100" class="w-full h-full opacity-80 group-hover:opacity-100 transition-opacity duration-300">
-            <circle cx="50" cy="22" r="7" class="fill-brand-orange/20 stroke-brand-orange" stroke-width="2"/>
-            <circle cx="22" cy="50" r="7" class="fill-brand-orange/20 stroke-brand-orange" stroke-width="2"/>
-            <circle cx="50" cy="78" r="7" class="fill-brand-orange/20 stroke-brand-orange" stroke-width="2"/>
-            <circle cx="78" cy="50" r="7" class="fill-brand-orange/20 stroke-brand-orange" stroke-width="2"/>
-            <circle cx="50" cy="50" r="10" class="fill-none stroke-brand-orange" stroke-width="2"/>
-            <line x1="50" y1="29" x2="50" y2="40" class="stroke-brand-orange" stroke-width="2" stroke-linecap="round"/>
-            <line x1="50" y1="60" x2="50" y2="71" class="stroke-brand-orange" stroke-width="2" stroke-linecap="round"/>
-            <line x1="29" y1="50" x2="40" y2="50" class="stroke-brand-orange" stroke-width="2" stroke-linecap="round"/>
-            <line x1="60" y1="50" x2="71" y2="50" class="stroke-brand-orange" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        `
-      },
-      {
-        id: "lab",
-        title: "lab.vitcoore.xyz",
-        desc: "Experimental laboratory with canvas rendering, dynamic animation engines, and graphical layouts.",
-        tech: "HTML5 Canvas",
-        node: "lab.vitcoore.xyz",
-        url: "https://lab.vitcoore.xyz",
-        icon: "flask-conical",
-        previewSvg: `
-          <svg viewBox="0 0 100 100" class="w-full h-full opacity-80 group-hover:opacity-100 transition-opacity duration-300">
-            <path d="M44 20 L56 20 L56 38 L76 74 C79 79, 75 85, 68 85 L32 85 C25 85, 21 79, 24 74 L44 38 Z" class="fill-none stroke-brand-green" stroke-width="3" stroke-linejoin="round"/>
-            <path d="M30 75 C35 73, 40 77, 45 75 C50 73, 55 77, 60 75 C65 73, 70 75, 70 75 L67 82 L33 82 Z" class="fill-brand-green/20 stroke-none"/>
-            <circle cx="45" cy="55" r="3" class="fill-brand-green"/>
-            <circle cx="55" cy="65" r="4" class="fill-brand-green"/>
-            <circle cx="50" cy="45" r="2" class="fill-brand-green"/>
-          </svg>
-        `
-      },
-      {
-        id: "status",
-        title: "status.vitcoore.xyz",
-        desc: "Network diagnostic platform checking active worker subdomains and telemetry logs in real time.",
-        tech: "Telemetry Logs",
-        node: "status.vitcoore.xyz",
-        url: "https://status.vitcoore.xyz",
-        icon: "activity",
-        previewSvg: `
-          <svg viewBox="0 0 100 100" class="w-full h-full opacity-80 group-hover:opacity-100 transition-opacity duration-300">
-            <path d="M10 50 L30 50 L38 25 L46 75 L52 42 L58 58 L64 50 L90 50" class="fill-none stroke-brand-blue" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="38" cy="25" r="3" class="fill-brand-blue"/>
-            <circle cx="46" cy="75" r="3" class="fill-brand-blue"/>
-            <line x1="10" y1="25" x2="90" y2="25" class="stroke-slate-200 dark:stroke-slate-800" stroke-width="1.5" stroke-dasharray="4 4"/>
-            <line x1="10" y1="75" x2="90" y2="75" class="stroke-slate-200 dark:stroke-slate-800" stroke-width="1.5" stroke-dasharray="4 4"/>
-          </svg>
-        `
-      }
-    ];
+        let theme = 'dark';
+        let deferredPrompt;
 
-    const quizData = {
-      question: "Which layout system is primarily recommended in modern CSS to design structured Bento grids?",
-      options: [
-        { text: "CSS Grid (display: grid)", isCorrect: true },
-        { text: "Flexbox (display: flex)", isCorrect: false },
-        { text: "Traditional Blocks (block)", isCorrect: false }
-      ]
-    };
+        // Listen for standard installation trigger event
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            const installBtn = document.getElementById('pwa-install-btn');
+            if (installBtn) {
+                installBtn.classList.remove('opacity-50');
+                installBtn.disabled = false;
+            }
+        });
 
-    let theme = 'dark';
-    let selectedOptionIndex = null;
-    let telemetryIntervalVal = 1000;
-    let telemetryTimer = null;
-
-    window.addEventListener('DOMContentLoaded', () => {
-      const savedTheme = localStorage.getItem('vitcore_theme') || 'dark';
-      theme = savedTheme;
-      if (theme === 'dark') {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-
-      // Load Saved Settings parameters
-      const savedAccent = localStorage.getItem('vitcore_accent') || '#1CB0F6';
-      const savedVolume = localStorage.getItem('storm-volume') || '50';
-      const savedTelemetry = localStorage.getItem('telemetry-rate') || '1000';
-
-      applyAccentColor(savedAccent);
-      document.getElementById('volume-slider').value = savedVolume;
-      document.getElementById('volume-val').innerText = `${savedVolume}%`;
-      telemetryIntervalVal = parseInt(savedTelemetry);
-
-      syncSettingsButtonIndicators();
-
-      lucide.createIcons();
-      renderDirectory();
-      renderQuiz();
-      initTelemetryMonitor();
-      initTicTacToeGrid();
-
-      const terminalInput = document.getElementById('terminal-input');
-      terminalInput.addEventListener('keydown', handleTerminalKeypress);
-
-      // Register Service Worker for PWA
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./sw.js')
-          .then(reg => console.log('Service Worker registered:', reg.scope))
-          .catch(err => console.error('Service Worker registration failed:', err));
-      }
-    });
-
-    // Custom Synthesizer Audio Engine
-    function playSynthSound(type) {
-      try {
-        const currentProfile = localStorage.getItem('storm-sound') || 'mech';
-        if (currentProfile === 'none') return;
-
-        const ctx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-
-        const currentVol = parseInt(localStorage.getItem('storm-volume') || '50') / 100;
-        
-        if (type === 'click') {
-          if (currentProfile === 'mech') {
-            osc.type = 'sawtooth';
-            osc.frequency.setValueAtTime(120, ctx.currentTime);
-            gain.gain.setValueAtTime(0.04 * currentVol, ctx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01 * currentVol, ctx.currentTime + 0.05);
-            osc.stop(ctx.currentTime + 0.06);
-          } else if (currentProfile === 'arcade') {
-            osc.type = 'square';
-            osc.frequency.setValueAtTime(450, ctx.currentTime);
-            gain.gain.setValueAtTime(0.06 * currentVol, ctx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01 * currentVol, ctx.currentTime + 0.1);
-            osc.stop(ctx.currentTime + 0.12);
-          } else { // soft
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(300, ctx.currentTime);
-            gain.gain.setValueAtTime(0.03 * currentVol, ctx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01 * currentVol, ctx.currentTime + 0.08);
-            osc.stop(ctx.currentTime + 0.1);
-          }
-          osc.start();
-        } else if (type === 'correct') {
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
-          gain.gain.setValueAtTime(0.08 * currentVol, ctx.currentTime);
-          osc.start();
-          setTimeout(() => { osc.frequency.setValueAtTime(659.25, ctx.currentTime); }, 80);
-          gain.gain.exponentialRampToValueAtTime(0.01 * currentVol, ctx.currentTime + 0.4);
-          osc.stop(ctx.currentTime + 0.45);
-        } else if (type === 'congrats') {
-          osc.type = 'triangle';
-          osc.frequency.setValueAtTime(329.63, ctx.currentTime);
-          gain.gain.setValueAtTime(0.08 * currentVol, ctx.currentTime);
-          osc.start();
-          setTimeout(() => osc.frequency.setValueAtTime(392.00, ctx.currentTime), 80);
-          setTimeout(() => osc.frequency.setValueAtTime(523.25, ctx.currentTime), 160);
-          gain.gain.exponentialRampToValueAtTime(0.01 * currentVol, ctx.currentTime + 0.6);
-          osc.stop(ctx.currentTime + 0.65);
-        } else if (type === 'error') {
-          osc.type = 'sawtooth';
-          osc.frequency.setValueAtTime(140, ctx.currentTime);
-          gain.gain.setValueAtTime(0.1 * currentVol, ctx.currentTime);
-          osc.start();
-          gain.gain.exponentialRampToValueAtTime(0.01 * currentVol, ctx.currentTime + 0.2);
-          osc.stop(ctx.currentTime + 0.25);
+        // Trigger native application installer modal
+        function triggerPwaInstall() {
+            if (!deferredPrompt) {
+                showToast("Application installation process is already complete or not supported in this client.");
+                return;
+            }
+            playSynthSound('click');
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    showToast("Workspace installation initialized.");
+                } else {
+                    showToast("Installation prompt canceled.");
+                }
+                deferredPrompt = null;
+            });
         }
-      } catch (e) {}
-    }
 
-    // Toggle Theme Mode
-    function toggleTheme() {
-      const html = document.documentElement;
-      playSynthSound('click');
-      if (html.classList.contains('dark')) {
-        html.classList.remove('dark');
-        theme = 'light';
-        localStorage.setItem('vitcore_theme', 'light');
-      } else {
-        html.classList.add('dark');
-        theme = 'dark';
-        localStorage.setItem('vitcore_theme', 'dark');
-      }
-    }
+        window.addEventListener('appinstalled', () => {
+            showToast("Workspace successfully installed as standalone application.");
+            const installBtn = document.getElementById('pwa-install-btn');
+            if (installBtn) {
+                installBtn.innerHTML = '<i data-lucide="check-circle" class="w-4 h-4"></i><span>Workspace Installed</span>';
+                installBtn.disabled = true;
+            }
+        });
 
-    // Dynamic Accent Colors preset application
-    function applyAccentColor(colorHex) {
-      localStorage.setItem('vitcore_accent', colorHex);
-      let styleTag = document.getElementById('dynamic-accent-style');
-      if (!styleTag) {
-        styleTag = document.createElement('style');
-        styleTag.id = 'dynamic-accent-style';
-        document.head.appendChild(styleTag);
-      }
-      styleTag.innerHTML = `
-        .text-brand-blue { color: ${colorHex} !important; }
-        .bg-brand-blue { background-color: ${colorHex} !important; }
-        .border-brand-blue { border-color: ${colorHex} !important; }
-        .bg-brand-blue\\/10 { background-color: ${colorHex}1a !important; }
-        .bg-brand-blue\\/5 { background-color: ${colorHex}0d !important; }
-      `;
-      document.querySelectorAll('.accent-selector-btn').forEach(btn => {
-        if (btn.getAttribute('data-color') === colorHex) {
-          btn.classList.add('ring-4', 'ring-offset-2', 'dark:ring-offset-slate-900', 'ring-slate-500');
-        } else {
-          btn.classList.remove('ring-4', 'ring-offset-2', 'dark:ring-offset-slate-900', 'ring-slate-500');
+        window.addEventListener('load', () => {
+            const splash = document.getElementById('splash-screen');
+            setTimeout(() => {
+                splash.classList.add('opacity-0');
+                setTimeout(() => splash.remove(), 500);
+            }, 1000);
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            theme = savedTheme;
+            syncThemeProperties(savedTheme);
+
+            const savedAccent = localStorage.getItem('vitcore_accent') || '#FF4F18';
+            const savedVolume = localStorage.getItem('storm-volume') || '50';
+            const savedFont = localStorage.getItem('vitcore_font') || 'Inter';
+            const savedScale = localStorage.getItem('vitcore_scale') || 'normal';
+
+            applyAccentColor(savedAccent);
+            applySystemFont(savedFont);
+            applyFontScale(savedScale);
+
+            document.getElementById('volume-slider').value = savedVolume;
+            document.getElementById('volume-val').innerText = `${savedVolume}%`;
+
+            syncSettingsButtonIndicators();
+            lucide.createIcons();
+            renderProjects();
+
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('Service Worker Active:', reg.scope))
+                    .catch(err => console.error('Service Worker Registration Error:', err));
+            }
+        });
+
+        function playSynthSound(type) {
+            try {
+                const currentProfile = localStorage.getItem('storm-sound') || 'mech';
+                if (currentProfile === 'none') return;
+
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                const currentVol = parseInt(localStorage.getItem('storm-volume') || '50') / 100;
+                
+                if (type === 'click') {
+                    if (currentProfile === 'mech') {
+                        osc.type = 'sawtooth';
+                        osc.frequency.setValueAtTime(120, ctx.currentTime);
+                        gain.gain.setValueAtTime(0.04 * currentVol, ctx.currentTime);
+                        gain.gain.exponentialRampToValueAtTime(0.01 * currentVol, ctx.currentTime + 0.05);
+                        osc.stop(ctx.currentTime + 0.06);
+                    } else if (currentProfile === 'arcade') {
+                        osc.type = 'square';
+                        osc.frequency.setValueAtTime(450, ctx.currentTime);
+                        gain.gain.setValueAtTime(0.06 * currentVol, ctx.currentTime);
+                        gain.gain.exponentialRampToValueAtTime(0.01 * currentVol, ctx.currentTime + 0.1);
+                        osc.stop(ctx.currentTime + 0.12);
+                    } else {
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(300, ctx.currentTime);
+                        gain.gain.setValueAtTime(0.03 * currentVol, ctx.currentTime);
+                        gain.gain.exponentialRampToValueAtTime(0.01 * currentVol, ctx.currentTime + 0.08);
+                        osc.stop(ctx.currentTime + 0.1);
+                    }
+                    osc.start();
+                } else if (type === 'correct') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+                    gain.gain.setValueAtTime(0.08 * currentVol, ctx.currentTime);
+                    osc.start();
+                    setTimeout(() => { osc.frequency.setValueAtTime(659.25, ctx.currentTime); }, 80);
+                    gain.gain.exponentialRampToValueAtTime(0.01 * currentVol, ctx.currentTime + 0.4);
+                    osc.stop(ctx.currentTime + 0.45);
+                } else if (type === 'error') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(140, ctx.currentTime);
+                    gain.gain.setValueAtTime(0.1 * currentVol, ctx.currentTime);
+                    osc.start();
+                    gain.gain.exponentialRampToValueAtTime(0.01 * currentVol, ctx.currentTime + 0.2);
+                    osc.stop(ctx.currentTime + 0.25);
+                }
+            } catch (e) {}
         }
-      });
-    }
 
-    // Full Screen SPA Settings Navigation Controls
-    function openSettingsPage() {
-      playSynthSound('click');
-      syncSettingsButtonIndicators();
-      const settingsView = document.getElementById('settings-page');
-      settingsView.classList.remove('translate-x-full');
-      settingsView.classList.add('translate-x-0');
-    }
-
-    // Close Settings Page
-    function closeSettingsPage() {
-      playSynthSound('click');
-      const settingsView = document.getElementById('settings-page');
-      settingsView.classList.remove('translate-x-0');
-      settingsView.classList.add('translate-x-full');
-    }
-
-    // Dynamic state saving updates
-    function updateVolume(val) {
-      localStorage.setItem('storm-volume', val);
-      document.getElementById('volume-val').innerText = `${val}%`;
-    }
-
-    function updateSoundConfig(profile) {
-      playSynthSound('click');
-      localStorage.setItem('storm-sound', profile);
-      syncSettingsButtonIndicators();
-    }
-
-    function updateVibeConfig(level) {
-      playSynthSound('click');
-      localStorage.setItem('storm-vibe', level);
-      syncSettingsButtonIndicators();
-    }
-
-    function updateShakeConfig(shake) {
-      playSynthSound('click');
-      localStorage.setItem('storm-shake', shake);
-      syncSettingsButtonIndicators();
-    }
-
-    function updateTelemetryRate(rate) {
-      playSynthSound('click');
-      localStorage.setItem('telemetry-rate', rate);
-      telemetryIntervalVal = rate;
-      syncSettingsButtonIndicators();
-      initTelemetryMonitor(); // Reboot graph loop interval
-    }
-
-    function syncSettingsButtonIndicators() {
-      const sound = localStorage.getItem('storm-sound') || 'mech';
-      const vibe = localStorage.getItem('storm-vibe') || 'low';
-      const shake = localStorage.getItem('storm-shake') || 'none';
-      const telemetry = localStorage.getItem('telemetry-rate') || '1000';
-
-      // Sound buttons indicators reset
-      ['mech', 'arcade', 'soft', 'none'].forEach(id => {
-        const btn = document.getElementById(`cfg-sound-${id}`);
-        if(btn) {
-          btn.className = (id === sound) 
-            ? "p-3 text-xs sm:text-sm font-bold border-2 border-brand-blue bg-brand-blue/10 text-brand-blue rounded-xl transition-all" 
-            : "p-3 text-xs sm:text-sm font-bold border border-slate-300 dark:border-slate-700 bg-transparent text-slate-700 dark:text-slate-300 rounded-xl transition-all";
+        const switchIndicator = document.getElementById('switch-indicator');
+        function syncThemeProperties(mode) {
+            const html = document.documentElement;
+            if (mode === 'dark') {
+                html.classList.add('dark');
+                switchIndicator.style.transform = 'translateX(calc(100% + 4px))';
+                switchIndicator.style.borderRadius = '65% 35% 45% 55% / 40% 45% 55% 60%';
+            } else {
+                html.classList.remove('dark');
+                switchIndicator.style.transform = 'translateX(0px)';
+                switchIndicator.style.borderRadius = '35% 65% 55% 45% / 45% 40% 60% 55%';
+            }
         }
-      });
 
-      // Vibe buttons indicators reset
-      ['none', 'low', 'medium', 'high'].forEach(id => {
-        const btn = document.getElementById(`cfg-vibe-${id}`);
-        if(btn) {
-          btn.className = (id === vibe)
-            ? "p-2 text-xs font-bold border-2 border-brand-orange bg-brand-orange/10 text-brand-orange rounded-xl transition-all"
-            : "p-2 text-xs font-bold border border-slate-300 dark:border-slate-700 bg-transparent text-slate-700 dark:text-slate-300 rounded-xl transition-all";
+        function toggleTheme() {
+            playSynthSound('click');
+            theme = (theme === 'dark') ? 'light' : 'dark';
+            localStorage.setItem('theme', theme);
+            syncThemeProperties(theme);
+            triggerToast(theme === 'dark');
         }
-      });
 
-      // Shake buttons indicators reset
-      ['none', 'light', 'strong'].forEach(id => {
-        const btn = document.getElementById(`cfg-shake-${id}`);
-        if(btn) {
-          btn.className = (id === shake)
-            ? "p-2.5 text-xs font-bold border-2 border-brand-orange bg-brand-orange/10 text-brand-orange rounded-xl transition-all"
-            : "p-2.5 text-xs font-bold border border-slate-300 dark:border-slate-700 bg-transparent text-slate-700 dark:text-slate-300 rounded-xl transition-all";
+        const themeSwitch = document.getElementById('dual-theme-switch');
+        themeSwitch.addEventListener('click', toggleTheme);
+
+        function triggerToast(isDarkTheme) {
+            iziToast.destroy();
+            if (isDarkTheme) {
+                iziToast.show({
+                    title: 'Dark Mode',
+                    message: 'Welcome back to terminal layout architectures!',
+                    position: 'topRight',
+                    theme: 'dark',
+                    backgroundColor: '#161616',
+                    titleColor: 'var(--accent-color, #FF4F18)',
+                    messageColor: '#E2E8F0',
+                    progressBarColor: 'var(--accent-color, #FF4F18)',
+                    timeout: 2500,
+                });
+            } else {
+                iziToast.show({
+                    title: 'Light Mode',
+                    message: 'Bright view layout active!',
+                    position: 'topRight',
+                    theme: 'light',
+                    backgroundColor: '#FFFFFF',
+                    titleColor: 'var(--accent-color, #FF4F18)',
+                    messageColor: '#1F2937',
+                    progressBarColor: 'var(--accent-color, #FF4F18)',
+                    timeout: 2500,
+                });
+            }
         }
-      });
 
-      // Telemetry rate buttons indicators reset
-      ['500', '1000', '2000'].forEach(id => {
-        const btn = document.getElementById(`cfg-telemetry-${id}`);
-        if(btn) {
-          btn.className = (id === telemetry)
-            ? "p-2.5 text-xs font-bold border-2 border-brand-red bg-brand-red/10 text-brand-red rounded-xl transition-all"
-            : "p-2.5 text-xs font-bold border border-slate-300 dark:border-slate-700 bg-transparent text-slate-700 dark:text-slate-300 rounded-xl transition-all";
+        function applySystemFont(fontName) {
+            localStorage.setItem('vitcore_font', fontName);
+            document.documentElement.style.setProperty('--font-primary', fontName);
+            
+            document.querySelectorAll('[id^="font-btn-"]').forEach(btn => {
+                btn.className = "p-2 text-left rounded-lg border border-neutral-200 dark:border-neutral-800 text-xs font-bold transition-all bg-transparent text-slate-700 dark:text-neutral-300 truncate";
+            });
+            const targetId = `font-btn-${fontName.replace(/\s+/g, '-')}`;
+            const activeBtn = document.getElementById(targetId);
+            if (activeBtn) {
+                activeBtn.className = "p-2 text-left rounded-lg border-2 border-brand-blue bg-neutral-200/50 dark:bg-neutral-800/50 text-xs font-bold transition-all truncate";
+            }
         }
-      });
-    }
 
-    // Render Bento Squares
-    function renderDirectory() {
-      const container = document.getElementById('quests-directory-container');
-      container.innerHTML = '';
+        function applyFontScale(scale) {
+            localStorage.setItem('vitcore_scale', scale);
+            let htmlSize = '100%';
+            let textVal = '100% (Normal)';
 
-      projectsList.forEach((item) => {
-        const div = document.createElement('div');
-        div.id = `dir-btn-${item.id}`;
-        // Direct click behavior: Inspects local details AND opens external preview link instantly in a new tab
-        div.onclick = () => {
-          selectDirectoryTarget(item.id);
-          playSynthSound('click');
-          window.open(item.url, '_blank');
+            if (scale === 'small') {
+                htmlSize = '90%';
+                textVal = '90% (Small)';
+            } else if (scale === 'large') {
+                htmlSize = '110%';
+                textVal = '110% (Large)';
+            } else if (scale === 'extra') {
+                htmlSize = '120%';
+                textVal = '120% (Extra)';
+            }
+
+            document.documentElement.style.fontSize = htmlSize;
+            document.getElementById('font-scale-val').innerText = textVal;
+
+            document.querySelectorAll('[id^="scale-btn-"]').forEach(btn => {
+                btn.className = "p-2 text-xs font-bold border border-neutral-200 dark:border-neutral-800 rounded-lg transition-all text-neutral-700 dark:text-neutral-300 bg-transparent";
+            });
+            const activeScaleBtn = document.getElementById(`scale-btn-${scale}`);
+            if (activeScaleBtn) {
+                activeScaleBtn.className = "p-2 text-xs font-bold border-2 border-brand-blue bg-neutral-200/30 dark:bg-neutral-800/30 rounded-lg transition-all";
+            }
+        }
+
+        function simulateFontInstallation() {
+            playSynthSound('click');
+            Swal.fire({
+                title: 'Compiling Workspace Fonts',
+                text: 'Generating typography arrays...',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                    setTimeout(() => {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Compilation Success',
+                            text: 'System font configurations loaded.',
+                            confirmButtonColor: 'var(--accent-color, #FF4F18)'
+                        });
+                    }, 1500);
+                }
+            });
+        }
+
+        function applyAccentColor(colorHex) {
+            localStorage.setItem('vitcore_accent', colorHex);
+            
+            let r = parseInt(colorHex.slice(1, 3), 16);
+            let g = parseInt(colorHex.slice(3, 5), 16);
+            let b = parseInt(colorHex.slice(5, 7), 16);
+            let alphaColor = `rgba(${r}, ${g}, ${b}, 0.1)`;
+
+            document.documentElement.style.setProperty('--accent-color', colorHex);
+            document.documentElement.style.setProperty('--accent-color-alpha', alphaColor);
+
+            let styleTag = document.getElementById('dynamic-accent-style');
+            if (!styleTag) {
+                styleTag = document.createElement('style');
+                styleTag.id = 'dynamic-accent-style';
+                document.head.appendChild(styleTag);
+            }
+            styleTag.innerHTML = `
+                .text-orangeAccent { color: ${colorHex} !important; }
+                .bg-orangeAccent { background-color: ${colorHex} !important; }
+                .border-orangeAccent { border-color: ${colorHex} !important; }
+                .hover\\:text-orangeAccent:hover { color: ${colorHex} !important; }
+                .hover\\:bg-orangeAccent\\/95:hover { background-color: ${colorHex}e6 !important; }
+            `;
+
+            document.querySelectorAll('.accent-selector-btn').forEach(btn => {
+                if (btn.getAttribute('data-color') === colorHex) {
+                    btn.classList.add('ring-4', 'ring-offset-2', 'dark:ring-offset-neutral-950', 'ring-neutral-400');
+                } else {
+                    btn.classList.remove('ring-4', 'ring-offset-2', 'dark:ring-offset-neutral-950', 'ring-neutral-400');
+                }
+            });
+        }
+
+        function openWorkDetail(title, tech, desc, url) {
+            playSynthSound('click');
+            Swal.fire({
+                title: title,
+                html: `
+                    <div class="text-left space-y-3 font-sans">
+                        <p class="text-sm text-neutral-500 dark:text-neutral-400">${desc}</p>
+                        <div class="p-3 bg-neutral-100 dark:bg-neutral-800 rounded-xl font-mono text-xs">
+                            <span class="text-orangeAccent" style="color: var(--accent-color, #FF4F18);">Active Frame Tech:</span> ${tech}
+                        </div>
+                    </div>
+                `,
+                background: document.documentElement.classList.contains('dark') ? '#161616' : '#FFFFFF',
+                color: document.documentElement.classList.contains('dark') ? '#FFFFFF' : '#111111',
+                showCancelButton: true,
+                cancelButtonText: 'Dismiss',
+                confirmButtonColor: 'var(--accent-color, #FF4F18)',
+                confirmButtonText: 'Access Subdomain',
+                customClass: {
+                    popup: 'rounded-3xl border border-neutral-200 dark:border-neutral-800 font-sans'
+                }
+            }).then((res) => {
+                if (res.isConfirmed) {
+                    window.open(url, '_blank');
+                }
+            });
+        }
+
+        // Direct mail dispatch CTA action pointing cleanly to vitcoore@gmail.com
+        function handleMailContact() {
+            playSynthSound('correct');
+            window.location.href = "mailto:vitcoore@gmail.com?subject=Project%20Inquiry%20-%20Anshu%20Rajhans&body=Hi%20Anshu,%0D%0A%0D%0AI%20would%20like%20to%20discuss%20a%20project%20collaboration%20with%20you.";
+        }
+
+        function renderProjects() {
+            const container = document.getElementById('projects-grid-container');
+            container.innerHTML = '';
+
+            projectsList.forEach((item) => {
+                const card = document.createElement('div');
+                card.onclick = () => openWorkDetail(item.title, item.tech, item.desc, item.url);
+                card.className = "group cursor-pointer p-4 rounded-3xl border border-neutral-200 dark:border-neutral-800 hover:border-orangeAccent transition-all bg-white dark:bg-cardDark shadow-sm hover:shadow-md";
+                card.innerHTML = `
+                    <div class="relative rounded-2xl h-48 sm:h-52 bg-stone-100 dark:bg-neutral-900 flex items-center justify-center p-6 border border-neutral-200 dark:border-neutral-800 overflow-hidden">
+                        ${item.previewSvg}
+                    </div>
+                    <h4 class="font-syne font-bold text-base sm:text-lg group-hover:text-orangeAccent transition-colors truncate mt-3" style="--hover-color: var(--accent-color, #FF4F18);">${item.title}</h4>
+                    <div class="flex justify-between text-[10px] sm:text-xs text-neutral-500 mt-1 font-mono">
+                        <span>${item.tech}</span>
+                        <span>Deploy Active</span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function openSettingsPage() {
+            playSynthSound('click');
+            syncSettingsButtonIndicators();
+            const page = document.getElementById('settings-page');
+            page.classList.remove('translate-x-full');
+            page.classList.add('translate-x-0');
+        }
+
+        function closeSettingsPage() {
+            playSynthSound('click');
+            const page = document.getElementById('settings-page');
+            page.classList.remove('translate-x-0');
+            page.classList.add('translate-x-full');
+        }
+
+        function updateVolume(val) {
+            localStorage.setItem('storm-volume', val);
+            document.getElementById('volume-val').innerText = `${val}%`;
+        }
+
+        function updateSoundConfig(profile) {
+            playSynthSound('click');
+            localStorage.setItem('storm-sound', profile);
+            syncSettingsButtonIndicators();
+        }
+
+        function syncSettingsButtonIndicators() {
+            const sound = localStorage.getItem('storm-sound') || 'mech';
+            ['mech', 'arcade', 'soft', 'none'].forEach(id => {
+                const btn = document.getElementById(`cfg-sound-${id}`);
+                if(btn) {
+                    btn.className = (id === sound)
+                        ? "p-2 text-[10px] font-bold border-2 border-orangeAccent bg-orangeAccent/10 text-orangeAccent rounded-lg transition-all"
+                        : "p-2 text-[10px] font-bold border border-neutral-200 dark:border-neutral-800 bg-transparent text-neutral-700 dark:text-neutral-300 rounded-lg transition-all";
+                }
+            });
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            playSynthSound('correct');
+            const name = document.getElementById('form-name').value;
+            showToast(`Signal dispatched. Thanks, ${name}!`);
+            
+            document.getElementById('form-name').value = '';
+            document.getElementById('form-email').value = '';
+            document.getElementById('form-topic').value = '';
+            document.getElementById('form-msg').value = '';
+        }
+
+        function showToast(text) {
+            iziToast.destroy();
+            iziToast.show({
+                title: 'Notification',
+                message: text,
+                position: 'topRight',
+                theme: 'dark',
+                backgroundColor: '#161616',
+                titleColor: 'var(--accent-color, #FF4F18)',
+                messageColor: '#E2E8F0',
+                progressBarColor: 'var(--accent-color, #FF4F18)',
+                timeout: 3000
+            });
+        }
+
+        function triggerViewAll() {
+            playSynthSound('click');
+            window.open('https://github.com/kushmil', '_blank');
+        }
+
+        function openPolicy(type) {
+            Swal.fire({
+                title: type,
+                text: 'This is placeholder information representing Anshu Rajhans portfolio compliance rules.',
+                confirmButtonColor: 'var(--accent-color, #FF4F18)',
+                background: document.documentElement.classList.contains('dark') ? '#161616' : '#FFFFFF',
+                color: document.documentElement.classList.contains('dark') ? '#FFFFFF' : '#111111',
+                customClass: {
+                    popup: 'rounded-2xl'
+                }
+            });
+        }
+
+        const serviceItems = document.querySelectorAll('.service-item');
+        const mockupContainer = document.getElementById('service-mockup-container');
+        const mockupNumber = document.getElementById('service-mockup-number');
+        const mockupText = document.getElementById('service-mockup-text');
+
+        const serviceThemes = {
+            '01': { bg: 'linear-gradient(135deg, var(--accent-color, #FF4F18) 0%, #FFA07A 100%)', text: 'Frontend Architectures' },
+            '02': { bg: 'linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%)', text: 'Backend Engineering' },
+            '03': { bg: 'linear-gradient(135deg, #10B981 0%, #059669 100%)', text: 'Cross-Platform Mobile' },
+            '04': { bg: 'linear-gradient(135deg, #EC4899 0%, #F43F5E 100%)', text: 'DevOps & Database Design' }
         };
-        div.className = "project-btn bento-card-glow aspect-square w-full text-left p-4 sm:p-5 rounded-3xl border border-black/[0.04] dark:border-white/[0.04] hover:border-black/20 dark:hover:border-white/20 transition-all flex flex-col justify-between cursor-pointer bg-slate-50/50 dark:bg-slate-900/50 relative overflow-hidden group shadow-sm";
-        div.innerHTML = `
-          <!-- Top Row Navigation & Meta -->
-          <div class="flex items-center justify-between w-full z-10">
-            <div class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-black/[0.05] dark:border-white/[0.05] text-slate-700 dark:text-slate-300">
-              <i data-lucide="${item.icon || 'folder'}" class="w-5 h-5 sm:w-6 sm:h-6"></i>
-            </div>
-            <i data-lucide="arrow-up-right" class="w-4 h-4 sm:w-5 sm:h-5 text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors"></i>
-          </div>
 
-          <!-- Mid Section: Premium SVG High-Quality Graphics Preview -->
-          <div class="flex-1 w-full flex items-center justify-center py-2 sm:py-3 px-1 z-0 overflow-hidden transform group-hover:scale-105 transition-transform duration-500 ease-out">
-            <div class="w-20 h-20 sm:w-24 sm:h-24">
-              ${item.previewSvg}
-            </div>
-          </div>
+        serviceItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                const num = item.dataset.num;
+                const theme = serviceThemes[num];
+                if (theme) {
+                    mockupContainer.style.background = theme.bg;
+                    mockupNumber.textContent = num;
+                    mockupText.textContent = theme.text;
+                    
+                    const innerMock = document.getElementById('service-mockup-item');
+                    innerMock.classList.add('scale-105', 'rotate-0');
+                    setTimeout(() => {
+                        innerMock.classList.remove('scale-105', 'rotate-0');
+                    }, 300);
+                }
 
-          <!-- Bottom Row Meta -->
-          <div class="mt-auto space-y-1 z-10">
-            <h4 class="text-sm sm:text-base font-extrabold text-slate-800 dark:text-white truncate" title="${item.title}">${item.title}</h4>
-            <p class="text-[10px] sm:text-xs text-slate-400 font-mono font-bold tracking-wide truncate">${item.tech}</p>
-          </div>
-        `;
-        container.appendChild(div);
-      });
-      lucide.createIcons();
+                serviceItems.forEach(sib => {
+                    if (sib !== item) sib.classList.add('opacity-30');
+                });
+            });
 
-      if (projectsList.length > 0) {
-        selectDirectoryTarget(projectsList[0].id);
-      }
-    }
-
-    function selectDirectoryTarget(id) {
-      const selected = projectsList.find(i => i.id === id);
-      if (!selected) return;
-
-      document.querySelectorAll('.project-btn').forEach(btn => {
-        btn.classList.remove('border-black/25', 'dark:border-white/20', 'bg-black/[0.02]', 'dark:bg-white/[0.02]');
-      });
-
-      const activeBtn = document.getElementById(`dir-btn-${id}`);
-      if (activeBtn) {
-        activeBtn.classList.add('border-black/25', 'dark:border-white/20', 'bg-black/[0.02]', 'dark:bg-white/[0.02]');
-      }
-
-      document.getElementById('target-title').innerText = selected.title;
-      document.getElementById('target-description').innerText = selected.desc;
-      document.getElementById('target-node').innerText = selected.node;
-      document.getElementById('target-tech').innerText = selected.tech;
-      document.getElementById('target-link').href = selected.url;
-    }
-
-    // Render Quiz Question
-    function renderQuiz() {
-      selectedOptionIndex = null;
-      document.getElementById('quiz-question-text').innerText = quizData.question;
-      const optionsContainer = document.getElementById('quiz-options-container');
-      optionsContainer.innerHTML = '';
-
-      quizData.options.forEach((opt, idx) => {
-        const btn = document.createElement('button');
-        btn.id = `quiz-option-${idx}`;
-        btn.onclick = () => selectQuizOption(idx);
-        btn.className = "w-full text-left p-3.5 rounded-2xl border border-black/[0.08] dark:border-white/[0.08] hover:border-black/20 dark:hover:border-white/20 bg-transparent text-sm sm:text-base font-extrabold transition-all flex items-center justify-between";
-        btn.innerHTML = `
-          <span>${opt.text}</span>
-          <span class="w-3.5 h-3.5 rounded-full border border-slate-300 dark:border-slate-700 flex items-center justify-center text-[10px]" id="indicator-${idx}"></span>
-        `;
-        optionsContainer.appendChild(btn);
-      });
-
-      const verifyButton = document.getElementById('quiz-action-btn');
-      verifyButton.innerText = 'Verify';
-      verifyButton.className = "bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-neutral-200 text-white dark:text-slate-950 font-bold text-xs py-2 px-4 rounded-xl shadow-sm transition-all uppercase tracking-wider";
-      verifyButton.onclick = checkQuizAnswer;
-
-      document.getElementById('quiz-feedback-status').className = "text-xs font-mono uppercase text-slate-400 font-extrabold";
-      document.getElementById('quiz-feedback-status').innerText = "Select Choice";
-    }
-
-    function selectQuizOption(index) {
-      playSynthSound('click');
-      selectedOptionIndex = index;
-
-      quizData.options.forEach((_, idx) => {
-        const btn = document.getElementById(`quiz-option-${idx}`);
-        const indicator = document.getElementById(`indicator-${idx}`);
-        if (idx === index) {
-          btn.className = "w-full text-left p-3.5 rounded-2xl border-2 border-brand-blue bg-brand-blue/5 dark:bg-brand-blue/10 text-brand-blue text-sm sm:text-base font-extrabold transition-all flex items-center justify-between";
-          indicator.className = "w-3.5 h-3.5 rounded-full bg-brand-blue text-white flex items-center justify-center text-[8px]";
-          indicator.innerHTML = "✓";
-        } else {
-          btn.className = "w-full text-left p-3.5 rounded-2xl border border-black/[0.08] dark:border-white/[0.08] hover:border-black/20 dark:hover:border-white/20 bg-transparent text-sm sm:text-base font-extrabold transition-all flex items-center justify-between";
-          indicator.className = "w-3.5 h-3.5 rounded-full border border-slate-300 dark:border-slate-700 flex items-center justify-center text-[10px]";
-          indicator.innerHTML = "";
-        }
-      });
-
-      document.getElementById('quiz-feedback-status').className = "text-xs font-mono uppercase text-brand-blue font-extrabold";
-      document.getElementById('quiz-feedback-status').innerText = "Loaded...";
-    }
-
-    function checkQuizAnswer() {
-      if (selectedOptionIndex === null) {
-        playSynthSound('error');
-        showToast("Select an option first.", true);
-        return;
-      }
-
-      const isCorrect = quizData.options[selectedOptionIndex].isCorrect;
-      const feedbackText = document.getElementById('quiz-feedback-status');
-      const actionButton = document.getElementById('quiz-action-btn');
-
-      if (isCorrect) {
-        playSynthSound('correct');
-        feedbackText.className = "text-xs font-mono uppercase text-brand-green font-extrabold";
-        feedbackText.innerText = "SUCCESSFUL";
-
-        const correctBtn = document.getElementById(`quiz-option-${selectedOptionIndex}`);
-        correctBtn.className = "w-full text-left p-3.5 rounded-2xl border-2 border-brand-green bg-brand-green/10 text-brand-green text-sm sm:text-base font-extrabold transition-all flex items-center justify-between";
-
-        showToast("Correct choice.", false);
-      } else {
-        playSynthSound('error');
-        feedbackText.className = "text-xs font-mono uppercase text-brand-red font-extrabold";
-        feedbackText.innerText = "FAILED";
-
-        const wrongBtn = document.getElementById(`quiz-option-${selectedOptionIndex}`);
-        wrongBtn.className = "w-full text-left p-3.5 rounded-2xl border-2 border-brand-red bg-brand-red/10 text-brand-red text-sm sm:text-base font-extrabold transition-all flex items-center justify-between";
-      }
-
-      actionButton.innerText = "Reset";
-      actionButton.className = "bg-brand-blue hover:bg-brand-blue/90 text-white font-bold text-xs py-2 px-4 rounded-xl shadow-sm transition-all uppercase tracking-wider";
-      actionButton.onclick = renderQuiz;
-    }
-
-    function handleTerminalKeypress(e) {
-      playSynthSound('click');
-      if (e.key === 'Enter') {
-        const val = e.target.value.trim().toLowerCase();
-        e.target.value = '';
-
-        if (!val) return;
-
-        const output = document.getElementById('terminal-output');
-        const userLine = document.createElement('p');
-        userLine.innerHTML = `<span class="text-blue-400 font-bold">vitcore ~ %</span> ${val}`;
-        output.appendChild(userLine);
-
-        const responseLine = document.createElement('p');
-        responseLine.className = 'text-slate-400 pl-2';
-
-        switch (val) {
-          case 'help':
-            responseLine.innerText = "System targets: 'about', 'quests', 'theme', 'clear', 'settings'";
-            break;
-          case 'about':
-            responseLine.innerText = "Anshu Rajhans is a Developer based out of vitcoore network nodes.";
-            break;
-          case 'quests':
-            responseLine.innerText = "Active systems nodes: its, anshu4u, gr, vipweb, play, ai, lab, status";
-            break;
-          case 'theme':
-            toggleTheme();
-            responseLine.innerText = "Workspace theme flipped.";
-            break;
-          case 'settings':
-            openSettingsPage();
-            responseLine.innerText = "Workspace settings page loaded.";
-            break;
-          case 'clear':
-            output.innerHTML = '';
-            return;
-          default:
-            responseLine.innerText = `sh: command not found: ${val}. Type 'help' for directory audits.`;
-            responseLine.className = 'text-red-400 pl-2';
-        }
-
-        output.appendChild(responseLine);
-        output.scrollTop = output.scrollHeight;
-      }
-    }
-
-    function handleContactSubmit(e) {
-      e.preventDefault();
-      playSynthSound('correct');
-      const name = document.getElementById('form-name').value;
-      showToast(`Signal dispatched. Thanks, ${name}!`);
-      
-      document.getElementById('form-name').value = '';
-      document.getElementById('form-email').value = '';
-      document.getElementById('form-topic').value = '';
-      document.getElementById('form-msg').value = '';
-    }
-
-    // Telemetry Canvas Graphic Monitor Loop
-    function initTelemetryMonitor() {
-      // Clear previous running interval if any
-      if (telemetryTimer) clearInterval(telemetryTimer);
-
-      const cpuCanvas = document.getElementById('cpu-graph');
-      const ramCanvas = document.getElementById('ram-graph');
-      if (!cpuCanvas || !ramCanvas) return;
-
-      const cpuCtx = cpuCanvas.getContext('2d');
-      const ramCtx = ramCanvas.getContext('2d');
-      
-      let cpuPoints = Array(20).fill(20);
-      let ramPoints = Array(20).fill(40);
-
-      function drawGraph(ctx, points, maxVal, strokeColor) {
-        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-        ctx.beginPath();
-        ctx.strokeStyle = strokeColor;
-        ctx.lineWidth = 1.5;
-
-        const step = ctx.canvas.width / (points.length - 1);
-        for(let i=0; i<points.length; i++) {
-          const x = i * step;
-          const y = ctx.canvas.height - (points[i] / maxVal) * ctx.canvas.height;
-          if (i === 0) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
-        }
-        ctx.stroke();
-      }
-
-      telemetryTimer = setInterval(() => {
-        // Randomly adjust CPU metrics
-        const newCpu = Math.floor(15 + Math.random() * 45);
-        cpuPoints.push(newCpu);
-        cpuPoints.shift();
-        drawGraph(cpuCtx, cpuPoints, 100, '#EF4444');
-        document.getElementById('cpu-numeric').innerText = `${newCpu}%`;
-
-        // Adjust memory usage simulating network threads
-        const newRam = (3.8 + Math.random() * 0.9).toFixed(1);
-        ramPoints.push(parseFloat(newRam) * 10);
-        ramPoints.shift();
-        drawGraph(ramCtx, ramPoints, 80, '#1CB0F6');
-        document.getElementById('ram-numeric').innerText = `${newRam} GB / 8.0 GB`;
-      }, telemetryIntervalVal);
-    }
-
-    // ============================================
-    // DYNAMIC TIC-TAC-TOE VS INTELLIGENT AI SYSTEM
-    // ============================================
-    let board = ['', '', '', '', '', '', '', '', ''];
-    let human = 'X';
-    let ai = 'O';
-    let difficulty = 'easy';
-    let isGameActive = true;
-
-    function initTicTacToeGrid() {
-      const field = document.getElementById('tic-tac-toe-field');
-      field.innerHTML = '';
-      for (let i = 0; i < 9; i++) {
-        const cell = document.createElement('button');
-        cell.id = `ttt-cell-${i}`;
-        cell.onclick = () => handlePlayerMove(i);
-        cell.className = "aspect-square rounded-xl bg-slate-50 dark:bg-slate-950 border border-black/[0.05] dark:border-white/[0.05] flex items-center justify-center font-bold text-base transition-all focus:outline-none";
-        field.appendChild(cell);
-      }
-    }
-
-    function setDifficulty(level) {
-      playSynthSound('click');
-      difficulty = level;
-
-      document.querySelectorAll('[id^="diff-"]').forEach(btn => {
-        btn.className = "text-[10px] font-mono px-2 py-0.5 text-slate-400 font-bold";
-      });
-
-      const activeBtn = document.getElementById(`diff-${level}`);
-      if (activeBtn) {
-        activeBtn.className = "text-[10px] font-mono px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold";
-      }
-      resetTicTacToe();
-    }
-
-    function handlePlayerMove(idx) {
-      if (board[idx] !== '' || !isGameActive) return;
-
-      playSynthSound('click');
-      makeMove(idx, human);
-
-      if (evaluateGameState()) return;
-
-      // AI Response Trigger
-      isGameActive = false; // Lock board during AI computation
-      document.getElementById('game-status-label').innerText = "AI Processing...";
-      setTimeout(() => {
-        triggerAiMove();
-        isGameActive = true;
-        evaluateGameState();
-      }, 500);
-    }
-
-    // TTT Make Move
-    function makeMove(idx, player) {
-      board[idx] = player;
-      const cell = document.getElementById('ttt-cell-' + idx);
-      if (cell) {
-        cell.innerText = player;
-        cell.disabled = true;
-        if (player === 'X') {
-          cell.className = "aspect-square rounded-xl bg-slate-100 dark:bg-slate-900 border border-black/[0.05] dark:border-white/[0.05] flex items-center justify-center font-extrabold text-lg text-brand-blue";
-        } else {
-          cell.className = "aspect-square rounded-xl bg-slate-100 dark:bg-slate-900 border border-black/[0.05] dark:border-white/[0.05] flex items-center justify-center font-extrabold text-lg text-brand-red";
-        }
-      }
-    }
-
-    function triggerAiMove() {
-      let move = -1;
-
-      if (difficulty === 'easy') {
-        move = getRandomMove();
-      } else if (difficulty === 'medium') {
-        if (Math.random() < 0.5) {
-          move = getBestMinimaxMove();
-        } else {
-          move = getRandomMove();
-        }
-      } else { // hard
-        move = getBestMinimaxMove();
-      }
-
-      if (move !== -1) {
-        makeMove(move, ai);
-      }
-    }
-
-    function getRandomMove() {
-      let empties = [];
-      for (let i = 0; i < 9; i++) {
-        if (board[i] === '') empties.push(i);
-      }
-      if (empties.length === 0) return -1;
-      return empties[Math.floor(Math.random() * empties.length)];
-    }
-
-    // Minimax Algorithm core implementation for Hard/Medium AI
-    function getBestMinimaxMove() {
-      let bestScore = -Infinity;
-      let move = -1;
-      for (let i = 0; i < 9; i++) {
-        if (board[i] === '') {
-          board[i] = ai;
-          let score = minimax(board, 0, false);
-          board[i] = '';
-          if (score > bestScore) {
-            bestScore = score;
-            move = i;
-          }
-        }
-      }
-      return move;
-    }
-
-    function minimax(tempBoard, depth, isMaximizing) {
-      let result = checkWinState(tempBoard);
-      if (result !== null) {
-        if (result === ai) return 10 - depth;
-        if (result === human) return depth - 10;
-        if (result === 'tie') return 0;
-      }
-
-      if (isMaximizing) {
-        let bestScore = -Infinity;
-        for (let i = 0; i < 9; i++) {
-          if (tempBoard[i] === '') {
-            tempBoard[i] = ai;
-            let score = minimax(tempBoard, depth + 1, false);
-            tempBoard[i] = '';
-            bestScore = Math.max(score, bestScore);
-          }
-        }
-        return bestScore;
-      } else {
-        let bestScore = Infinity;
-        for (let i = 0; i < 9; i++) {
-          if (tempBoard[i] === '') {
-            tempBoard[i] = human;
-            let score = minimax(tempBoard, depth + 1, true);
-            tempBoard[i] = '';
-            bestScore = Math.min(score, bestScore);
-          }
-        }
-        return bestScore;
-      }
-    }
-
-    function checkWinState(b) {
-      const winPatterns = [
-        [0, 1, 2], [3, 4, 5], [6, 7, 8],
-        [0, 3, 6], [1, 4, 7], [2, 5, 8],
-        [0, 4, 8], [2, 4, 6]
-      ];
-
-      for (let pattern of winPatterns) {
-        const [x, y, z] = pattern;
-        if (b[x] && b[x] === b[y] && b[x] === b[z]) {
-          return b[x];
-        }
-      }
-
-      let openSpots = 0;
-      for (let i = 0; i < 9; i++) {
-        if (b[i] === '') openSpots++;
-      }
-
-      if (openSpots === 0) return 'tie';
-      return null;
-    }
-
-    function evaluateGameState() {
-      let winner = checkWinState(board);
-      const statusLabel = document.getElementById('game-status-label');
-
-      if (winner !== null) {
-        isGameActive = false;
-        if (winner === 'tie') {
-          statusLabel.innerText = "Draw Game";
-          showToast("Match ended in a draw.");
-        } else {
-          statusLabel.innerText = `${winner} Wins`;
-          if (winner === human) {
-            playSynthSound('congrats');
-            showToast("Congratulations! You won.");
-          } else {
-            playSynthSound('error');
-            showToast("AI won. Better luck next time!", true);
-          }
-        }
-        return true;
-      }
-      statusLabel.innerText = "Your Turn (X)";
-      return false;
-    }
-
-    function resetTicTacToe() {
-      playSynthSound('click');
-      board = ['', '', '', '', '', '', '', '', ''];
-      isGameActive = true;
-      document.getElementById('game-status-label').innerText = "Your Turn (X)";
-      initTicTacToeGrid();
-    }
-
-    function showToast(text, isError = false) {
-      const toast = document.getElementById('global-toast');
-      const toastMsg = document.getElementById('toast-message');
-      const iconBg = document.getElementById('toast-icon-bg');
-      const iconRender = document.getElementById('toast-icon-render');
-      
-      toastMsg.innerText = text;
-      
-      if (isError) {
-        iconBg.className = "h-7 w-7 rounded-full bg-red-500 flex items-center justify-center text-white";
-        iconRender.setAttribute('data-lucide', 'alert-triangle');
-      } else {
-        iconBg.className = "h-7 w-7 rounded-full bg-slate-900 dark:bg-white flex items-center justify-center text-white dark:text-slate-950";
-        iconRender.setAttribute('data-lucide', 'check');
-      }
-
-      lucide.createIcons();
-      toast.classList.remove('translate-y-24', 'opacity-0');
-      
-      setTimeout(() => {
-        toast.classList.add('translate-y-24', 'opacity-0');
-      }, 3000);
-    }
-  </script>
+            item.addEventListener('mouseleave', () => {
+                serviceItems.forEach(sib => sib.classList.remove('opacity-30'));
+            });
+        });
+    </script>
 </body>
 </html>
